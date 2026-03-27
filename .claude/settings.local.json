@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:johnjurvanen.figma.site)",
+      "Bash(curl -s \"https://johnjurvanen.figma.site/\")",
+      "Bash(grep -v '^\\\\s*$')",
+      "Bash(curl -s \"https://johnjurvanen.figma.site/_json/2b714a33-1eae-4e2d-922f-1f71eed7b056/_index.json\")",
+      "Bash(node _transform.js)",
+      "Bash(node -e \":*)"
+    ]
+  }
+}

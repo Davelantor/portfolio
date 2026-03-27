@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>John Jurvanen — End-to-End Product Builder</title>
+<title>APEX Pro One — Beyond Every Horizon</title>
 <style>
 
 /* ─── RESET & VARIABLES ─────────────────────────────── */
@@ -92,7 +92,7 @@ body {
   font-weight: 400;
   font-style: italic;
   letter-spacing: 0.01em;
-  color: var(--text-2);
+  color: var(--text-3);
   text-align: center;
   max-width: 340px;
   line-height: 1.6;
@@ -209,7 +209,7 @@ body {
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgb(255, 255, 255);
+  color: rgba(255,255,255,0.45);
   margin-bottom: 20px;
 }
 .hero-title {
@@ -641,104 +641,6 @@ body {
 .spec-k { font-size: 14px; color: var(--text-2); flex-shrink: 0; }
 .spec-v { font-size: 14px; color: var(--text-1); text-align: right; }
 
-/* ─── HERO BADGE ─────────────────────────────────────── */
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 12px; font-weight: 500;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 980px; padding: 7px 16px;
-  margin-bottom: 28px;
-}
-.hero-badge-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #34c759; flex-shrink: 0;
-}
-
-/* ─── ABOUT ──────────────────────────────────────────── */
-.about-grid {
-  display: grid; grid-template-columns: 1fr 420px;
-  gap: 80px; align-items: start;
-}
-.about-meta { margin-top: 32px; display: flex; flex-direction: column; gap: 10px; }
-.meta-item { display: flex; align-items: center; gap: 10px; font-size: 14px; }
-.meta-icon { font-size: 14px; width: 20px; text-align: center; flex-shrink: 0; }
-.meta-dot { width: 8px; height: 8px; border-radius: 50%; background: #34c759; flex-shrink: 0; }
-.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-.astat { background: var(--card); border: 1px solid var(--card-border); padding: 24px 20px; border-radius: 4px; }
-.astat-wide { grid-column: span 2; }
-.astat-num { font-family: var(--font-d); font-size: 36px; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--text-1); margin-bottom: 6px; }
-.astat-lbl { font-size: 12px; color: var(--text-3); }
-
-/* ─── CORE VALUES ────────────────────────────────────── */
-.values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
-.value-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 4px; padding: 32px 26px; }
-.value-num { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 16px; }
-.value-title { font-family: var(--font-d); font-size: 18px; font-weight: 600; letter-spacing: -0.02em; color: var(--text-1); margin-bottom: 12px; }
-.value-body { font-size: 13px; line-height: 1.65; color: var(--text-2); }
-.pills-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.pill { font-size: 12px; font-weight: 500; color: var(--text-2); background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 980px; padding: 6px 14px; }
-
-/* ─── WORK HISTORY ───────────────────────────────────── */
-.work-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 20px; padding: 36px 36px 28px; margin-bottom: 16px; transition: background 0.25s var(--ease); }
-.work-card:hover { background: rgba(255,255,255,0.065); }
-.work-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 24px; }
-.work-company { font-family: var(--font-d); font-size: 24px; font-weight: 700; letter-spacing: -0.03em; color: var(--text-1); margin-bottom: 10px; }
-.work-roles { display: flex; flex-wrap: wrap; gap: 6px; }
-.work-role-badge { font-size: 11px; font-weight: 500; color: var(--accent); background: rgba(0,113,227,0.1); border: 1px solid rgba(0,113,227,0.2); border-radius: 980px; padding: 4px 12px; }
-.work-date { font-size: 13px; color: var(--text-3); white-space: nowrap; flex-shrink: 0; margin-top: 4px; }
-.work-achievements { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-.work-ach { font-size: 14px; color: var(--text-2); line-height: 1.6; padding-left: 16px; position: relative; }
-.work-ach::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: 0.6; }
-.work-metric-row { display: flex; gap: 32px; padding: 20px 0; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); margin-bottom: 20px; flex-wrap: wrap; }
-.work-metric { display: flex; flex-direction: column; gap: 3px; }
-.work-metric-num { font-family: var(--font-d); font-size: 24px; font-weight: 700; letter-spacing: -0.03em; color: var(--text-1); }
-.work-metric-lbl { font-size: 11px; color: var(--text-3); letter-spacing: 0.04em; text-transform: uppercase; }
-.work-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag { font-size: 11px; font-weight: 500; color: var(--text-3); background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 4px; padding: 3px 9px; }
-
-/* ─── PROJECT CARDS ──────────────────────────────────── */
-.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.proj-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 20px; overflow: hidden; transition: background 0.25s var(--ease); }
-.proj-card:hover { background: rgba(255,255,255,0.065); }
-.proj-img { height: 160px; background: linear-gradient(135deg, #0e0e14 0%, #181824 100%); border-bottom: 1px solid var(--card-border); display: flex; align-items: flex-end; padding: 14px 18px; position: relative; }
-.proj-img::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, rgba(0,113,227,0.08) 0%, transparent 70%); }
-.proj-img-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); position: relative; z-index: 1; }
-.proj-body { padding: 22px 22px 20px; }
-.proj-title { font-family: var(--font-d); font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--text-1); margin-bottom: 10px; line-height: 1.3; }
-.proj-desc { font-size: 13px; color: var(--text-2); line-height: 1.62; margin-bottom: 14px; }
-.proj-metrics { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.proj-metric { font-size: 11px; font-weight: 600; color: var(--accent); background: rgba(0,113,227,0.1); border: 1px solid rgba(0,113,227,0.18); border-radius: 980px; padding: 3px 10px; }
-.proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-
-/* ─── SKILLS ─────────────────────────────────────────── */
-.skills-section { display: flex; flex-direction: column; gap: 32px; }
-.skill-group-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
-.skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
-
-/* ─── TESTIMONIALS ───────────────────────────────────── */
-.testi-stack { display: flex; flex-direction: column; gap: 16px; }
-.testi-card { background: var(--card); border: 1px solid var(--card-border); border-radius: 20px; padding: 32px 36px; }
-.testi-quote { font-size: 16px; line-height: 1.7; color: var(--text-1); font-style: italic; margin-bottom: 24px; }
-.testi-author { display: flex; align-items: center; gap: 14px; }
-.testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,113,227,0.15); border: 1px solid rgba(0,113,227,0.25); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
-.testi-name { font-size: 14px; font-weight: 600; color: var(--text-1); margin-bottom: 2px; }
-.testi-role { font-size: 12px; color: var(--text-3); }
-
-/* ─── RESPONSIVE ADDITIONS ───────────────────────────── */
-@media (max-width: 1100px) {
-  .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .values-grid { grid-template-columns: repeat(2, 1fr); }
-  .projects-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 700px) {
-  .values-grid { grid-template-columns: 1fr; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .work-header { flex-direction: column; gap: 8px; }
-}
-
 /* ─── FOOTER ─────────────────────────────────────────── */
 footer {
   background: var(--surface);
@@ -811,15 +713,14 @@ footer {
 
 <!-- ─── NAV ───────────────────────────────────────── -->
 <nav id="nav" class="transparent">
-  <a href="#" class="nav-logo">JJ</a>
+  <a href="#" class="nav-logo">APEX</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#testimonials">Testimonials</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#design-section">Design</a></li>
+    <li><a href="#specs">Specs</a></li>
   </ul>
-  <a href="mailto:john.jurvanen@gmail.com" class="nav-order">Get in Touch</a>
+  <a href="#" class="nav-order">Order Now</a>
 </nav>
 
 <!-- ─── PERSISTENT BACKGROUND ────────────────────── -->
@@ -837,16 +738,13 @@ footer {
 <!-- ─── HERO ──────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-content">
-    <div class="hero-badge fiu">
-      <span class="hero-badge-dot"></span>
-      Available for full-time opportunities
-    </div>
-    <h1 class="hero-title fiu">John<br>Jurvanen</h1>
-    <p class="hero-model fiu">End-to-End Product Builder</p>
-    <p class="hero-tagline fiu">Turning complexity into products leaders trust and users love.</p>
+    <p class="hero-eyebrow fiu">Introducing</p>
+    <h1 class="hero-title fiu">APEX</h1>
+    <p class="hero-model fiu">Pro One</p>
+    <p class="hero-tagline fiu">The sky has a new authority.</p>
     <div class="hero-actions fiu">
-      <a href="#work" class="btn-white">View Work</a>
-      <a href="mailto:john.jurvanen@gmail.com" class="btn-ghost">Get in Touch</a>
+      <a href="#" class="btn-white">Order Now</a>
+      <a href="#features" class="btn-ghost">Explore</a>
     </div>
   </div>
   <div class="scroll-cue">
@@ -860,64 +758,64 @@ footer {
   <div class="seq-sticky">
     <div class="cta-layer">
 
-      <!-- 0: Intro -->
+      <!-- 0: Intro title -->
       <div class="callout pos-c" data-s="0.00" data-e="0.14">
-        <p class="center-tag">John Jurvanen</p>
-        <h2 class="center-title">Design that<br>ships.</h2>
-        <p class="center-body">10+ years combining UX, product thinking, and engineering fluency to deliver what teams actually build.</p>
+        <p class="center-tag">APEX Pro One</p>
+        <h2 class="center-title">Engineered<br>from scratch.</h2>
+        <p class="center-body">A drone conceived without compromise — every system reimagined at the component level.</p>
       </div>
 
-      <!-- 1: Value 1 -->
+      <!-- 1: Motors -->
       <div class="callout pos-tl" data-s="0.12" data-e="0.28">
         <div class="card">
-          <div class="card-tag">Core Value</div>
-          <div class="card-title">Evidence Over Opinion</div>
-          <div class="card-body">Interviews, usability testing, and surveys validate direction — not assumptions. Iterate on what people actually struggle with.</div>
+          <div class="card-tag">Motor System</div>
+          <div class="card-title">Quad-Core Drive</div>
+          <div class="card-body">Four precision-wound 2306 brushless motors. 1,820 g thrust each. Titanium shafts. Active torque-balance firmware.</div>
         </div>
       </div>
 
-      <!-- 2: Value 2 -->
+      <!-- 2: Propellers -->
       <div class="callout pos-tr" data-s="0.26" data-e="0.42">
         <div class="card">
-          <div class="card-tag">Core Value</div>
-          <div class="card-title">One Team, Many Voices</div>
-          <div class="card-body">Engineering, product, support, and users all shape the solution. Every voice collected, translated into one clear flow everyone can build.</div>
+          <div class="card-tag">Propeller System</div>
+          <div class="card-title">Carbon Fiber Props</div>
+          <div class="card-body">Tri-blade 5-inch carbon fibre propellers — 40% quieter, 18% more efficient than conventional design.</div>
         </div>
       </div>
 
-      <!-- 3: Value 3 -->
+      <!-- 3: Camera -->
       <div class="callout pos-mr" data-s="0.40" data-e="0.56">
         <div class="card">
-          <div class="card-tag">Core Value</div>
-          <div class="card-title">Buildable by Design</div>
-          <div class="card-body">Understanding implementation constraints means realistic flows, clear edge-cases, and specs developers can trust.</div>
+          <div class="card-tag">Imaging</div>
+          <div class="card-title">4K Cinematic Camera</div>
+          <div class="card-body">1/2-inch CMOS. f/1.8 aperture. 20 MP stills. 4K at 120 fps. 12.8 stops of dynamic range.</div>
         </div>
       </div>
 
-      <!-- 4: Value 4 -->
+      <!-- 4: Gimbal -->
       <div class="callout pos-ml" data-s="0.54" data-e="0.70">
         <div class="card">
-          <div class="card-tag">Core Value</div>
-          <div class="card-title">Positive Collaboration</div>
-          <div class="card-body">Calm energy and approachability make it easier for others to raise concerns, challenge ideas, and align quickly.</div>
+          <div class="card-tag">Stabilisation</div>
+          <div class="card-title">3-Axis Gimbal</div>
+          <div class="card-body">Magnetic encoder gimbals — ±0.01° precision. Imperceptibly smooth at 87 km/h or hovering in gale-force wind.</div>
         </div>
       </div>
 
-      <!-- 5: Track record -->
+      <!-- 5: Sensors -->
       <div class="callout pos-br" data-s="0.68" data-e="0.84">
         <div class="card">
-          <div class="card-tag">Track Record</div>
-          <div class="card-title">10+ Years of Delivery</div>
-          <div class="card-body">25+ products shipped. 50+ projects collaborated on. Across UX, product, full-stack, and game development.</div>
+          <div class="card-tag">Perception</div>
+          <div class="card-title">360° Sensor Array</div>
+          <div class="card-body">Six-directional sensing with LIDAR, stereo vision, ultrasonic, and downward-facing optical flow.</div>
         </div>
       </div>
 
-      <!-- 6: Disciplines -->
+      <!-- 6: Battery -->
       <div class="callout pos-bl" data-s="0.82" data-e="0.98">
         <div class="card">
-          <div class="card-tag">Disciplines</div>
-          <div class="card-title">Full-Stack Fluency</div>
-          <div class="card-body">UX Design · Product Thinking · Frontend Development · Design Systems · User Research · AI Integration.</div>
+          <div class="card-tag">Power</div>
+          <div class="card-title">Intelligent Battery</div>
+          <div class="card-body">4,920 mAh semi-solid-state LiPo. 46 min flight. Self-heats below 5°C. Real-time discharge analytics.</div>
         </div>
       </div>
 
@@ -934,282 +832,156 @@ footer {
   </div>
 </section>
 
+<!-- ─── EDITORIAL: PRECISION BANNER ───────────────── -->
+<section class="banner" id="features">
+  <div class="banner-glow"></div>
+  <div class="banner-content">
+    <p class="label fiu">Engineered Differently</p>
+    <h2 class="d1 fiu">Precision.<br>Redefined.</h2>
+    <p class="body-copy mt-med fiu" style="max-width:520px;margin-left:auto;margin-right:auto;">
+      Every component of APEX Pro One was conceived from a blank slate. The result is a drone that doesn't just fly — it thinks, adapts, and creates.
+    </p>
+    <div class="mt-lg fiu">
+      <a href="#" class="btn-white">See the Technology</a>
+    </div>
+  </div>
+</section>
 
-<!-- ─── ABOUT ─────────────────────────────────────── -->
-<section id="about" style="background:var(--bg);padding:100px 0;position:relative;z-index:1;">
-  <div style="max-width:1160px;margin:0 auto;padding:0 48px;">
-    <div class="about-grid">
-      <div class="about-text">
-        <p class="label fiu">About</p>
-        <h2 class="d2 fiu mt-sm">Building things<br>people actually use.</h2>
-        <p class="body-copy fiu mt-med">End-to-end product builder combining UX design and software development to deliver intuitive, production-ready experiences. I translate complex problems and large datasets into clear, human-centered solutions — using prototyping and AI integration to move from concept to shipped product.</p>
-        <p class="body-copy fiu mt-med" style="color:var(--text-3);">Over a decade spanning UX leadership, frontend development, and game design across B2B SaaS, industrial software, logistics, and consumer products. Collaborative, growth-minded, and always shipping.</p>
-        <div class="about-meta fiu">
-          <div class="meta-item"><span class="meta-icon">✉</span><a href="mailto:john.jurvanen@gmail.com" style="color:var(--text-2);text-decoration:none;">john.jurvanen@gmail.com</a></div>
-          <div class="meta-item"><span class="meta-icon">📍</span><span style="color:var(--text-2);">Vantaa, Finland</span></div>
-          <div class="meta-item"><span class="meta-icon">🔗</span><a href="https://linkedin.com/in/davelantor" target="_blank" style="color:var(--text-2);text-decoration:none;">linkedin.com/in/davelantor</a></div>
-          <div class="meta-item"><span class="meta-dot"></span><span style="color:#34c759;">Available for full-time</span></div>
-        </div>
+<!-- ─── SPLIT · Motor ─────────────────────────────── -->
+<section style="background:var(--bg);padding-top:20px;padding-bottom:20px;" id="performance">
+  <div class="split">
+    <div class="split-media fiu">
+      <div class="split-media-icon">⚙</div>
+      <span class="split-media-label">Motor Architecture</span>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">Motor Architecture</p>
+      <h3 class="d3 split-title">Power,<br>in all directions.</h3>
+      <p class="split-body">The Pro One's asymmetric layout generates 7.28 kg of total thrust. An active torque-balancing algorithm coordinates four titanium-shafted motors in real time, eliminating vibration at the source.</p>
+      <ul class="feat-list">
+        <li>1,820 g thrust per motor</li>
+        <li>KV 1750 rated wind speed</li>
+        <li>Active vibration cancellation</li>
+        <li>IP67 moisture resistance</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
+<section style="background:var(--bg);padding-bottom:20px;" id="design-section">
+  <div class="split flip">
+    <div class="split-media fiu">
+      <div class="split-media-icon">📷</div>
+      <span class="split-media-label">Camera Module</span>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">Camera System</p>
+      <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
+      <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <ul class="feat-list">
+        <li>20 MP 1/2-inch CMOS sensor</li>
+        <li>4K 120 fps HDR video</li>
+        <li>f/1.8 – f/11 aperture range</li>
+        <li>12.8 stops dynamic range</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS BAR ──────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat fiu">
+      <div class="stat-num">46<span class="stat-unit"> min</span></div>
+      <div class="stat-lbl">Max Flight Time</div>
+    </div>
+    <div class="stat fiu">
+      <div class="stat-num">87<span class="stat-unit"> km/h</span></div>
+      <div class="stat-lbl">Top Speed</div>
+    </div>
+    <div class="stat fiu">
+      <div class="stat-num">12<span class="stat-unit"> km</span></div>
+      <div class="stat-lbl">Transmission Range</div>
+    </div>
+    <div class="stat fiu">
+      <div class="stat-num">4<span class="stat-unit">K</span></div>
+      <div class="stat-lbl">Resolution @ 120 fps</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FEATURE CARDS ─────────────────────────────── -->
+<section style="background:var(--bg);">
+  <div class="cards-section">
+    <div class="cards-header">
+      <p class="label fiu">Intelligent Systems</p>
+      <h2 class="d2 fiu mt-sm">Built for what's next.</h2>
+    </div>
+    <div class="cards-grid">
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🛡</div>
+        <div class="feat-card-title">Obstacle Intelligence</div>
+        <div class="feat-card-body">Neural-network perception maps the environment 30× per second — making micro-corrections invisible to the pilot.</div>
       </div>
-      <div class="about-stats fiu">
-        <div class="astat"><div class="astat-num">10+</div><div class="astat-lbl">Years experience</div></div>
-        <div class="astat"><div class="astat-num">25+</div><div class="astat-lbl">Products shipped</div></div>
-        <div class="astat"><div class="astat-num">50+</div><div class="astat-lbl">Projects collaborated</div></div>
-        <div class="astat"><div class="astat-num">4.8★</div><div class="astat-lbl">Avg. project rating</div></div>
-        <div class="astat astat-wide"><div class="astat-num">+78%</div><div class="astat-lbl">Avg. satisfaction increase measured across products</div></div>
-        <div class="astat astat-wide"><div class="astat-num" style="font-size:24px;">Finland</div><div class="astat-lbl">Vantaa, Uusimaa — open to remote globally</div></div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">📡</div>
+        <div class="feat-card-title">O4 Transmission</div>
+        <div class="feat-card-body">Triple-band adaptive signal. Sub-30 ms latency. Live 4K feed at 12 km with zero compression artifacts.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🌬</div>
+        <div class="feat-card-title">Wind Mastery</div>
+        <div class="feat-card-body">Active stabilisation holds position in Level 7 winds (61 km/h). PID loops auto-adapt to conditions in real time.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🤖</div>
+        <div class="feat-card-title">AI Subject Tracking</div>
+        <div class="feat-card-body">ActiveTrack 4.0 recognises 100+ object classes, maintaining frame composition at any terrain or speed.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🔋</div>
+        <div class="feat-card-title">Solid-State Power</div>
+        <div class="feat-card-body">First production drone with a semi-solid-state battery — 20% higher energy density, stable at extreme temperatures.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🌐</div>
+        <div class="feat-card-title">Global Awareness</div>
+        <div class="feat-card-body">Integrated ADS-B, real-time geofencing, and automated regulatory compliance in 120+ countries.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── CORE VALUES ────────────────────────────────── -->
-<section style="background:var(--surface);padding:80px 0;border-top:1px solid var(--card-border);position:relative;z-index:1;">
-  <div style="max-width:1160px;margin:0 auto;padding:0 48px;">
-    <p class="label fiu">How I Work</p>
-    <h2 class="d3 fiu mt-sm" style="margin-bottom:48px;">Core Competencies</h2>
-    <div class="values-grid">
-      <div class="value-card fiu">
-        <div class="value-num">01</div>
-        <div class="value-title">Evidence Over Opinion</div>
-        <div class="value-body">I use interviews, surveys, and usability testing to validate direction — then iterate based on what people actually struggle with, not assumptions.</div>
+<!-- ─── PERFORMANCE STRIP ──────────────────────────── -->
+<section class="perf-strip">
+  <div class="perf-inner">
+    <h2 class="d3 perf-title fiu">Performance<br>at every axis.</h2>
+    <div class="perf-rows">
+      <div class="perf-row fiu" data-perf="92">
+        <span class="perf-name">Wind Resistance</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:92%"></div></div>
+        <span class="perf-val">Level 7</span>
       </div>
-      <div class="value-card fiu">
-        <div class="value-num">02</div>
-        <div class="value-title">One Team, Many Voices</div>
-        <div class="value-body">I collect all voices — engineering, product, support, and users — then translate them into a single clear flow everyone can commit to and build.</div>
+      <div class="perf-row fiu" data-perf="88">
+        <span class="perf-name">Battery Efficiency</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:88%"></div></div>
+        <span class="perf-val">46 min</span>
       </div>
-      <div class="value-card fiu">
-        <div class="value-num">03</div>
-        <div class="value-title">Buildable by Design</div>
-        <div class="value-body">Because I understand implementation constraints, I design solutions that ship cleanly — realistic flows, clear edge-cases, and specs developers can trust.</div>
+      <div class="perf-row fiu" data-perf="95">
+        <span class="perf-name">Signal Stability</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:95%"></div></div>
+        <span class="perf-val">12 km</span>
       </div>
-      <div class="value-card fiu">
-        <div class="value-num">04</div>
-        <div class="value-title">Positive Collaboration</div>
-        <div class="value-body">I bring calm energy and approachability to teamwork — making it easier for others to raise concerns, challenge ideas, and align quickly.</div>
+      <div class="perf-row fiu" data-perf="78">
+        <span class="perf-name">Top Speed</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:78%"></div></div>
+        <span class="perf-val">87 km/h</span>
       </div>
-    </div>
-    <div class="pills-row fiu" style="margin-top:48px;">
-      <span class="pill">Development Fluency</span>
-      <span class="pill">User Experience</span>
-      <span class="pill">Product Thinking</span>
-      <span class="pill">Cross-functional Collaboration</span>
-      <span class="pill">AI Integration</span>
-    </div>
-  </div>
-</section>
-
-<!-- ─── WORK HISTORY ────────────────────────────────── -->
-<section id="work" style="background:var(--bg);padding:80px 0;position:relative;z-index:1;">
-  <div style="max-width:1160px;margin:0 auto;padding:0 48px;">
-    <p class="label fiu">Experience</p>
-    <h2 class="d3 fiu mt-sm" style="margin-bottom:56px;">Work History</h2>
-
-    <div class="work-card fiu">
-      <div class="work-header">
-        <div>
-          <div class="work-company">Mapvision</div>
-          <div class="work-roles">
-            <span class="work-role-badge">Full-Stack / Frontend Developer</span>
-            <span class="work-role-badge">Tech Lead / Team Lead</span>
-            <span class="work-role-badge">Software Engineering Manager</span>
-          </div>
-        </div>
-        <div class="work-date">2019 – 2023</div>
-      </div>
-      <div class="work-achievements">
-        <div class="work-ach">Led design system overhaul serving 50+ product teams, reducing design debt by 40%</div>
-        <div class="work-ach">Converted 20+ components using modern practices while maintaining visual cohesion</div>
-        <div class="work-ach">Mentored 3 team members on Figma, design systems, and atomic design principles</div>
-        <div class="work-ach">Continuous feedback-driven iteration resulted in +78% satisfaction increase across surveys and interviews</div>
-      </div>
-      <div class="work-metric-row">
-        <div class="work-metric"><span class="work-metric-num">+78%</span><span class="work-metric-lbl">Satisfaction</span></div>
-        <div class="work-metric"><span class="work-metric-num">50+</span><span class="work-metric-lbl">Teams served</span></div>
-        <div class="work-metric"><span class="work-metric-num">−40%</span><span class="work-metric-lbl">Design debt</span></div>
-      </div>
-      <div class="work-tags">
-        <span class="tag">Figma</span><span class="tag">User Research</span><span class="tag">Design Systems</span><span class="tag">Full-stack Dev</span><span class="tag">A/B Testing</span><span class="tag">Git</span><span class="tag">Miro</span><span class="tag">ZenHub</span>
-      </div>
-    </div>
-
-    <div class="work-card fiu">
-      <div class="work-header">
-        <div>
-          <div class="work-company">Ajeco Oy</div>
-          <div class="work-roles">
-            <span class="work-role-badge">UI/UX Developer</span>
-          </div>
-        </div>
-        <div class="work-date">2017 – 2019</div>
-      </div>
-      <div class="work-achievements">
-        <div class="work-ach">Led end-to-end UX/UI design for an Android-based software platform built in Android Studio</div>
-        <div class="work-ach">Delivered an intuitive, user-centered experience across the full Android ecosystem</div>
-        <div class="work-ach">Introduced structured usability practices — drove discovery with stakeholder alignment</div>
-      </div>
-      <div class="work-metric-row">
-        <div class="work-metric"><span class="work-metric-num">4.8★</span><span class="work-metric-lbl">Project rating</span></div>
-      </div>
-      <div class="work-tags">
-        <span class="tag">Android Studio</span><span class="tag">Figma</span><span class="tag">GitHub</span><span class="tag">Blender</span><span class="tag">Unreal Engine</span>
-      </div>
-    </div>
-
-    <div class="work-card fiu">
-      <div class="work-header">
-        <div>
-          <div class="work-company">Bimar</div>
-          <div class="work-roles">
-            <span class="work-role-badge">Frontend Developer</span>
-            <span class="work-role-badge">Lead UI/UX Designer</span>
-          </div>
-        </div>
-        <div class="work-date">2013 – 2015</div>
-      </div>
-      <div class="work-achievements">
-        <div class="work-ach">Container Storage Time Tracking System — digitized port container registration, tracking, and compliance monitoring</div>
-        <div class="work-ach">+300% increase in productivity; +30% reduction in missed container due dates</div>
-        <div class="work-ach">Measurement Analysis System — industrial telemetry UI with AI-evaluated image annotation</div>
-        <div class="work-ach">ASP.NET / PostgreSQL / C# development for Arkas Logistics business management systems (YNA)</div>
-      </div>
-      <div class="work-metric-row">
-        <div class="work-metric"><span class="work-metric-num">+300%</span><span class="work-metric-lbl">Productivity</span></div>
-        <div class="work-metric"><span class="work-metric-num">+24%</span><span class="work-metric-lbl">User satisfaction</span></div>
-        <div class="work-metric"><span class="work-metric-num">−30%</span><span class="work-metric-lbl">Missed deadlines</span></div>
-      </div>
-      <div class="work-tags">
-        <span class="tag">Figma</span><span class="tag">UX Lead</span><span class="tag">Design Thinking</span><span class="tag">User Interviews</span><span class="tag">SQL</span><span class="tag">HTML 5</span><span class="tag">C# / ASP.NET</span>
-      </div>
-    </div>
-
-    <div class="work-card fiu">
-      <div class="work-header">
-        <div>
-          <div class="work-company">Lost Sol</div>
-          <div class="work-roles">
-            <span class="work-role-badge">Lead Game Designer</span>
-          </div>
-        </div>
-        <div class="work-date">2016 – 2017</div>
-      </div>
-      <div class="work-achievements">
-        <div class="work-ach">Managed full-cycle game development from concept to publishable release — gameplay, systems, prototyping, and level design</div>
-        <div class="work-ach">Defined player experience, feature priorities, and release goals using Unreal Engine 5 and Blender</div>
-        <div class="work-ach">Designed and tuned progression and retention systems including difficulty curves</div>
-      </div>
-      <div class="work-metric-row">
-        <div class="work-metric"><span class="work-metric-num">4.8★</span><span class="work-metric-lbl">Project rating</span></div>
-      </div>
-      <div class="work-tags">
-        <span class="tag">Unreal Engine 5</span><span class="tag">Blender</span><span class="tag">Game Design</span><span class="tag">SAP-BO</span><span class="tag">MS VS 2013</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ─── PROJECTS ──────────────────────────────────────── -->
-<section id="projects" style="background:var(--surface);padding:80px 0;border-top:1px solid var(--card-border);position:relative;z-index:1;">
-  <div style="max-width:1160px;margin:0 auto;padding:0 48px;">
-    <p class="label fiu">Case Studies</p>
-    <h2 class="d3 fiu mt-sm" style="margin-bottom:56px;">Selected Projects</h2>
-    <div class="projects-grid">
-
-      <div class="proj-card fiu">
-        <div class="proj-img"><div class="proj-img-label">Mapvision · 2019–2023</div></div>
-        <div class="proj-body">
-          <div class="proj-title">AI-Assisted Telemetry Analysis</div>
-          <div class="proj-desc">Industrial inspection system combining complex telemetry dashboards with AI-evaluated annotated images — designed for inline quality control at scale.</div>
-          <div class="proj-metrics"><span class="proj-metric">+24% satisfaction</span></div>
-          <div class="proj-tags"><span class="tag">Figma</span><span class="tag">UX Lead</span><span class="tag">AI Integration</span></div>
-        </div>
-      </div>
-
-      <div class="proj-card fiu">
-        <div class="proj-img"><div class="proj-img-label">Bimar · 2014</div></div>
-        <div class="proj-body">
-          <div class="proj-title">Container Storage Time Tracking</div>
-          <div class="proj-desc">Desktop application for ports and borders — digitizing container registration, tracking, and compliance monitoring for shipping operations.</div>
-          <div class="proj-metrics"><span class="proj-metric">+300% productivity</span><span class="proj-metric">−30% missed deadlines</span></div>
-          <div class="proj-tags"><span class="tag">Design Thinking</span><span class="tag">UX Study</span><span class="tag">User Interviews</span></div>
-        </div>
-      </div>
-
-      <div class="proj-card fiu">
-        <div class="proj-img"><div class="proj-img-label">NDA · 2018</div></div>
-        <div class="proj-body">
-          <div class="proj-title">Disaster Relief Seismic Detection</div>
-          <div class="proj-desc">Mobile app for detecting secondary seismic activity via off-grid mesh networks — distinguishes local operational vibrations from regional seismic events in real time.</div>
-          <div class="proj-metrics"><span class="proj-metric">+24% satisfaction</span></div>
-          <div class="proj-tags"><span class="tag">Product Design</span><span class="tag">Mobile UX</span><span class="tag">Prototyping</span></div>
-        </div>
-      </div>
-
-      <div class="proj-card fiu">
-        <div class="proj-img"><div class="proj-img-label">Lost Sol · 2016</div></div>
-        <div class="proj-body">
-          <div class="proj-title">Unreal Engine Game Development</div>
-          <div class="proj-desc">Full-cycle production from concept to publishable build — gameplay systems, level design, progression mechanics, and retention tuning.</div>
-          <div class="proj-metrics"><span class="proj-metric">4.8★ rating</span></div>
-          <div class="proj-tags"><span class="tag">Unreal Engine 5</span><span class="tag">Blender</span><span class="tag">Game Design</span></div>
-        </div>
-      </div>
-
-      <div class="proj-card fiu">
-        <div class="proj-img"><div class="proj-img-label">Ajeco · 2017–2019</div></div>
-        <div class="proj-body">
-          <div class="proj-title">Android Software Platform UX</div>
-          <div class="proj-desc">End-to-end UX/UI for an Android-based business software platform — structured usability practices across the full Android ecosystem.</div>
-          <div class="proj-metrics"><span class="proj-metric">4.8★ rating</span></div>
-          <div class="proj-tags"><span class="tag">Android Studio</span><span class="tag">UX Research</span><span class="tag">Figma</span></div>
-        </div>
-      </div>
-
-      <div class="proj-card fiu">
-        <div class="proj-img"><div class="proj-img-label">N/A · 2026</div></div>
-        <div class="proj-body">
-          <div class="proj-title">Laboratory Sample Tracking</div>
-          <div class="proj-desc">Redesigned lab tracking workflows benchmarked against existing solutions — improving onboarding and overall UX with modern tooling and design principles.</div>
-          <div class="proj-metrics"><span class="proj-metric">+30% improvement</span></div>
-          <div class="proj-tags"><span class="tag">Product Design</span><span class="tag">Prototyping</span><span class="tag">Figma</span></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ─── SKILLS ────────────────────────────────────────── -->
-<section style="background:var(--bg);padding:80px 0;position:relative;z-index:1;">
-  <div style="max-width:1160px;margin:0 auto;padding:0 48px;">
-    <p class="label fiu">Tools & Platforms</p>
-    <h2 class="d3 fiu mt-sm" style="margin-bottom:48px;">Skills Applied</h2>
-    <div class="skills-section">
-      <div class="skill-group fiu">
-        <div class="skill-group-label">Design & UX</div>
-        <div class="skill-tags">
-          <span class="tag">Figma</span><span class="tag">Design Systems</span><span class="tag">UX Research</span><span class="tag">Prototyping</span><span class="tag">A/B Testing</span><span class="tag">Usability Testing</span><span class="tag">User Interviews</span><span class="tag">UI Design</span><span class="tag">Visual Design</span>
-        </div>
-      </div>
-      <div class="skill-group fiu">
-        <div class="skill-group-label">Development</div>
-        <div class="skill-tags">
-          <span class="tag">Full-Stack Dev</span><span class="tag">Frontend Dev</span><span class="tag">HTML 5</span><span class="tag">SQL</span><span class="tag">C# / ASP.NET</span><span class="tag">PostgreSQL</span><span class="tag">Android Studio</span><span class="tag">Git</span><span class="tag">GitHub</span>
-        </div>
-      </div>
-      <div class="skill-group fiu">
-        <div class="skill-group-label">Product & Strategy</div>
-        <div class="skill-tags">
-          <span class="tag">Product Thinking</span><span class="tag">Product Vision</span><span class="tag">Cross-functional Collaboration</span><span class="tag">Project Management</span><span class="tag">Agile</span><span class="tag">Mentoring</span><span class="tag">AI Integration</span><span class="tag">B2B SaaS</span>
-        </div>
-      </div>
-      <div class="skill-group fiu">
-        <div class="skill-group-label">Tools</div>
-        <div class="skill-tags">
-          <span class="tag">Miro</span><span class="tag">ZenHub</span><span class="tag">Blender</span><span class="tag">Unreal Engine</span><span class="tag">SAP-BO</span><span class="tag">MS Visual Studio</span>
-        </div>
+      <div class="perf-row fiu" data-perf="85">
+        <span class="perf-name">Image Stabilisation</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:85%"></div></div>
+        <span class="perf-val">±0.01°</span>
       </div>
     </div>
   </div>
@@ -1221,61 +993,66 @@ footer {
 
     <div class="cta-layer">
 
-      <!-- 0: Transition -->
+      <!-- 0: Opening -->
       <div class="callout pos-c" data-s="0.00" data-e="0.16">
-        <p class="center-tag">People I've Worked With</p>
-        <h2 class="center-title">What teams<br>say.</h2>
-        <p class="center-body">Four colleagues from Mapvision on collaboration, craft, and delivery.</p>
+        <p class="center-tag">Flight Intelligence</p>
+        <h2 class="center-title">Into the<br>unknown.</h2>
+        <p class="center-body">APEX Pro One navigates where no map exists — autonomously, intelligently, precisely.</p>
       </div>
 
-      <!-- 1: Lasse -->
+      <!-- 1: AI chip -->
       <div class="callout pos-tr" data-s="0.14" data-e="0.30">
         <div class="card">
-          <div class="card-tag">Lasse Ylinen · Software Engineering Manager</div>
-          <div class="card-title" style="font-size:14px;font-weight:400;font-style:italic;line-height:1.6;">"Collaborated with product management to bring their vision to life — collecting early feedback via prototyping and questionnaires, leading to multiple successful product launches."</div>
+          <div class="card-tag">AI Brain</div>
+          <div class="card-title">Neural Autopilot</div>
+          <div class="card-body">The onboard APEX A2 chip delivers 8 TOPS of inference — real-time autonomous decision-making at altitude.</div>
         </div>
       </div>
 
-      <!-- 2: Kosti -->
-      <div class="callout pos-tl" data-s="0.28" data-e="0.46">
+      <!-- 2: GPS -->
+      <div class="callout pos-tl" data-s="0.28" data-e="0.44">
         <div class="card">
-          <div class="card-tag">Kosti Kannas · Head of Product Development</div>
-          <div class="card-title" style="font-size:14px;font-weight:400;font-style:italic;line-height:1.6;">"John has truly been an amazing multi-disciplinary team player. Leading our UX efforts — creating Figma prototypes that leave both product owners and customers begging for more."</div>
+          <div class="card-tag">Navigation</div>
+          <div class="card-title">Dual-Band RTK GPS</div>
+          <div class="card-body">Centimetre-level precision. No network required — onboard map caching keeps positioning accurate in the remotest environments.</div>
         </div>
       </div>
 
-      <!-- 3: Ernest -->
-      <div class="callout pos-mr" data-s="0.44" data-e="0.62">
+      <!-- 3: Missions -->
+      <div class="callout pos-mr" data-s="0.42" data-e="0.58">
         <div class="card">
-          <div class="card-tag">Ernest Arendarenko · Tech Lead</div>
-          <div class="card-title" style="font-size:14px;font-weight:400;font-style:italic;line-height:1.6;">"Dependable, consistently delivered in sprints, always keeping long-term user impact in mind through clear use cases and flows. Showed creativity, vision, and care."</div>
+          <div class="card-tag">Mission Control</div>
+          <div class="card-title">Autonomous Missions</div>
+          <div class="card-body">Plan, execute, and review fully autonomous flights via the APEX app — terrain-follow, waypoints, and orbit modes included.</div>
         </div>
       </div>
 
-      <!-- 4: Teppo -->
-      <div class="callout pos-ml" data-s="0.60" data-e="0.78">
+      <!-- 4: Safety -->
+      <div class="callout pos-ml" data-s="0.56" data-e="0.72">
         <div class="card">
-          <div class="card-tag">Teppo Aalto · Mapvision</div>
-          <div class="card-title" style="font-size:14px;font-weight:400;font-style:italic;line-height:1.6;">"During customer meetings, John adjusted and refined UI concepts on the fly — turning customer input into concrete, high-quality design updates within minutes."</div>
+          <div class="card-tag">Safety</div>
+          <div class="card-title">Emergency Return</div>
+          <div class="card-body">Redundant failsafe: 3-path return-to-home, low-battery hover, and signal-loss precision landing with ±10 cm accuracy.</div>
         </div>
       </div>
 
-      <!-- 5: Teppo cont. -->
-      <div class="callout pos-bl" data-s="0.76" data-e="0.90">
+      <!-- 5: App ecosystem -->
+      <div class="callout pos-br" data-s="0.70" data-e="0.84">
         <div class="card">
-          <div class="card-tag">Teppo Aalto · continued</div>
-          <div class="card-title" style="font-size:14px;font-weight:400;font-style:italic;line-height:1.6;">"What separates him from the rest is his ability to always make you feel good when interacting with him. That's something unique."</div>
+          <div class="card-tag">Ecosystem</div>
+          <div class="card-title">APEX Fly App</div>
+          <div class="card-body">iOS and Android. Real-time telemetry, live 4K preview, mission planning, and one-tap edit suite — always in sync.</div>
         </div>
       </div>
 
       <!-- 6: Closing CTA -->
-      <div class="callout pos-c" data-s="0.87" data-e="1.00">
-        <p class="center-tag" style="color:rgba(255,255,255,0.4);">John Jurvanen</p>
-        <h2 class="center-title">Let's build<br>something that ships.</h2>
-        <p class="center-body">Available for full-time opportunities and consulting.</p>
+      <div class="callout pos-c" data-s="0.83" data-e="1.00">
+        <p class="center-tag" style="color:rgba(255,255,255,0.4);">APEX Pro One</p>
+        <h2 class="center-title">Every flight,<br>extraordinary.</h2>
+        <p class="center-body">Starting from $2,499. Available worldwide.</p>
         <div class="mt-lg" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a href="mailto:john.jurvanen@gmail.com" class="btn-white" style="pointer-events:auto;">Get in Touch</a>
-          <a href="#testimonials" class="btn-ghost" style="pointer-events:auto;">Read Testimonials</a>
+          <a href="#" class="btn-white">Order Now</a>
+          <a href="#specs" class="btn-ghost">View Specs</a>
         </div>
       </div>
 
@@ -1283,62 +1060,83 @@ footer {
   </div>
 </section>
 
-<!-- ─── TESTIMONIALS ─────────────────────────────── -->
-<section id="testimonials" style="background:var(--surface);padding:100px 0;border-top:1px solid var(--card-border);position:relative;z-index:1;">
-  <div style="max-width:760px;margin:0 auto;padding:0 48px;">
-    <p class="label fiu" style="text-align:center;">Recommendations</p>
-    <h2 class="d3 fiu mt-sm" style="text-align:center;margin-bottom:64px;">From people I've<br>built with.</h2>
-    <div class="testi-stack">
-
-      <div class="testi-card fiu">
-        <blockquote class="testi-quote">"Collaborated with product management to bring their vision to life. Additionally he collected early feedback from customers via prototyping and questionnaires, leading to multiple successful product launches."</blockquote>
-        <div class="testi-author">
-          <div class="testi-avatar">LY</div>
-          <div><div class="testi-name">Lasse Ylinen</div><div class="testi-role">Software Engineering Manager · Mapvision</div></div>
-        </div>
-      </div>
-
-      <div class="testi-card fiu">
-        <blockquote class="testi-quote">"John has truly been an amazing multi-disciplinary team player in our development team. Leading our UX efforts, creating amazing Figma prototypes that leave both product owners and customers begging for more."</blockquote>
-        <div class="testi-author">
-          <div class="testi-avatar">KK</div>
-          <div><div class="testi-name">Kosti Kannas</div><div class="testi-role">Head of Product Development · Mapvision</div></div>
-        </div>
-      </div>
-
-      <div class="testi-card fiu">
-        <blockquote class="testi-quote">"He is dependable, consistently delivered in sprints and contributes to technical discussions while always keeping long-term user impact in mind through clear use cases and flows. In his UX role he showed creativity, vision and care."</blockquote>
-        <div class="testi-author">
-          <div class="testi-avatar">EA</div>
-          <div><div class="testi-name">Ernest Arendarenko</div><div class="testi-role">Tech Lead / Team Lead · Mapvision</div></div>
-        </div>
-      </div>
-
-      <div class="testi-card fiu">
-        <blockquote class="testi-quote">"During customer meetings, John was able to adjust and refine UI concepts on the fly, incorporating feedback in real time and turning customer input into concrete, high-quality design updates within minutes. What separates him from the rest is his ability to always make you feel good when interacting with him. That's something unique."</blockquote>
-        <div class="testi-author">
-          <div class="testi-avatar">TA</div>
-          <div><div class="testi-name">Teppo Aalto</div><div class="testi-role">Mapvision</div></div>
-        </div>
-      </div>
-
+<!-- ─── SPECS SECTION ──────────────────────────────── -->
+<section id="specs">
+  <div class="specs-inner">
+    <div class="specs-header">
+      <p class="label fiu">Technical Specifications</p>
+      <h2 class="d2 fiu mt-sm">APEX Pro One</h2>
+      <p class="body-copy fiu mt-med" style="max-width:440px;margin-left:auto;margin-right:auto;">
+        Every number earned.<br>Every specification deliberate.
+      </p>
     </div>
-  </div>
-</section>
+    <div class="specs-grid fiu">
 
-<!-- ─── CONTACT ───────────────────────────────────── -->
-<section id="contact" style="background:var(--bg);padding:120px 0 100px;position:relative;z-index:1;">
-  <div style="max-width:680px;margin:0 auto;padding:0 48px;text-align:center;">
-    <p class="label fiu">Contact</p>
-    <h2 class="d2 fiu mt-sm" style="margin-bottom:20px;">Let's build something<br>that ships.</h2>
-    <p class="body-copy fiu mt-med" style="margin-bottom:56px;">Available for full-time opportunities and consulting engagements.<br>Based in Vantaa, Finland — open to remote globally.</p>
-    <div class="fiu" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;">
-      <a href="mailto:john.jurvanen@gmail.com" class="btn-white">john.jurvanen@gmail.com</a>
-      <a href="https://linkedin.com/in/davelantor" class="btn-ghost" target="_blank">LinkedIn</a>
-    </div>
-    <div class="fiu" style="display:flex;gap:8px;justify-content:center;align-items:center;">
-      <span style="width:8px;height:8px;border-radius:50%;background:#34c759;display:inline-block;"></span>
-      <span style="font-size:13px;color:var(--text-2);">Available for full-time opportunities</span>
+      <div class="spec-group">
+        <div class="spec-group-name">Aircraft</div>
+        <div class="spec-row"><span class="spec-k">Takeoff Weight</span><span class="spec-v">895 g</span></div>
+        <div class="spec-row"><span class="spec-k">Folded Dimensions</span><span class="spec-v">183 × 97 × 84 mm</span></div>
+        <div class="spec-row"><span class="spec-k">Unfolded Dimensions</span><span class="spec-v">380 × 342 × 84 mm</span></div>
+        <div class="spec-row"><span class="spec-k">Max Ascent Speed</span><span class="spec-v">8 m/s (S-Mode)</span></div>
+        <div class="spec-row"><span class="spec-k">Max Descent Speed</span><span class="spec-v">6 m/s (S-Mode)</span></div>
+        <div class="spec-row"><span class="spec-k">Max Speed</span><span class="spec-v">87 km/h (S-Mode)</span></div>
+        <div class="spec-row"><span class="spec-k">Wind Resistance</span><span class="spec-v">Level 7 (61 km/h)</span></div>
+        <div class="spec-row"><span class="spec-k">Operating Temperature</span><span class="spec-v">−20 °C to 50 °C</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Main Camera</div>
+        <div class="spec-row"><span class="spec-k">Sensor</span><span class="spec-v">1/2-inch CMOS, 20 MP</span></div>
+        <div class="spec-row"><span class="spec-k">Aperture</span><span class="spec-v">f/1.8 – f/11</span></div>
+        <div class="spec-row"><span class="spec-k">Video Resolution</span><span class="spec-v">4K @ 120 fps</span></div>
+        <div class="spec-row"><span class="spec-k">Slow Motion</span><span class="spec-v">1080p @ 480 fps</span></div>
+        <div class="spec-row"><span class="spec-k">Dynamic Range</span><span class="spec-v">12.8 stops</span></div>
+        <div class="spec-row"><span class="spec-k">ISO Range</span><span class="spec-v">100 – 6400</span></div>
+        <div class="spec-row"><span class="spec-k">Photo Format</span><span class="spec-v">RAW (DNG) + JPEG</span></div>
+        <div class="spec-row"><span class="spec-k">Max Shutter Speed</span><span class="spec-v">1/8000 s</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Gimbal</div>
+        <div class="spec-row"><span class="spec-k">Axes</span><span class="spec-v">3-axis (tilt / roll / pan)</span></div>
+        <div class="spec-row"><span class="spec-k">Stabilisation Type</span><span class="spec-v">Magnetic encoder</span></div>
+        <div class="spec-row"><span class="spec-k">Accuracy</span><span class="spec-v">±0.01°</span></div>
+        <div class="spec-row"><span class="spec-k">Tilt Range</span><span class="spec-v">−90° to +35°</span></div>
+        <div class="spec-row"><span class="spec-k">Max Rotation Speed</span><span class="spec-v">120°/s</span></div>
+        <div class="spec-row"><span class="spec-k">Angular Jitter</span><span class="spec-v">±0.005°</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Battery</div>
+        <div class="spec-row"><span class="spec-k">Capacity</span><span class="spec-v">4,920 mAh</span></div>
+        <div class="spec-row"><span class="spec-k">Voltage</span><span class="spec-v">15.4 V</span></div>
+        <div class="spec-row"><span class="spec-k">Chemistry</span><span class="spec-v">Semi-Solid-State LiPo</span></div>
+        <div class="spec-row"><span class="spec-k">Max Flight Time</span><span class="spec-v">46 minutes</span></div>
+        <div class="spec-row"><span class="spec-k">Charge Time</span><span class="spec-v">65 min (35 W)</span></div>
+        <div class="spec-row"><span class="spec-k">Self-Heating</span><span class="spec-v">Active below 5 °C</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Transmission</div>
+        <div class="spec-row"><span class="spec-k">System</span><span class="spec-v">O4 Pro</span></div>
+        <div class="spec-row"><span class="spec-k">Max Range</span><span class="spec-v">12 km (FCC)</span></div>
+        <div class="spec-v"></div>
+        <div class="spec-row"><span class="spec-k">Live Video Quality</span><span class="spec-v">4K / 60 fps</span></div>
+        <div class="spec-row"><span class="spec-k">Latency</span><span class="spec-v">&lt; 30 ms</span></div>
+        <div class="spec-row"><span class="spec-k">Frequency Bands</span><span class="spec-v">2.4 / 5.8 / 6 GHz</span></div>
+        <div class="spec-row"><span class="spec-k">Antenna</span><span class="spec-v">Triple-band adaptive</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Sensing & Safety</div>
+        <div class="spec-row"><span class="spec-k">Obstacle Sensing</span><span class="spec-v">6-directional</span></div>
+        <div class="spec-row"><span class="spec-k">Forward Vision</span><span class="spec-v">Stereo, ±30° FOV</span></div>
+        <div class="spec-row"><span class="spec-k">Downward Sensor</span><span class="spec-v">LIDAR + stereo</span></div>
+        <div class="spec-row"><span class="spec-k">GPS</span><span class="spec-v">Dual-band RTK</span></div>
+        <div class="spec-row"><span class="spec-k">GNSS</span><span class="spec-v">GPS + GLONASS + BDS</span></div>
+        <div class="spec-row"><span class="spec-k">ADS-B</span><span class="spec-v">Integrated receiver</span></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1347,22 +1145,295 @@ footer {
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div class="footer-brand">John Jurvanen</div>
+      <div class="footer-brand">APEX</div>
       <ul class="footer-nav">
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="https://linkedin.com/in/davelantor" target="_blank">LinkedIn</a></li>
+        <li><a href="#">Buy</a></li>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Academy</a></li>
+        <li><a href="#">Enterprise</a></li>
+        <li><a href="#">Safety</a></li>
+        <li><a href="#">Newsroom</a></li>
       </ul>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2026 John Jurvanen · Vantaa, Finland</p>
-      <p class="footer-copy">End-to-End Product Builder · UX · Product · Development</p>
+      <p class="footer-copy">© 2026 APEX Aerial Systems, Inc. All rights reserved. Specifications subject to change.</p>
+      <p class="footer-copy">Pro One. Pro Camera. Pro Performance.</p>
     </div>
   </div>
 </footer>
+
+
+<!-- ════════════════════════════════════════════════════
+     APEX SCROLL ENGINE
+     ════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── DOM refs ── */
+  const loader      = document.getElementById('loader');
+  const loaderFill  = document.getElementById('loader-fill');
+  const loaderText  = document.getElementById('loader-text');
+  const nav         = document.getElementById('nav');
+  const heroSection = document.getElementById('hero');
+  const seq1El      = document.getElementById('seq1');
+  const seq2El      = document.getElementById('seq2');
+  const bgV1        = document.getElementById('bg-v1');
+  const bgCanvas    = document.getElementById('bg-canvas');
+  const bgV2        = document.getElementById('bg-v2');
+  const bgCtx       = bgCanvas.getContext('2d');
+
+  /* ── State ── */
+  let frames1   = [];
+  let lastIdx1  = -1;
+
+  /* ────────────────────────────────────────────────────
+     CANVAS SIZING
+  ──────────────────────────────────────────────────── */
+  function resizeCanvas () {
+    bgCanvas.width  = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+    if (frames1[lastIdx1]) bgCtx.drawImage(frames1[lastIdx1], 0, 0);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  /* ────────────────────────────────────────────────────
+     FRAME EXTRACTION ENGINE
+     • Seeks through the video at target FPS
+     • Draws each frame to a temporary offscreen canvas
+       scaled to viewport size (object-fit: cover)
+     • Stores each frame as an ImageBitmap
+  ──────────────────────────────────────────────────── */
+  function extractFrames (src, label, pStart, pSpan) {
+    return new Promise(function (resolve, reject) {
+      const video = document.createElement('video');
+      video.muted       = true;
+      video.playsInline = true;
+      video.crossOrigin = 'anonymous';
+      video.preload     = 'auto';
+
+      const off    = document.createElement('canvas');
+      const offCtx = off.getContext('2d');
+      off.width  = window.innerWidth;
+      off.height = window.innerHeight;
+
+      video.addEventListener('error', function () {
+        reject(new Error('Could not load video: ' + src));
+      });
+
+      video.addEventListener('loadedmetadata', async function () {
+        const dur       = video.duration;
+        const TARGET_FPS = 24;
+        const maxFrames  = Math.min(Math.ceil(dur * TARGET_FPS), 300);
+        const result     = [];
+
+        for (let i = 0; i < maxFrames; i++) {
+          /* Seek */
+          const t = maxFrames > 1 ? (i / (maxFrames - 1)) * dur : 0;
+          video.currentTime = t;
+          await new Promise(function (res) {
+            video.addEventListener('seeked', res, { once: true });
+          });
+
+          /* Draw with object-fit:cover cropping */
+          const vw = video.videoWidth;
+          const vh = video.videoHeight;
+          const cw = off.width;
+          const ch = off.height;
+          const vAR = vw / vh;
+          const cAR = cw / ch;
+          let sx, sy, sw, sh;
+          if (vAR > cAR) {
+            sh = vh; sw = vh * cAR;
+            sy = 0;  sx = (vw - sw) / 2;
+          } else {
+            sw = vw; sh = vw / cAR;
+            sx = 0;  sy = (vh - sh) / 2;
+          }
+          offCtx.clearRect(0, 0, cw, ch);
+          offCtx.drawImage(video, sx, sy, sw, sh, 0, 0, cw, ch);
+
+          /* Store as ImageBitmap */
+          result.push(await createImageBitmap(off));
+
+          /* Update loader progress */
+          const pct = pStart + ((i + 1) / maxFrames) * pSpan;
+          loaderFill.style.width = (pct * 100).toFixed(1) + '%';
+          loaderText.textContent = label + ' — ' + Math.round((i + 1) / maxFrames * 100) + '%';
+        }
+
+        resolve(result);
+      });
+
+      video.src = src;
+      video.load();
+    });
+  }
+
+  /* ────────────────────────────────────────────────────
+     BOOT — extract both video sequences
+  ──────────────────────────────────────────────────── */
+  async function boot () {
+    try {
+      loaderText.textContent = 'Loading scroll sequence…';
+      frames1 = await extractFrames('Star_Hole_Transition.mp4', 'Scroll sequence', 0, 1.0);
+
+      loaderFill.style.width = '100%';
+      loaderText.textContent = 'Ready';
+
+      await new Promise(r => setTimeout(r, 380));
+    } catch (err) {
+      console.warn('[APEX] Frame extraction error:', err);
+      /* Graceful fallback — continue without frame sequences */
+    }
+
+    /* Dismiss loader */
+    loader.classList.add('hidden');
+
+    /* Trigger hero content entrance */
+    document.querySelectorAll('#hero .fiu').forEach(function (el, i) {
+      setTimeout(function () { el.classList.add('on'); }, 160 + i * 110);
+    });
+
+    startEngine();
+    initReveal();
+    initPerfBars();
+  }
+
+  /* ────────────────────────────────────────────────────
+     SCROLL ENGINE
+  ──────────────────────────────────────────────────── */
+  function startEngine () {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  function onScroll () {
+    const sy = window.scrollY;
+    tickNav(sy);
+    tickBackground(sy);
+    tickCallouts(sy);
+    tickDots(sy);
+  }
+
+  /* ── Nav opacity ── */
+  function tickNav (sy) {
+    if (sy > 44) nav.classList.remove('transparent');
+    else          nav.classList.add('transparent');
+  }
+
+  /* ── Helper: section scroll progress (0→1) ── */
+  function sectionProgress (el, sy) {
+    const top    = el.offsetTop;
+    const height = el.offsetHeight;
+    const vh     = window.innerHeight;
+    const raw    = (sy - top) / (height - vh);
+    return Math.max(0, Math.min(1, raw));
+  }
+
+  /* ── Single background layer manager ──────────────────
+     Phase 1: Star_Static.mp4   (bgV1)     — before seq1
+     Phase 2: Frame sequencer   (bgCanvas) — during seq1
+     Phase 3: BlackHole_Static  (bgV2)     — after seq1
+  ──────────────────────────────────────────────────── */
+  function tickBackground (sy) {
+    const vh      = window.innerHeight;
+    const seq1Top = seq1El.offsetTop;
+    const seq1Bot = seq1Top + seq1El.offsetHeight;
+    const FADE    = vh * 0.3;
+
+    const canvasIn  = Math.max(0, Math.min(1, (sy - (seq1Top - FADE)) / FADE));
+    const canvasOut = Math.max(0, Math.min(1, (sy - (seq1Bot - vh - FADE)) / FADE));
+
+    bgV1.style.opacity     = (1 - canvasIn).toFixed(3);
+    bgCanvas.style.opacity = (canvasIn * (1 - canvasOut)).toFixed(3);
+    bgV2.style.opacity     = canvasOut.toFixed(3);
+
+    if (frames1.length && canvasIn > 0.01) {
+      const p   = sectionProgress(seq1El, sy);
+      const idx = Math.round(p * (frames1.length - 1));
+      if (idx !== lastIdx1) {
+        lastIdx1 = idx;
+        bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+        bgCtx.drawImage(frames1[idx], 0, 0);
+      }
+    }
+  }
+
+  /* ── Callout cards ── */
+  function tickCallouts (sy) {
+    tickSeqCallouts(seq1El, sy);
+    tickSeqCallouts(seq2El, sy);
+  }
+
+  function tickSeqCallouts (seqEl, sy) {
+    const p        = sectionProgress(seqEl, sy);
+    const callouts = seqEl.querySelectorAll('.callout');
+
+    callouts.forEach(function (c) {
+      const s = parseFloat(c.dataset.s);
+      const e = parseFloat(c.dataset.e);
+      const active = p >= s && p <= e;
+      c.classList.toggle('on', active);
+    });
+  }
+
+  /* ── Progress dots (seq1 only) ── */
+  function tickDots (sy) {
+    const p    = sectionProgress(seq1El, sy);
+    const dots = seq1El.querySelectorAll('.seq-dot');
+    const n    = dots.length;
+    dots.forEach(function (d, i) {
+      const centre = i / (n - 1);
+      d.classList.toggle('on', Math.abs(p - centre) < 0.12);
+    });
+  }
+
+  /* ────────────────────────────────────────────────────
+     SCROLL REVEAL — IntersectionObserver
+  ──────────────────────────────────────────────────── */
+  function initReveal () {
+    const obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('on');
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -48px 0px' });
+
+    document.querySelectorAll('.fiu:not(#hero .fiu)').forEach(function (el) {
+      obs.observe(el);
+    });
+  }
+
+  /* ────────────────────────────────────────────────────
+     PERFORMANCE BARS — animate when scrolled into view
+  ──────────────────────────────────────────────────── */
+  function initPerfBars () {
+    const obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          const bar = entry.target.querySelector('.perf-bar');
+          if (bar) {
+            const target = bar.style.getPropertyValue('--target');
+            bar.style.width = target;
+          }
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.perf-row').forEach(function (row) {
+      obs.observe(row);
+    });
+  }
+
+  /* ── GO ── */
+  boot();
+
+}());
+</script>
 
 </body>
 </html>
