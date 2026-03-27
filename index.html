@@ -47,6 +47,17 @@ body {
   gap: 28px;
   transition: opacity 1s var(--ease);
 }
+#loader::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url('Star_Image.png');
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  opacity: 0.2;
+  z-index: 0;
+}
+#loader > * { position: relative; z-index: 1; }
 #loader.hidden { opacity: 0; pointer-events: none; }
 
 .loader-wordmark-Heading {
@@ -75,11 +86,15 @@ body {
   padding: 5px 14px;
 }
 .loader-wordmark-Secondary {
-  font-family: var(--font-d);
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  color: var(--text-1);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 15px;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  color: var(--text-3);
+  text-align: center;
+  max-width: 340px;
+  line-height: 1.6;
 }
 .loader-track {
   width: 220px; height: 1px;
@@ -682,8 +697,8 @@ footer {
   <div class="loader-track">
     <div class="loader-fill" id="loader-fill"></div>
   </div>
-  <div class="loader-wordmark-Secondary">Turning complexity into products leaders trust and users love</div>
   <div class="loader-text" id="loader-text">Initialising experience…</div>
+  <div class="loader-wordmark-Secondary">Turning complexity into products leaders trust and users love</div>
 </div>
 
 <!-- ─── NAV ───────────────────────────────────────── -->
