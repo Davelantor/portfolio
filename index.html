@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX Pro One — Beyond Every Horizon</title>
+<style>
+
+/* ─── RESET & VARIABLES ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #000000;
+  --surface:     #0a0a0a;
+  --card:        rgba(255,255,255,0.045);
+  --card-border: rgba(255,255,255,0.09);
+  --text-1:      #f5f5f7;
+  --text-2:      #86868b;
+  --text-3:      #515154;
+  --accent:      #0071e3;
+  --accent-h:    #0077ed;
+  --font-d:      'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --font-t:      'SF Pro Text',    -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --ease:        cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-t);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── LOADING OVERLAY ───────────────────────────────── */
+#loader {
+  position: fixed; inset: 0;
+  background: #000;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  transition: opacity 1s var(--ease);
+}
+#loader.hidden { opacity: 0; pointer-events: none; }
+
+.loader-wordmark {
+  font-family: var(--font-d);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--text-1);
+}
+.loader-track {
+  width: 220px; height: 1px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.loader-fill {
+  height: 100%; width: 0%;
+  background: rgba(255,255,255,0.7);
+  border-radius: 1px;
+  transition: width 0.08s linear;
+}
+.loader-text {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ─── NAV ────────────────────────────────────────────── */
+#nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 52px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+#nav.transparent {
+  background: rgba(0,0,0,0);
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.nav-logo {
+  font-family: var(--font-d);
+  font-size: 21px; font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-1);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex; gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.68);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+.nav-order {
+  font-size: 13px; font-weight: 500;
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 980px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-order:hover { background: var(--accent-h); }
+
+/* ─── HERO ───────────────────────────────────────────── */
+#hero {
+  position: relative;
+  height: 100vh; min-height: 640px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  overflow: hidden;
+}
+#hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s var(--ease);
+}
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.08) 0%,
+    rgba(0,0,0,0.28) 50%,
+    rgba(0,0,0,0.72) 100%
+  );
+  z-index: 1;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+}
+.hero-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(96px, 18vw, 200px);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.hero-model {
+  font-family: var(--font-d);
+  font-size: clamp(20px, 3vw, 36px);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 52px;
+}
+.hero-tagline {
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: rgba(255,255,255,0.42);
+  letter-spacing: -0.01em;
+  margin-bottom: 52px;
+}
+.hero-actions {
+  display: flex; gap: 14px;
+  align-items: center; justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-white {
+  display: inline-flex; align-items: center;
+  padding: 14px 32px; border-radius: 980px;
+  background: #fff; color: #000;
+  font-size: 16px; font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.btn-white:hover { background: rgba(255,255,255,0.86); transform: scale(1.02); }
+.btn-ghost {
+  display: inline-flex; align-items: center;
+  padding: 14px 32px; border-radius: 980px;
+  background: transparent; color: var(--accent);
+  font-size: 16px; font-weight: 500;
+  text-decoration: none;
+  border: 1px solid rgba(0,113,227,0.6);
+  transition: background 0.2s var(--ease);
+}
+.btn-ghost:hover { background: rgba(0,113,227,0.12); }
+
+.scroll-cue {
+  position: absolute; bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0.38;
+  animation: bobDown 2.2s ease-in-out infinite;
+}
+.scroll-cue-text { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; }
+.scroll-cue-chevron {
+  width: 18px; height: 18px;
+  border-right: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  transform: rotate(45deg);
+}
+@keyframes bobDown {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  55%       { transform: translateX(-50%) translateY(7px); }
+}
+
+/* ─── FADE-IN-UP (scroll reveal) ────────────────────── */
+.fiu {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.fiu.on { opacity: 1; transform: translateY(0); }
+.fiu:nth-child(2)  { transition-delay: 0.08s; }
+.fiu:nth-child(3)  { transition-delay: 0.16s; }
+.fiu:nth-child(4)  { transition-delay: 0.24s; }
+.fiu:nth-child(5)  { transition-delay: 0.32s; }
+.fiu:nth-child(6)  { transition-delay: 0.40s; }
+
+/* ─── SCROLL SEQUENCE SECTIONS ──────────────────────── */
+.seq-section { position: relative; }
+.seq-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+}
+
+/* Canvas fills sticky wrapper */
+.seq-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
+
+/* Edge vignette over canvas */
+.seq-vignette {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%);
+  z-index: 5;
+}
+.seq-vignette-bottom {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 180px;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  z-index: 6;
+}
+
+/* ─── CALLOUT CARDS ──────────────────────────────────── */
+.cta-layer {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.callout {
+  position: absolute;
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.callout.on { opacity: 1; pointer-events: auto; }
+
+/* Positional variants */
+.pos-tl { top: 14%; left: 6%;  transform: translateX(-16px); }
+.pos-tr { top: 14%; right: 6%; transform: translateX(16px); }
+.pos-ml { top: 50%; left: 6%;  transform: translateY(-50%) translateX(-16px); }
+.pos-mr { top: 50%; right: 6%; transform: translateY(-50%) translateX(16px); }
+.pos-bl { bottom: 14%; left: 6%;  transform: translateX(-16px); }
+.pos-br { bottom: 14%; right: 6%; transform: translateX(16px); }
+.pos-c  {
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) translateY(24px);
+  text-align: center; width: 80%; max-width: 680px;
+}
+.pos-c.on  { transform: translate(-50%, -50%); }
+.pos-tl.on { transform: translateX(0); }
+.pos-tr.on { transform: translateX(0); }
+.pos-ml.on { transform: translateY(-50%) translateX(0); }
+.pos-mr.on { transform: translateY(-50%) translateX(0); }
+.pos-bl.on { transform: translateX(0); }
+.pos-br.on { transform: translateX(0); }
+
+.card {
+  background: rgba(8,8,8,0.78);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: 2px solid var(--accent);
+  border-radius: 16px;
+  padding: 22px 26px;
+  max-width: 288px;
+}
+.card-tag {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 7px;
+}
+.card-title {
+  font-family: var(--font-d);
+  font-size: 19px; font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+  margin-bottom: 8px;
+}
+.card-body {
+  font-size: 13px; line-height: 1.58;
+  color: var(--text-2);
+}
+
+/* Center callout typography */
+.center-tag {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.center-title {
+  font-family: var(--font-d);
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text-1);
+  margin-bottom: 16px;
+}
+.center-body {
+  font-size: 17px; line-height: 1.6;
+  color: var(--text-2);
+  margin-bottom: 36px;
+}
+
+/* Progress dots */
+.seq-dots {
+  position: absolute; bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; gap: 7px; z-index: 20;
+}
+.seq-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  transition: background 0.3s, transform 0.3s;
+}
+.seq-dot.on { background: rgba(255,255,255,0.75); transform: scale(1.35); }
+
+/* ─── EDITORIAL: BANNER ──────────────────────────────── */
+.banner {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 60vh;
+  padding: 100px 40px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #050510 0%, #000 60%);
+}
+.banner-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(0,113,227,0.07) 0%, transparent 65%);
+}
+.banner-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  max-width: 720px;
+}
+.label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.d1 {
+  font-family: var(--font-d);
+  font-size: clamp(52px, 8vw, 96px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.96;
+  color: var(--text-1);
+}
+.d2 {
+  font-family: var(--font-d);
+  font-size: clamp(36px, 5.5vw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--text-1);
+}
+.d3 {
+  font-family: var(--font-d);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  color: var(--text-1);
+}
+.body-copy {
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.65;
+  color: var(--text-2);
+}
+.mt-sm  { margin-top: 16px; }
+.mt-med { margin-top: 24px; }
+.mt-lg  { margin-top: 40px; }
+.mb-lg  { margin-bottom: 40px; }
+
+/* ─── SPLIT FEATURE SECTIONS ─────────────────────────── */
+.split {
+  padding: 88px 0;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 48px; padding-right: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+.split.flip { direction: rtl; }
+.split.flip > * { direction: ltr; }
+
+.split-media {
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(140deg, #0e0e0e, #1a1a1e);
+  position: relative;
+}
+.split-media-icon {
+  font-size: 120px;
+  opacity: 0.06;
+  user-select: none;
+}
+.split-media-label {
+  position: absolute; bottom: 20px; left: 20px;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+.split-text { padding: 12px 0; }
+.split-sublabel {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+}
+.split-title { margin-bottom: 18px; }
+.split-body {
+  font-size: 16px; line-height: 1.68;
+  color: var(--text-2); margin-bottom: 28px;
+  max-width: 420px;
+}
+.feat-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.feat-list li {
+  font-size: 14px; color: var(--text-2);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.feat-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 6px; opacity: 0.8;
+}
+
+/* ─── STATS BAR ──────────────────────────────────────── */
+.stats-bar {
+  background: var(--surface);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+  padding: 64px 40px;
+}
+.stats-inner {
+  max-width: 1060px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: var(--font-d);
+  font-size: clamp(44px, 6vw, 68px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  color: var(--text-1);
+}
+.stat-unit { font-size: 24px; font-weight: 300; opacity: 0.55; letter-spacing: -0.01em; }
+.stat-lbl { font-size: 13px; color: var(--text-2); margin-top: 8px; }
+
+/* ─── FEATURE CARDS GRID ─────────────────────────────── */
+.cards-section {
+  padding: 80px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.cards-header { text-align: center; margin-bottom: 56px; }
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.feat-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 34px 30px;
+  transition: background 0.3s var(--ease);
+}
+.feat-card:hover { background: rgba(255,255,255,0.065); }
+.feat-card-icon { font-size: 34px; margin-bottom: 18px; }
+.feat-card-title {
+  font-family: var(--font-d);
+  font-size: 20px; font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-1); margin-bottom: 10px;
+}
+.feat-card-body { font-size: 13px; line-height: 1.62; color: var(--text-2); }
+
+/* ─── PERFORMANCE STRIP ──────────────────────────────── */
+.perf-strip {
+  padding: 80px 48px;
+  background: #050508;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+.perf-inner { max-width: 1060px; margin: 0 auto; }
+.perf-title { margin-bottom: 48px; }
+.perf-rows { display: flex; flex-direction: column; gap: 0; }
+.perf-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.perf-row:last-child { border-bottom: none; }
+.perf-name { font-size: 17px; color: var(--text-2); }
+.perf-bar-wrap { flex: 1; margin: 0 32px; height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+.perf-bar { height: 100%; background: var(--accent); border-radius: 2px; transition: width 1.2s var(--ease-out); width: 0; }
+.perf-val { font-size: 17px; font-weight: 600; color: var(--text-1); min-width: 80px; text-align: right; }
+
+/* ─── SPECS SECTION ──────────────────────────────────── */
+#specs {
+  background: var(--surface);
+  padding: 120px 0 80px;
+}
+.specs-inner { max-width: 1080px; margin: 0 auto; padding: 0 48px; }
+.specs-header { text-align: center; margin-bottom: 80px; }
+.specs-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.spec-group {
+  padding: 40px 36px;
+  border-top: 1px solid var(--card-border);
+}
+.spec-group:nth-child(odd) { border-right: 1px solid var(--card-border); }
+.spec-group-name {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 22px;
+}
+.spec-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 10px 0; gap: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-k { font-size: 14px; color: var(--text-2); flex-shrink: 0; }
+.spec-v { font-size: 14px; color: var(--text-1); text-align: right; }
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--card-border);
+  padding: 52px 48px 44px;
+}
+.footer-inner { max-width: 1080px; margin: 0 auto; }
+.footer-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 40px;
+  flex-wrap: wrap; gap: 24px;
+}
+.footer-brand {
+  font-family: var(--font-d);
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-1);
+}
+.footer-nav { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
+.footer-nav a {
+  font-size: 13px; color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-nav a:hover { color: var(--text-1); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 8px;
+}
+.footer-copy { font-size: 12px; color: var(--text-3); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 960px) {
+  .split { grid-template-columns: 1fr; gap: 40px; padding-left: 28px; padding-right: 28px; }
+  .split.flip { direction: ltr; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .specs-grid { grid-template-columns: 1fr; }
+  .spec-group:nth-child(odd) { border-right: none; }
+  .nav-links { display: none; }
+}
+@media (max-width: 640px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .card { max-width: 230px; padding: 16px 18px; }
+  .pos-tl, .pos-bl, .pos-ml { left: 3%; }
+  .pos-tr, .pos-br, .pos-mr { right: 3%; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ─── LOADER ─────────────────────────────────────── -->
+<div id="loader">
+  <div class="loader-wordmark">APEX</div>
+  <div class="loader-track">
+    <div class="loader-fill" id="loader-fill"></div>
+  </div>
+  <div class="loader-text" id="loader-text">Initialising experience…</div>
+</div>
+
+<!-- ─── NAV ───────────────────────────────────────── -->
+<nav id="nav" class="transparent">
+  <a href="#" class="nav-logo">APEX</a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#design-section">Design</a></li>
+    <li><a href="#specs">Specs</a></li>
+  </ul>
+  <a href="#" class="nav-order">Order Now</a>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────── -->
+<section id="hero">
+  <video id="hero-video" autoplay loop muted playsinline preload="auto">
+    <source src="Star_Static.mp4" type="video/mp4">
+  </video>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow fiu">Introducing</p>
+    <h1 class="hero-title fiu">APEX</h1>
+    <p class="hero-model fiu">Pro One</p>
+    <p class="hero-tagline fiu">The sky has a new authority.</p>
+    <div class="hero-actions fiu">
+      <a href="#" class="btn-white">Order Now</a>
+      <a href="#features" class="btn-ghost">Explore</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span class="scroll-cue-text">Scroll</span>
+    <div class="scroll-cue-chevron"></div>
+  </div>
+</section>
+
+<!-- ─── SCROLL SEQUENCE 1 · Star_Hole_Transition ─── -->
+<section id="seq1" class="seq-section" style="height:520vh;">
+  <div class="seq-sticky">
+    <canvas id="canvas1" class="seq-canvas"></canvas>
+    <div class="seq-vignette"></div>
+    <div class="seq-vignette-bottom"></div>
+
+    <div class="cta-layer">
+
+      <!-- 0: Intro title -->
+      <div class="callout pos-c" data-s="0.00" data-e="0.14">
+        <p class="center-tag">APEX Pro One</p>
+        <h2 class="center-title">Engineered<br>from scratch.</h2>
+        <p class="center-body">A drone conceived without compromise — every system reimagined at the component level.</p>
+      </div>
+
+      <!-- 1: Motors -->
+      <div class="callout pos-tl" data-s="0.12" data-e="0.28">
+        <div class="card">
+          <div class="card-tag">Motor System</div>
+          <div class="card-title">Quad-Core Drive</div>
+          <div class="card-body">Four precision-wound 2306 brushless motors. 1,820 g thrust each. Titanium shafts. Active torque-balance firmware.</div>
+        </div>
+      </div>
+
+      <!-- 2: Propellers -->
+      <div class="callout pos-tr" data-s="0.26" data-e="0.42">
+        <div class="card">
+          <div class="card-tag">Propeller System</div>
+          <div class="card-title">Carbon Fiber Props</div>
+          <div class="card-body">Tri-blade 5-inch carbon fibre propellers — 40% quieter, 18% more efficient than conventional design.</div>
+        </div>
+      </div>
+
+      <!-- 3: Camera -->
+      <div class="callout pos-mr" data-s="0.40" data-e="0.56">
+        <div class="card">
+          <div class="card-tag">Imaging</div>
+          <div class="card-title">4K Cinematic Camera</div>
+          <div class="card-body">1/2-inch CMOS. f/1.8 aperture. 20 MP stills. 4K at 120 fps. 12.8 stops of dynamic range.</div>
+        </div>
+      </div>
+
+      <!-- 4: Gimbal -->
+      <div class="callout pos-ml" data-s="0.54" data-e="0.70">
+        <div class="card">
+          <div class="card-tag">Stabilisation</div>
+          <div class="card-title">3-Axis Gimbal</div>
+          <div class="card-body">Magnetic encoder gimbals — ±0.01° precision. Imperceptibly smooth at 87 km/h or hovering in gale-force wind.</div>
+        </div>
+      </div>
+
+      <!-- 5: Sensors -->
+      <div class="callout pos-br" data-s="0.68" data-e="0.84">
+        <div class="card">
+          <div class="card-tag">Perception</div>
+          <div class="card-title">360° Sensor Array</div>
+          <div class="card-body">Six-directional sensing with LIDAR, stereo vision, ultrasonic, and downward-facing optical flow.</div>
+        </div>
+      </div>
+
+      <!-- 6: Battery -->
+      <div class="callout pos-bl" data-s="0.82" data-e="0.98">
+        <div class="card">
+          <div class="card-tag">Power</div>
+          <div class="card-title">Intelligent Battery</div>
+          <div class="card-body">4,920 mAh semi-solid-state LiPo. 46 min flight. Self-heats below 5°C. Real-time discharge analytics.</div>
+        </div>
+      </div>
+
+    </div><!-- cta-layer -->
+
+    <div class="seq-dots" id="dots1">
+      <div class="seq-dot"></div>
+      <div class="seq-dot"></div>
+      <div class="seq-dot"></div>
+      <div class="seq-dot"></div>
+      <div class="seq-dot"></div>
+      <div class="seq-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDITORIAL: PRECISION BANNER ───────────────── -->
+<section class="banner" id="features">
+  <div class="banner-glow"></div>
+  <div class="banner-content">
+    <p class="label fiu">Engineered Differently</p>
+    <h2 class="d1 fiu">Precision.<br>Redefined.</h2>
+    <p class="body-copy mt-med fiu" style="max-width:520px;margin-left:auto;margin-right:auto;">
+      Every component of APEX Pro One was conceived from a blank slate. The result is a drone that doesn't just fly — it thinks, adapts, and creates.
+    </p>
+    <div class="mt-lg fiu">
+      <a href="#" class="btn-white">See the Technology</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SPLIT · Motor ─────────────────────────────── -->
+<section style="background:var(--bg);padding-top:20px;padding-bottom:20px;" id="performance">
+  <div class="split">
+    <div class="split-media fiu">
+      <div class="split-media-icon">⚙</div>
+      <span class="split-media-label">Motor Architecture</span>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">Motor Architecture</p>
+      <h3 class="d3 split-title">Power,<br>in all directions.</h3>
+      <p class="split-body">The Pro One's asymmetric layout generates 7.28 kg of total thrust. An active torque-balancing algorithm coordinates four titanium-shafted motors in real time, eliminating vibration at the source.</p>
+      <ul class="feat-list">
+        <li>1,820 g thrust per motor</li>
+        <li>KV 1750 rated wind speed</li>
+        <li>Active vibration cancellation</li>
+        <li>IP67 moisture resistance</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
+<section style="background:var(--bg);padding-bottom:20px;" id="design-section">
+  <div class="split flip">
+    <div class="split-media fiu">
+      <div class="split-media-icon">📷</div>
+      <span class="split-media-label">Camera Module</span>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">Camera System</p>
+      <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
+      <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <ul class="feat-list">
+        <li>20 MP 1/2-inch CMOS sensor</li>
+        <li>4K 120 fps HDR video</li>
+        <li>f/1.8 – f/11 aperture range</li>
+        <li>12.8 stops dynamic range</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS BAR ──────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat fiu">
+      <div class="stat-num">46<span class="stat-unit"> min</span></div>
+      <div class="stat-lbl">Max Flight Time</div>
+    </div>
+    <div class="stat fiu">
+      <div class="stat-num">87<span class="stat-unit"> km/h</span></div>
+      <div class="stat-lbl">Top Speed</div>
+    </div>
+    <div class="stat fiu">
+      <div class="stat-num">12<span class="stat-unit"> km</span></div>
+      <div class="stat-lbl">Transmission Range</div>
+    </div>
+    <div class="stat fiu">
+      <div class="stat-num">4<span class="stat-unit">K</span></div>
+      <div class="stat-lbl">Resolution @ 120 fps</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FEATURE CARDS ─────────────────────────────── -->
+<section style="background:var(--bg);">
+  <div class="cards-section">
+    <div class="cards-header">
+      <p class="label fiu">Intelligent Systems</p>
+      <h2 class="d2 fiu mt-sm">Built for what's next.</h2>
+    </div>
+    <div class="cards-grid">
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🛡</div>
+        <div class="feat-card-title">Obstacle Intelligence</div>
+        <div class="feat-card-body">Neural-network perception maps the environment 30× per second — making micro-corrections invisible to the pilot.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">📡</div>
+        <div class="feat-card-title">O4 Transmission</div>
+        <div class="feat-card-body">Triple-band adaptive signal. Sub-30 ms latency. Live 4K feed at 12 km with zero compression artifacts.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🌬</div>
+        <div class="feat-card-title">Wind Mastery</div>
+        <div class="feat-card-body">Active stabilisation holds position in Level 7 winds (61 km/h). PID loops auto-adapt to conditions in real time.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🤖</div>
+        <div class="feat-card-title">AI Subject Tracking</div>
+        <div class="feat-card-body">ActiveTrack 4.0 recognises 100+ object classes, maintaining frame composition at any terrain or speed.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🔋</div>
+        <div class="feat-card-title">Solid-State Power</div>
+        <div class="feat-card-body">First production drone with a semi-solid-state battery — 20% higher energy density, stable at extreme temperatures.</div>
+      </div>
+      <div class="feat-card fiu">
+        <div class="feat-card-icon">🌐</div>
+        <div class="feat-card-title">Global Awareness</div>
+        <div class="feat-card-body">Integrated ADS-B, real-time geofencing, and automated regulatory compliance in 120+ countries.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PERFORMANCE STRIP ──────────────────────────── -->
+<section class="perf-strip">
+  <div class="perf-inner">
+    <h2 class="d3 perf-title fiu">Performance<br>at every axis.</h2>
+    <div class="perf-rows">
+      <div class="perf-row fiu" data-perf="92">
+        <span class="perf-name">Wind Resistance</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:92%"></div></div>
+        <span class="perf-val">Level 7</span>
+      </div>
+      <div class="perf-row fiu" data-perf="88">
+        <span class="perf-name">Battery Efficiency</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:88%"></div></div>
+        <span class="perf-val">46 min</span>
+      </div>
+      <div class="perf-row fiu" data-perf="95">
+        <span class="perf-name">Signal Stability</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:95%"></div></div>
+        <span class="perf-val">12 km</span>
+      </div>
+      <div class="perf-row fiu" data-perf="78">
+        <span class="perf-name">Top Speed</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:78%"></div></div>
+        <span class="perf-val">87 km/h</span>
+      </div>
+      <div class="perf-row fiu" data-perf="85">
+        <span class="perf-name">Image Stabilisation</span>
+        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:85%"></div></div>
+        <span class="perf-val">±0.01°</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SCROLL SEQUENCE 2 · BlackHole_Static ─────── -->
+<section id="seq2" class="seq-section" style="height:520vh;">
+  <div class="seq-sticky">
+    <canvas id="canvas2" class="seq-canvas"></canvas>
+    <div class="seq-vignette"></div>
+    <div class="seq-vignette-bottom"></div>
+
+    <div class="cta-layer">
+
+      <!-- 0: Opening -->
+      <div class="callout pos-c" data-s="0.00" data-e="0.16">
+        <p class="center-tag">Flight Intelligence</p>
+        <h2 class="center-title">Into the<br>unknown.</h2>
+        <p class="center-body">APEX Pro One navigates where no map exists — autonomously, intelligently, precisely.</p>
+      </div>
+
+      <!-- 1: AI chip -->
+      <div class="callout pos-tr" data-s="0.14" data-e="0.30">
+        <div class="card">
+          <div class="card-tag">AI Brain</div>
+          <div class="card-title">Neural Autopilot</div>
+          <div class="card-body">The onboard APEX A2 chip delivers 8 TOPS of inference — real-time autonomous decision-making at altitude.</div>
+        </div>
+      </div>
+
+      <!-- 2: GPS -->
+      <div class="callout pos-tl" data-s="0.28" data-e="0.44">
+        <div class="card">
+          <div class="card-tag">Navigation</div>
+          <div class="card-title">Dual-Band RTK GPS</div>
+          <div class="card-body">Centimetre-level precision. No network required — onboard map caching keeps positioning accurate in the remotest environments.</div>
+        </div>
+      </div>
+
+      <!-- 3: Missions -->
+      <div class="callout pos-mr" data-s="0.42" data-e="0.58">
+        <div class="card">
+          <div class="card-tag">Mission Control</div>
+          <div class="card-title">Autonomous Missions</div>
+          <div class="card-body">Plan, execute, and review fully autonomous flights via the APEX app — terrain-follow, waypoints, and orbit modes included.</div>
+        </div>
+      </div>
+
+      <!-- 4: Safety -->
+      <div class="callout pos-ml" data-s="0.56" data-e="0.72">
+        <div class="card">
+          <div class="card-tag">Safety</div>
+          <div class="card-title">Emergency Return</div>
+          <div class="card-body">Redundant failsafe: 3-path return-to-home, low-battery hover, and signal-loss precision landing with ±10 cm accuracy.</div>
+        </div>
+      </div>
+
+      <!-- 5: App ecosystem -->
+      <div class="callout pos-br" data-s="0.70" data-e="0.84">
+        <div class="card">
+          <div class="card-tag">Ecosystem</div>
+          <div class="card-title">APEX Fly App</div>
+          <div class="card-body">iOS and Android. Real-time telemetry, live 4K preview, mission planning, and one-tap edit suite — always in sync.</div>
+        </div>
+      </div>
+
+      <!-- 6: Closing CTA -->
+      <div class="callout pos-c" data-s="0.83" data-e="1.00">
+        <p class="center-tag" style="color:rgba(255,255,255,0.4);">APEX Pro One</p>
+        <h2 class="center-title">Every flight,<br>extraordinary.</h2>
+        <p class="center-body">Starting from $2,499. Available worldwide.</p>
+        <div class="mt-lg" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="#" class="btn-white">Order Now</a>
+          <a href="#specs" class="btn-ghost">View Specs</a>
+        </div>
+      </div>
+
+    </div><!-- cta-layer -->
+  </div>
+</section>
+
+<!-- ─── SPECS SECTION ──────────────────────────────── -->
+<section id="specs">
+  <div class="specs-inner">
+    <div class="specs-header">
+      <p class="label fiu">Technical Specifications</p>
+      <h2 class="d2 fiu mt-sm">APEX Pro One</h2>
+      <p class="body-copy fiu mt-med" style="max-width:440px;margin-left:auto;margin-right:auto;">
+        Every number earned.<br>Every specification deliberate.
+      </p>
+    </div>
+    <div class="specs-grid fiu">
+
+      <div class="spec-group">
+        <div class="spec-group-name">Aircraft</div>
+        <div class="spec-row"><span class="spec-k">Takeoff Weight</span><span class="spec-v">895 g</span></div>
+        <div class="spec-row"><span class="spec-k">Folded Dimensions</span><span class="spec-v">183 × 97 × 84 mm</span></div>
+        <div class="spec-row"><span class="spec-k">Unfolded Dimensions</span><span class="spec-v">380 × 342 × 84 mm</span></div>
+        <div class="spec-row"><span class="spec-k">Max Ascent Speed</span><span class="spec-v">8 m/s (S-Mode)</span></div>
+        <div class="spec-row"><span class="spec-k">Max Descent Speed</span><span class="spec-v">6 m/s (S-Mode)</span></div>
+        <div class="spec-row"><span class="spec-k">Max Speed</span><span class="spec-v">87 km/h (S-Mode)</span></div>
+        <div class="spec-row"><span class="spec-k">Wind Resistance</span><span class="spec-v">Level 7 (61 km/h)</span></div>
+        <div class="spec-row"><span class="spec-k">Operating Temperature</span><span class="spec-v">−20 °C to 50 °C</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Main Camera</div>
+        <div class="spec-row"><span class="spec-k">Sensor</span><span class="spec-v">1/2-inch CMOS, 20 MP</span></div>
+        <div class="spec-row"><span class="spec-k">Aperture</span><span class="spec-v">f/1.8 – f/11</span></div>
+        <div class="spec-row"><span class="spec-k">Video Resolution</span><span class="spec-v">4K @ 120 fps</span></div>
+        <div class="spec-row"><span class="spec-k">Slow Motion</span><span class="spec-v">1080p @ 480 fps</span></div>
+        <div class="spec-row"><span class="spec-k">Dynamic Range</span><span class="spec-v">12.8 stops</span></div>
+        <div class="spec-row"><span class="spec-k">ISO Range</span><span class="spec-v">100 – 6400</span></div>
+        <div class="spec-row"><span class="spec-k">Photo Format</span><span class="spec-v">RAW (DNG) + JPEG</span></div>
+        <div class="spec-row"><span class="spec-k">Max Shutter Speed</span><span class="spec-v">1/8000 s</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Gimbal</div>
+        <div class="spec-row"><span class="spec-k">Axes</span><span class="spec-v">3-axis (tilt / roll / pan)</span></div>
+        <div class="spec-row"><span class="spec-k">Stabilisation Type</span><span class="spec-v">Magnetic encoder</span></div>
+        <div class="spec-row"><span class="spec-k">Accuracy</span><span class="spec-v">±0.01°</span></div>
+        <div class="spec-row"><span class="spec-k">Tilt Range</span><span class="spec-v">−90° to +35°</span></div>
+        <div class="spec-row"><span class="spec-k">Max Rotation Speed</span><span class="spec-v">120°/s</span></div>
+        <div class="spec-row"><span class="spec-k">Angular Jitter</span><span class="spec-v">±0.005°</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Battery</div>
+        <div class="spec-row"><span class="spec-k">Capacity</span><span class="spec-v">4,920 mAh</span></div>
+        <div class="spec-row"><span class="spec-k">Voltage</span><span class="spec-v">15.4 V</span></div>
+        <div class="spec-row"><span class="spec-k">Chemistry</span><span class="spec-v">Semi-Solid-State LiPo</span></div>
+        <div class="spec-row"><span class="spec-k">Max Flight Time</span><span class="spec-v">46 minutes</span></div>
+        <div class="spec-row"><span class="spec-k">Charge Time</span><span class="spec-v">65 min (35 W)</span></div>
+        <div class="spec-row"><span class="spec-k">Self-Heating</span><span class="spec-v">Active below 5 °C</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Transmission</div>
+        <div class="spec-row"><span class="spec-k">System</span><span class="spec-v">O4 Pro</span></div>
+        <div class="spec-row"><span class="spec-k">Max Range</span><span class="spec-v">12 km (FCC)</span></div>
+        <div class="spec-v"></div>
+        <div class="spec-row"><span class="spec-k">Live Video Quality</span><span class="spec-v">4K / 60 fps</span></div>
+        <div class="spec-row"><span class="spec-k">Latency</span><span class="spec-v">&lt; 30 ms</span></div>
+        <div class="spec-row"><span class="spec-k">Frequency Bands</span><span class="spec-v">2.4 / 5.8 / 6 GHz</span></div>
+        <div class="spec-row"><span class="spec-k">Antenna</span><span class="spec-v">Triple-band adaptive</span></div>
+      </div>
+
+      <div class="spec-group">
+        <div class="spec-group-name">Sensing & Safety</div>
+        <div class="spec-row"><span class="spec-k">Obstacle Sensing</span><span class="spec-v">6-directional</span></div>
+        <div class="spec-row"><span class="spec-k">Forward Vision</span><span class="spec-v">Stereo, ±30° FOV</span></div>
+        <div class="spec-row"><span class="spec-k">Downward Sensor</span><span class="spec-v">LIDAR + stereo</span></div>
+        <div class="spec-row"><span class="spec-k">GPS</span><span class="spec-v">Dual-band RTK</span></div>
+        <div class="spec-row"><span class="spec-k">GNSS</span><span class="spec-v">GPS + GLONASS + BDS</span></div>
+        <div class="spec-row"><span class="spec-k">ADS-B</span><span class="spec-v">Integrated receiver</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">APEX</div>
+      <ul class="footer-nav">
+        <li><a href="#">Buy</a></li>
+        <li><a href="#">Support</a></li>
+        <li><a href="#">Academy</a></li>
+        <li><a href="#">Enterprise</a></li>
+        <li><a href="#">Safety</a></li>
+        <li><a href="#">Newsroom</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 APEX Aerial Systems, Inc. All rights reserved. Specifications subject to change.</p>
+      <p class="footer-copy">Pro One. Pro Camera. Pro Performance.</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════════════════
+     APEX SCROLL ENGINE
+     ════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  /* ── DOM refs ── */
+  const loader      = document.getElementById('loader');
+  const loaderFill  = document.getElementById('loader-fill');
+  const loaderText  = document.getElementById('loader-text');
+  const nav         = document.getElementById('nav');
+  const heroSection = document.getElementById('hero');
+  const heroVideo   = document.getElementById('hero-video');
+  const seq1El      = document.getElementById('seq1');
+  const seq2El      = document.getElementById('seq2');
+  const canvas1     = document.getElementById('canvas1');
+  const canvas2     = document.getElementById('canvas2');
+  const ctx1        = canvas1.getContext('2d');
+  const ctx2        = canvas2.getContext('2d');
+
+  /* ── State ── */
+  let frames1       = [];
+  let frames2       = [];
+  let lastIdx1      = -1;
+  let lastIdx2      = -1;
+
+  /* ────────────────────────────────────────────────────
+     CANVAS SIZING
+  ──────────────────────────────────────────────────── */
+  function resizeCanvases () {
+    canvas1.width  = window.innerWidth;
+    canvas1.height = window.innerHeight;
+    canvas2.width  = window.innerWidth;
+    canvas2.height = window.innerHeight;
+    /* Re-render whatever frame was last drawn */
+    if (frames1[lastIdx1]) ctx1.drawImage(frames1[lastIdx1], 0, 0);
+    if (frames2[lastIdx2]) ctx2.drawImage(frames2[lastIdx2], 0, 0);
+  }
+  resizeCanvases();
+  window.addEventListener('resize', resizeCanvases);
+
+  /* ────────────────────────────────────────────────────
+     FRAME EXTRACTION ENGINE
+     • Seeks through the video at target FPS
+     • Draws each frame to a temporary offscreen canvas
+       scaled to viewport size (object-fit: cover)
+     • Stores each frame as an ImageBitmap
+  ──────────────────────────────────────────────────── */
+  function extractFrames (src, label, pStart, pSpan) {
+    return new Promise(function (resolve, reject) {
+      const video = document.createElement('video');
+      video.muted       = true;
+      video.playsInline = true;
+      video.crossOrigin = 'anonymous';
+      video.preload     = 'auto';
+
+      const off    = document.createElement('canvas');
+      const offCtx = off.getContext('2d');
+      off.width  = window.innerWidth;
+      off.height = window.innerHeight;
+
+      video.addEventListener('error', function () {
+        reject(new Error('Could not load video: ' + src));
+      });
+
+      video.addEventListener('loadedmetadata', async function () {
+        const dur       = video.duration;
+        const TARGET_FPS = 24;
+        const maxFrames  = Math.min(Math.ceil(dur * TARGET_FPS), 300);
+        const result     = [];
+
+        for (let i = 0; i < maxFrames; i++) {
+          /* Seek */
+          const t = maxFrames > 1 ? (i / (maxFrames - 1)) * dur : 0;
+          video.currentTime = t;
+          await new Promise(function (res) {
+            video.addEventListener('seeked', res, { once: true });
+          });
+
+          /* Draw with object-fit:cover cropping */
+          const vw = video.videoWidth;
+          const vh = video.videoHeight;
+          const cw = off.width;
+          const ch = off.height;
+          const vAR = vw / vh;
+          const cAR = cw / ch;
+          let sx, sy, sw, sh;
+          if (vAR > cAR) {
+            sh = vh; sw = vh * cAR;
+            sy = 0;  sx = (vw - sw) / 2;
+          } else {
+            sw = vw; sh = vw / cAR;
+            sx = 0;  sy = (vh - sh) / 2;
+          }
+          offCtx.clearRect(0, 0, cw, ch);
+          offCtx.drawImage(video, sx, sy, sw, sh, 0, 0, cw, ch);
+
+          /* Store as ImageBitmap */
+          result.push(await createImageBitmap(off));
+
+          /* Update loader progress */
+          const pct = pStart + ((i + 1) / maxFrames) * pSpan;
+          loaderFill.style.width = (pct * 100).toFixed(1) + '%';
+          loaderText.textContent = label + ' — ' + Math.round((i + 1) / maxFrames * 100) + '%';
+        }
+
+        resolve(result);
+      });
+
+      video.src = src;
+      video.load();
+    });
+  }
+
+  /* ────────────────────────────────────────────────────
+     BOOT — extract both video sequences
+  ──────────────────────────────────────────────────── */
+  async function boot () {
+    try {
+      loaderText.textContent = 'Loading scroll sequence…';
+      frames1 = await extractFrames('Star_Hole_Transition.mp4', 'Scroll sequence',  0,    0.62);
+
+      loaderText.textContent = 'Loading final act…';
+      frames2 = await extractFrames('BlackHole_Static.mp4',    'Final act',         0.62, 0.38);
+
+      loaderFill.style.width = '100%';
+      loaderText.textContent = 'Ready';
+
+      await new Promise(r => setTimeout(r, 380));
+    } catch (err) {
+      console.warn('[APEX] Frame extraction error:', err);
+      /* Graceful fallback — continue without frame sequences */
+    }
+
+    /* Dismiss loader */
+    loader.classList.add('hidden');
+
+    /* Trigger hero content entrance */
+    document.querySelectorAll('#hero .fiu').forEach(function (el, i) {
+      setTimeout(function () { el.classList.add('on'); }, 160 + i * 110);
+    });
+
+    startEngine();
+    initReveal();
+    initPerfBars();
+  }
+
+  /* ────────────────────────────────────────────────────
+     SCROLL ENGINE
+  ──────────────────────────────────────────────────── */
+  function startEngine () {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  function onScroll () {
+    const sy = window.scrollY;
+    tickNav(sy);
+    tickCanvas1(sy);
+    tickCanvas2(sy);
+    tickCallouts(sy);
+    tickDots(sy);
+  }
+
+  /* ── Nav opacity ── */
+  function tickNav (sy) {
+    if (sy > 44) nav.classList.remove('transparent');
+    else          nav.classList.add('transparent');
+  }
+
+  /* ── Helper: section scroll progress (0→1) ── */
+  function sectionProgress (el, sy) {
+    const top    = el.offsetTop;
+    const height = el.offsetHeight;
+    const vh     = window.innerHeight;
+    const raw    = (sy - top) / (height - vh);
+    return Math.max(0, Math.min(1, raw));
+  }
+
+  /* ── Canvas 1: Star_Hole_Transition ── */
+  function tickCanvas1 (sy) {
+    if (!frames1.length) return;
+
+    const top  = seq1El.offsetTop;
+    const bot  = top + seq1El.offsetHeight;
+    const vh   = window.innerHeight;
+
+    /* Fade in while hero video is scrolling out (final 8vh of hero) */
+    const fadeStart = top - vh * 0.08;
+    const fadeEnd   = top;
+
+    let opacity = 0;
+    if (sy >= fadeStart && sy < bot) {
+      if (sy < fadeEnd) {
+        opacity = (sy - fadeStart) / (fadeEnd - fadeStart);
+      } else {
+        opacity = 1;
+      }
+    }
+
+    canvas1.style.opacity = opacity;
+
+    /* Hero video fades in reverse */
+    heroVideo.style.opacity = opacity > 0
+      ? Math.max(0, 1 - opacity * 1.8).toString()
+      : '1';
+
+    if (opacity > 0.01) {
+      const p   = sectionProgress(seq1El, sy);
+      const idx = Math.round(p * (frames1.length - 1));
+      if (idx !== lastIdx1) {
+        lastIdx1 = idx;
+        ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+        ctx1.drawImage(frames1[idx], 0, 0);
+      }
+    }
+  }
+
+  /* ── Canvas 2: BlackHole_Static ── */
+  function tickCanvas2 (sy) {
+    if (!frames2.length) return;
+
+    const top  = seq2El.offsetTop;
+    const bot  = top + seq2El.offsetHeight;
+    const vh   = window.innerHeight;
+
+    const fadeStart = top - vh * 0.08;
+    const fadeEnd   = top;
+
+    let opacity = 0;
+    if (sy >= fadeStart && sy < bot) {
+      if (sy < fadeEnd) {
+        opacity = (sy - fadeStart) / (fadeEnd - fadeStart);
+      } else {
+        opacity = 1;
+      }
+    }
+
+    canvas2.style.opacity = opacity;
+
+    if (opacity > 0.01) {
+      const p   = sectionProgress(seq2El, sy);
+      const idx = Math.round(p * (frames2.length - 1));
+      if (idx !== lastIdx2) {
+        lastIdx2 = idx;
+        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+        ctx2.drawImage(frames2[idx], 0, 0);
+      }
+    }
+  }
+
+  /* ── Callout cards ── */
+  function tickCallouts (sy) {
+    tickSeqCallouts(seq1El, sy);
+    tickSeqCallouts(seq2El, sy);
+  }
+
+  function tickSeqCallouts (seqEl, sy) {
+    const p        = sectionProgress(seqEl, sy);
+    const callouts = seqEl.querySelectorAll('.callout');
+
+    callouts.forEach(function (c) {
+      const s = parseFloat(c.dataset.s);
+      const e = parseFloat(c.dataset.e);
+      const active = p >= s && p <= e;
+      c.classList.toggle('on', active);
+    });
+  }
+
+  /* ── Progress dots (seq1 only) ── */
+  function tickDots (sy) {
+    const p    = sectionProgress(seq1El, sy);
+    const dots = seq1El.querySelectorAll('.seq-dot');
+    const n    = dots.length;
+    dots.forEach(function (d, i) {
+      const centre = i / (n - 1);
+      d.classList.toggle('on', Math.abs(p - centre) < 0.12);
+    });
+  }
+
+  /* ────────────────────────────────────────────────────
+     SCROLL REVEAL — IntersectionObserver
+  ──────────────────────────────────────────────────── */
+  function initReveal () {
+    const obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('on');
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -48px 0px' });
+
+    document.querySelectorAll('.fiu:not(#hero .fiu)').forEach(function (el) {
+      obs.observe(el);
+    });
+  }
+
+  /* ────────────────────────────────────────────────────
+     PERFORMANCE BARS — animate when scrolled into view
+  ──────────────────────────────────────────────────── */
+  function initPerfBars () {
+    const obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          const bar = entry.target.querySelector('.perf-bar');
+          if (bar) {
+            const target = bar.style.getPropertyValue('--target');
+            bar.style.width = target;
+          }
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.perf-row').forEach(function (row) {
+      obs.observe(row);
+    });
+  }
+
+  /* ── GO ── */
+  boot();
+
+}());
+</script>
+
+</body>
+</html>
