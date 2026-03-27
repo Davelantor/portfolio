@@ -379,28 +379,35 @@ body {
   opacity: 0;
   will-change: opacity, transform;
   transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 4px 24px rgba(0,0,0,0.7);
+  filter: drop-shadow(0 2px 16px rgba(0,0,0,0.6));
 }
 .callout.on { opacity: 1; pointer-events: auto; }
 
 /* Positional variants */
-.pos-tl { top: 14%; left: 6%;  transform: translateX(-16px); }
-.pos-tr { top: 14%; right: 6%; transform: translateX(16px); }
-.pos-ml { top: 50%; left: 6%;  transform: translateY(-50%) translateX(-16px); }
-.pos-mr { top: 50%; right: 6%; transform: translateY(-50%) translateX(16px); }
-.pos-bl { bottom: 14%; left: 6%;  transform: translateX(-16px); }
-.pos-br { bottom: 14%; right: 6%; transform: translateX(16px); }
+.pos-tl,
+.pos-tr,
+.pos-ml,
+.pos-mr,
+.pos-bl,
+.pos-br {
+  top: 50%; left: 50%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%) translateY(24px);
+}
+.pos-tl.on,
+.pos-tr.on,
+.pos-ml.on,
+.pos-mr.on,
+.pos-bl.on,
+.pos-br.on { transform: translate(-50%, -50%); }
 .pos-c  {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%) translateY(24px);
   text-align: center; width: 80%; max-width: 680px;
 }
 .pos-c.on  { transform: translate(-50%, -50%); }
-.pos-tl.on { transform: translateX(0); }
-.pos-tr.on { transform: translateX(0); }
-.pos-ml.on { transform: translateY(-50%) translateX(0); }
-.pos-mr.on { transform: translateY(-50%) translateX(0); }
-.pos-bl.on { transform: translateX(0); }
-.pos-br.on { transform: translateX(0); }
 
 .card {
   background: rgba(8,8,8,0.78);
@@ -448,7 +455,7 @@ body {
 }
 .center-body {
   font-size: 17px; line-height: 1.6;
-  color: var(--text-2);
+  color: var(--text-1);
   margin-bottom: 36px;
 }
 
@@ -732,9 +739,8 @@ footer {
 @media (max-width: 640px) {
   .cards-grid { grid-template-columns: 1fr; }
   .stats-inner { grid-template-columns: repeat(2, 1fr); }
-  .card { max-width: 230px; padding: 16px 18px; }
-  .pos-tl, .pos-bl, .pos-ml { left: 3%; }
-  .pos-tr, .pos-br, .pos-mr { right: 3%; }
+  .card { padding: 16px 18px; }
+  .pos-tl, .pos-tr, .pos-ml, .pos-mr, .pos-bl, .pos-br { width: 92vw; }
 }
 
 </style>
@@ -799,7 +805,7 @@ footer {
         </svg>
         Projects
       </a>
-      <a href="#work-history" class="btn-white btn-icon">
+      <a href="#seq1" class="btn-white btn-icon">
         Work History
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -822,7 +828,7 @@ footer {
       <div class="callout pos-c" data-s="0.00" data-e="0.14">
         <p class="center-tag">Where I’ve Shined</p>
         <h2 class="center-title">Relentless craft<br>Explosive product thinking</h2>
-        <p class="center-body">A drone conceived without compromise — every system reimagined at the component level.</p>
+        <p class="center-body">From building products to defining them, I turn complexity into bold, intuitive experiences that move people and businesses forward.</p>
       </div>
 
       <!-- 1: Motors -->
