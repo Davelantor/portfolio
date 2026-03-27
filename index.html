@@ -49,9 +49,34 @@ body {
 }
 #loader.hidden { opacity: 0; pointer-events: none; }
 
-.loader-wordmark {
+.loader-wordmark-Heading {
   font-family: var(--font-d);
   font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--text-1);
+}
+.loader-wordmark-Body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.loader-wordmark-Body span {
+  font-family: var(--font-t);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 980px;
+  padding: 5px 14px;
+}
+.loader-wordmark-Secondary {
+  font-family: var(--font-d);
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.035em;
   color: var(--text-1);
@@ -648,10 +673,16 @@ footer {
 
 <!-- ─── LOADER ─────────────────────────────────────── -->
 <div id="loader">
-  <div class="loader-wordmark">APEX</div>
+  <div class="loader-wordmark-Heading">John Jurvanen</div>
+  <div class="loader-wordmark-Body">
+    <span>End-to-End Product Builder</span>
+    <span>Product Design (UX/UI)</span>
+    <span>UX Lead</span>
+  </div>
   <div class="loader-track">
     <div class="loader-fill" id="loader-fill"></div>
   </div>
+  <div class="loader-wordmark-Secondary">Turning complexity into products leaders trust and users love</div>
   <div class="loader-text" id="loader-text">Initialising experience…</div>
 </div>
 
