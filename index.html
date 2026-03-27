@@ -64,7 +64,6 @@ body {
   font-family: var(--font-d);
   font-size: clamp(52px, 8vw, 88px);
   font-weight: 700;
-  letter-spacing: -0.05em;
   line-height: 1;
   color: #fff;
   text-align: center;
@@ -168,29 +167,38 @@ body {
 }
 .nav-order:hover { background: var(--accent-h); }
 
+/* ─── PERSISTENT BACKGROUND LAYER ───────────────────── */
+#bg {
+  position: fixed; inset: 0;
+  z-index: 0;
+  background: #000;
+}
+#bg-v1, #bg-canvas, #bg-v2 {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s var(--ease);
+}
+#bg-canvas { display: block; }
+/* vignette that always sits over the bg */
+#bg-vignette {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.08) 0%,
+    rgba(0,0,0,0.3)  55%,
+    rgba(0,0,0,0.75) 100%
+  );
+  pointer-events: none; z-index: 10;
+}
+
 /* ─── HERO ───────────────────────────────────────────── */
 #hero {
   position: relative;
   height: 100vh; min-height: 640px;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  overflow: hidden;
-}
-#hero-video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: opacity 0.5s var(--ease);
-}
-.hero-vignette {
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.08) 0%,
-    rgba(0,0,0,0.28) 50%,
-    rgba(0,0,0,0.72) 100%
-  );
-  z-index: 1;
+  z-index: 1;   /* sits above #bg */
 }
 .hero-content {
   position: relative; z-index: 2;
@@ -715,12 +723,20 @@ footer {
   <a href="#" class="nav-order">Order Now</a>
 </nav>
 
-<!-- ─── HERO ──────────────────────────────────────── -->
-<section id="hero">
-  <video id="hero-video" autoplay loop muted playsinline preload="auto">
+<!-- ─── PERSISTENT BACKGROUND ────────────────────── -->
+<div id="bg">
+  <video id="bg-v1" autoplay loop muted playsinline preload="auto">
     <source src="Star_Static.mp4" type="video/mp4">
   </video>
-  <div class="hero-vignette"></div>
+  <canvas id="bg-canvas"></canvas>
+  <video id="bg-v2" autoplay loop muted playsinline preload="auto" style="opacity:0">
+    <source src="BlackHole_Static.mp4" type="video/mp4">
+  </video>
+  <div id="bg-vignette"></div>
+</div>
+
+<!-- ─── HERO ──────────────────────────────────────── -->
+<section id="hero">
   <div class="hero-content">
     <p class="hero-eyebrow fiu">Introducing</p>
     <h1 class="hero-title fiu">APEX</h1>
@@ -740,10 +756,6 @@ footer {
 <!-- ─── SCROLL SEQUENCE 1 · Star_Hole_Transition ─── -->
 <section id="seq1" class="seq-section" style="height:520vh;">
   <div class="seq-sticky">
-    <canvas id="canvas1" class="seq-canvas"></canvas>
-    <div class="seq-vignette"></div>
-    <div class="seq-vignette-bottom"></div>
-
     <div class="cta-layer">
 
       <!-- 0: Intro title -->
@@ -978,9 +990,6 @@ footer {
 <!-- ─── SCROLL SEQUENCE 2 · BlackHole_Static ─────── -->
 <section id="seq2" class="seq-section" style="height:520vh;">
   <div class="seq-sticky">
-    <canvas id="canvas2" class="seq-canvas"></canvas>
-    <div class="seq-vignette"></div>
-    <div class="seq-vignette-bottom"></div>
 
     <div class="cta-layer">
 
@@ -1167,34 +1176,27 @@ footer {
   const loaderText  = document.getElementById('loader-text');
   const nav         = document.getElementById('nav');
   const heroSection = document.getElementById('hero');
-  const heroVideo   = document.getElementById('hero-video');
   const seq1El      = document.getElementById('seq1');
   const seq2El      = document.getElementById('seq2');
-  const canvas1     = document.getElementById('canvas1');
-  const canvas2     = document.getElementById('canvas2');
-  const ctx1        = canvas1.getContext('2d');
-  const ctx2        = canvas2.getContext('2d');
+  const bgV1        = document.getElementById('bg-v1');
+  const bgCanvas    = document.getElementById('bg-canvas');
+  const bgV2        = document.getElementById('bg-v2');
+  const bgCtx       = bgCanvas.getContext('2d');
 
   /* ── State ── */
-  let frames1       = [];
-  let frames2       = [];
-  let lastIdx1      = -1;
-  let lastIdx2      = -1;
+  let frames1   = [];
+  let lastIdx1  = -1;
 
   /* ────────────────────────────────────────────────────
      CANVAS SIZING
   ──────────────────────────────────────────────────── */
-  function resizeCanvases () {
-    canvas1.width  = window.innerWidth;
-    canvas1.height = window.innerHeight;
-    canvas2.width  = window.innerWidth;
-    canvas2.height = window.innerHeight;
-    /* Re-render whatever frame was last drawn */
-    if (frames1[lastIdx1]) ctx1.drawImage(frames1[lastIdx1], 0, 0);
-    if (frames2[lastIdx2]) ctx2.drawImage(frames2[lastIdx2], 0, 0);
+  function resizeCanvas () {
+    bgCanvas.width  = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+    if (frames1[lastIdx1]) bgCtx.drawImage(frames1[lastIdx1], 0, 0);
   }
-  resizeCanvases();
-  window.addEventListener('resize', resizeCanvases);
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
 
   /* ────────────────────────────────────────────────────
      FRAME EXTRACTION ENGINE
@@ -1275,10 +1277,7 @@ footer {
   async function boot () {
     try {
       loaderText.textContent = 'Loading scroll sequence…';
-      frames1 = await extractFrames('Star_Hole_Transition.mp4', 'Scroll sequence',  0,    0.62);
-
-      loaderText.textContent = 'Loading final act…';
-      frames2 = await extractFrames('BlackHole_Static.mp4',    'Final act',         0.62, 0.38);
+      frames1 = await extractFrames('Star_Hole_Transition.mp4', 'Scroll sequence', 0, 1.0);
 
       loaderFill.style.width = '100%';
       loaderText.textContent = 'Ready';
@@ -1313,8 +1312,7 @@ footer {
   function onScroll () {
     const sy = window.scrollY;
     tickNav(sy);
-    tickCanvas1(sy);
-    tickCanvas2(sy);
+    tickBackground(sy);
     tickCallouts(sy);
     tickDots(sy);
   }
@@ -1334,74 +1332,31 @@ footer {
     return Math.max(0, Math.min(1, raw));
   }
 
-  /* ── Canvas 1: Star_Hole_Transition ── */
-  function tickCanvas1 (sy) {
-    if (!frames1.length) return;
+  /* ── Single background layer manager ──────────────────
+     Phase 1: Star_Static.mp4   (bgV1)     — before seq1
+     Phase 2: Frame sequencer   (bgCanvas) — during seq1
+     Phase 3: BlackHole_Static  (bgV2)     — after seq1
+  ──────────────────────────────────────────────────── */
+  function tickBackground (sy) {
+    const vh      = window.innerHeight;
+    const seq1Top = seq1El.offsetTop;
+    const seq1Bot = seq1Top + seq1El.offsetHeight;
+    const FADE    = vh * 0.3;
 
-    const top  = seq1El.offsetTop;
-    const bot  = top + seq1El.offsetHeight;
-    const vh   = window.innerHeight;
+    const canvasIn  = Math.max(0, Math.min(1, (sy - (seq1Top - FADE)) / FADE));
+    const canvasOut = Math.max(0, Math.min(1, (sy - (seq1Bot - vh - FADE)) / FADE));
 
-    /* Fade in while hero video is scrolling out (final 8vh of hero) */
-    const fadeStart = top - vh * 0.08;
-    const fadeEnd   = top;
+    bgV1.style.opacity     = (1 - canvasIn).toFixed(3);
+    bgCanvas.style.opacity = (canvasIn * (1 - canvasOut)).toFixed(3);
+    bgV2.style.opacity     = canvasOut.toFixed(3);
 
-    let opacity = 0;
-    if (sy >= fadeStart && sy < bot) {
-      if (sy < fadeEnd) {
-        opacity = (sy - fadeStart) / (fadeEnd - fadeStart);
-      } else {
-        opacity = 1;
-      }
-    }
-
-    canvas1.style.opacity = opacity;
-
-    /* Hero video fades in reverse */
-    heroVideo.style.opacity = opacity > 0
-      ? Math.max(0, 1 - opacity * 1.8).toString()
-      : '1';
-
-    if (opacity > 0.01) {
+    if (frames1.length && canvasIn > 0.01) {
       const p   = sectionProgress(seq1El, sy);
       const idx = Math.round(p * (frames1.length - 1));
       if (idx !== lastIdx1) {
         lastIdx1 = idx;
-        ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
-        ctx1.drawImage(frames1[idx], 0, 0);
-      }
-    }
-  }
-
-  /* ── Canvas 2: BlackHole_Static ── */
-  function tickCanvas2 (sy) {
-    if (!frames2.length) return;
-
-    const top  = seq2El.offsetTop;
-    const bot  = top + seq2El.offsetHeight;
-    const vh   = window.innerHeight;
-
-    const fadeStart = top - vh * 0.08;
-    const fadeEnd   = top;
-
-    let opacity = 0;
-    if (sy >= fadeStart && sy < bot) {
-      if (sy < fadeEnd) {
-        opacity = (sy - fadeStart) / (fadeEnd - fadeStart);
-      } else {
-        opacity = 1;
-      }
-    }
-
-    canvas2.style.opacity = opacity;
-
-    if (opacity > 0.01) {
-      const p   = sectionProgress(seq2El, sy);
-      const idx = Math.round(p * (frames2.length - 1));
-      if (idx !== lastIdx2) {
-        lastIdx2 = idx;
-        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
-        ctx2.drawImage(frames2[idx], 0, 0);
+        bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+        bgCtx.drawImage(frames1[idx], 0, 0);
       }
     }
   }
