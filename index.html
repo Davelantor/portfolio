@@ -205,41 +205,85 @@ body {
   text-align: center;
   padding: 0 24px;
 }
-.hero-eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 20px;
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 18px;
+  border-radius: 980px;
+  background: rgba(52, 199, 89, 0.1);
+  border: 1px solid rgba(52, 199, 89, 0.28);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(52, 199, 89, 0.92);
+  letter-spacing: 0.02em;
+  margin-bottom: 32px;
+}
+.hero-badge-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #34c759;
+  position: relative;
+  flex-shrink: 0;
+}
+.hero-badge-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(52, 199, 89, 0.4);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(0.9); opacity: 0.9; }
+  60% { transform: scale(1.8); opacity: 0; }
 }
 .hero-title {
   font-family: var(--font-d);
-  font-size: clamp(96px, 18vw, 200px);
+  font-size: clamp(42px, 7.5vw, 96px);
   font-weight: 700;
-  letter-spacing: -0.055em;
-  line-height: 0.9;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
   color: #fff;
+  margin-bottom: 18px;
+}
+.hero-subtitle {
+  font-family: var(--font-d);
+  font-size: clamp(18px, 2.4vw, 28px);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: rgba(255,255,255,0.48);
+  margin-bottom: 36px;
+}
+.hero-info {
+  font-size: clamp(12px, 1.1vw, 14px);
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.04em;
   margin-bottom: 14px;
 }
-.hero-model {
-  font-family: var(--font-d);
-  font-size: clamp(20px, 3vw, 36px);
-  font-weight: 300;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  margin-bottom: 52px;
-}
-.hero-tagline {
-  font-size: clamp(16px, 1.6vw, 20px);
-  color: rgba(255,255,255,0.42);
+.hero-career {
+  font-size: clamp(14px, 1.4vw, 17px);
+  color: rgba(255,255,255,0.52);
   letter-spacing: -0.01em;
   margin-bottom: 52px;
 }
+.hero-rotate {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 600;
+  opacity: 1;
+  transition: opacity 0.25s var(--ease);
+}
+.hero-rotate.fade { opacity: 0; }
 .hero-actions {
   display: flex; gap: 14px;
   align-items: center; justify-content: center;
   flex-wrap: wrap;
+}
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 .btn-white {
   display: inline-flex; align-items: center;
@@ -738,13 +782,28 @@ footer {
 <!-- ─── HERO ──────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-content">
-    <p class="hero-eyebrow fiu">Introducing</p>
-    <h1 class="hero-title fiu">APEX</h1>
-    <p class="hero-model fiu">Pro One</p>
-    <p class="hero-tagline fiu">The sky has a new authority.</p>
+    <div class="hero-badge fiu">
+      <span class="hero-badge-dot"></span>
+      Open to Work
+    </div>
+    <h1 class="hero-title fiu">Design at the Core</h1>
+    <p class="hero-subtitle fiu">Building systems that scale</p>
+    <p class="hero-info fiu">End-to-End Product Builder&nbsp;&nbsp;|&nbsp;&nbsp;Product Design (UX/UI)&nbsp;&nbsp;|&nbsp;&nbsp;UX Lead</p>
+    <p class="hero-career fiu">10+ year career ranging in <span class="hero-rotate" id="heroRotate">UX/UI Design</span></p>
     <div class="hero-actions fiu">
-      <a href="#" class="btn-white">Order Now</a>
-      <a href="#features" class="btn-ghost">Explore</a>
+      <a href="#projects" class="btn-ghost btn-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        Projects
+      </a>
+      <a href="#work-history" class="btn-white btn-icon">
+        Work History
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
     </div>
   </div>
   <div class="scroll-cue">
@@ -1295,6 +1354,21 @@ footer {
     document.querySelectorAll('#hero .fiu').forEach(function (el, i) {
       setTimeout(function () { el.classList.add('on'); }, 160 + i * 110);
     });
+
+    /* Rotating hero text */
+    (function () {
+      var terms = ['UX/UI Design', 'UX Lead', 'Product Design', 'Fullstack Developer'];
+      var el = document.getElementById('heroRotate');
+      var idx = 0;
+      setInterval(function () {
+        el.classList.add('fade');
+        setTimeout(function () {
+          idx = (idx + 1) % terms.length;
+          el.textContent = terms[idx];
+          el.classList.remove('fade');
+        }, 260);
+      }, 2200);
+    })();
 
     startEngine();
     initReveal();
