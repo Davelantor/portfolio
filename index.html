@@ -628,6 +628,259 @@ body {
 }
 @media (max-width: 900px) { .seq-dots { display: none; } }
 
+/* ─── TESTIMONIALS ───────────────────────────────────── */
+.testimonials-section {
+  padding: 120px 40px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.testimonials-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.testimonials-title {
+  font-family: var(--font-d);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--text-1);
+  margin-bottom: 64px;
+  line-height: 1.05;
+}
+.testimonials-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.tcard {
+  flex: 0 1 340px;
+}
+.tcard {
+  background: rgba(8, 8, 8, 0.502);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 32px 30px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+.tcard-quote-mark {
+  font-family: Georgia, serif;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.7;
+  margin-bottom: 18px;
+  user-select: none;
+}
+.tcard-body {
+  font-size: 15px;
+  line-height: 1.72;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 28px;
+  flex: 1;
+}
+.tcard-body em {
+  font-style: normal;
+  color: var(--text-1);
+  font-weight: 500;
+}
+.tcard-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 22px;
+}
+.tcard-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.tcard-profile-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.tcard-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.tcard-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.tcard-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tcard-role {
+  font-size: 12px;
+  color: var(--text-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tcard-company {
+  font-size: 12px;
+  color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tcard-link {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-3);
+  text-decoration: none;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
+  align-self: flex-end;
+}
+.tcard-link:hover {
+  border-color: rgba(0,113,227,0.5);
+  background: rgba(0,113,227,0.1);
+  color: var(--accent);
+}
+@media (max-width: 768px) {
+  .testimonials-section { padding: 80px 24px; }
+  .tcard { flex: 1 1 100%; }
+}
+
+/* ─── ABOUT ME ───────────────────────────────────────── */
+.about-section {
+  padding: 120px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+}
+.about-heading {
+  font-family: var(--font-d);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700; letter-spacing: -0.035em; line-height: 1.05;
+  color: var(--text-1); margin-bottom: 56px;
+}
+.about-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+/* ── Left column ── */
+.about-left { display: flex; flex-direction: column; gap: 12px; }
+.about-portrait-card {
+  background: rgba(8,8,8,0.25);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px; overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.about-portrait-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.about-meta-card {
+  background: rgba(8,8,8,0.25);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.about-meta-icon {
+  width: 30px; height: 30px; border-radius: 7px;
+  background: rgba(0,113,227,0.12); border: 1px solid rgba(0,113,227,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); flex-shrink: 0;
+}
+.about-meta-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.about-meta-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-3);
+}
+.about-meta-value {
+  font-size: 12px; font-weight: 500; color: var(--text-1);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* ── Right column ── */
+.about-right { display: flex; flex-direction: column; gap: 16px; }
+.about-card {
+  background: rgba(8,8,8,0.25);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px; padding: 32px 34px;
+}
+.about-card-title {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 20px;
+}
+.about-bio { display: flex; flex-direction: column; gap: 16px; }
+.about-bio p { font-size: 15px; line-height: 1.78; color: rgba(255,255,255,0.68); }
+.about-facts { display: flex; flex-direction: column; }
+.about-fact-row {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.about-fact-row:first-of-type { padding-top: 0; }
+.about-fact-row:last-child { border-bottom: none; padding-bottom: 0; }
+.about-fact-marker {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); margin-top: 7px; flex-shrink: 0;
+}
+.about-fact-lead { font-size: 14px; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
+.about-fact-desc { font-size: 13px; line-height: 1.62; color: var(--text-2); }
+.about-competencies {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.about-comp-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px; padding: 13px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.about-comp-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: rgba(0,113,227,0.1); border: 1px solid rgba(0,113,227,0.18);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); flex-shrink: 0;
+}
+.about-comp-label { font-size: 13px; font-weight: 500; color: var(--text-1); }
+@media (max-width: 960px) {
+  .about-layout { grid-template-columns: 1fr; }
+  .about-section { padding: 80px 24px; }
+  .about-portrait-card { aspect-ratio: 4/3; }
+}
+
 /* ─── EDITORIAL: BANNER ──────────────────────────────── */
 .banner {
   position: relative;
@@ -922,12 +1175,12 @@ footer {
 <nav id="nav" class="transparent">
   <a href="#" class="nav-logo">APEX</a>
   <ul class="nav-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#performance">Performance</a></li>
-    <li><a href="#design-section">Design</a></li>
-    <li><a href="#specs">Specs</a></li>
+    <li><a href="#seq1">History</a></li>
+    <li><a href="#testimonials">Recommendations</a></li>
+    <li><a href="#features">Projects</a></li>
+    <li><a href="#about">About Me</a></li>
   </ul>
-  <a href="#" class="nav-order">Order Now</a>
+  <a href="#contact" class="nav-order">Contact</a>
 </nav>
 
 <!-- ─── PERSISTENT BACKGROUND ────────────────────── -->
@@ -987,38 +1240,38 @@ footer {
         <p class="center-body">From building products to defining them, I turn complexity into bold, intuitive experiences that move people and businesses forward.</p>
       </div>
 
-      <!-- 1: Role — Telstra -->
+      <!-- 1: Role — METIC GLOBAL -->
       <div class="callout pos-tl" data-s="0.14" data-e="0.28">
         <div class="card">
           <div class="card-header">
             <div class="card-meta">
               <div class="card-meta-row">
-                <span class="card-date">2022 – Present</span>
-                <span class="card-badge">UX Lead</span>
+                <span class="card-date">2026 – Present</span>
+                <span class="card-badge">Full-Time</span>
               </div>
-              <div class="card-title">Senior UX Lead</div>
-              <div class="card-company">Telstra</div>
+              <div class="card-title">Product Design / Technical Consultant</div>
+              <div class="card-company">METIC GLOBAL</div>
             </div>
-            <div class="card-logo"><img src="Icons/1631323307895.jpg" alt="Telstra"></div>
+            <div class="card-logo"><img src="Icons/metic_finland_immigration_services_logo.jpg" alt="METIC GLOBAL"></div>
           </div>
-          <p class="card-summary">Led experience design across Telstra's consumer digital suite, managing a team of 6 while shipping a redesigned self-service app to 9M+ customers.</p>
+          <p class="card-summary">Hybrid product design and consultancy role focused on improving customer experiences for entrepreneurs and companies operating in the Nordics. Combined design, technical, and business thinking to simplify complex legal, tax, banking, relocation, and operational services into clear end-to-end journeys.</p>
           <hr class="card-divider">
           <div class="card-details">
             <div class="card-achievements">
               <div class="card-section-label">Key Achievements</div>
               <ul>
-                <li>Reduced onboarding drop-off by 34% through a redesigned first-run flow</li>
-                <li>Built and shipped a design system adopted across 12 product squads</li>
-                <li>Delivered a self-service billing redesign from brief to launch in 8 weeks</li>
+                <li>Designed user-centered service and product flows across company setup, compliance, banking, relocation, and business support services.</li>
+                <li>Applied product design thinking in a consultancy setting with multiple stakeholders, service touchpoints, and regulation-heavy processes.</li>
               </ul>
             </div>
           </div>
           <div class="card-skills-row">
             <div class="card-section-label">Skills Applied</div>
             <div class="card-chips">
-              <span class="card-chip">Design Systems</span>
-              <span class="card-chip">User Research</span>
-              <span class="card-chip">Prototyping</span>
+              <span class="card-chip">Product Design</span>
+              <span class="card-chip">Product Vision</span>
+              <span class="card-chip">B2B</span>
+              <span class="card-chip">Market Research</span>
             </div>
           </div>
         </div>
@@ -1031,31 +1284,33 @@ footer {
             <div class="card-meta">
               <div class="card-meta-row">
                 <span class="card-date">2020 – 2022</span>
-                <span class="card-badge">Product Design</span>
+                <span class="card-badge">Full-Time</span>
+                <span class="card-badge">Advancement</span>
               </div>
-              <div class="card-title">Product Designer</div>
-              <div class="card-company">Canva</div>
+              <div class="card-title">UX Lead</div>
+              <div class="card-company">Mapvision</div>
             </div>
-            <div class="card-logo"><img src="Icons/1638953672268.jpg" alt="Canva"></div>
+            <div class="card-logo"><img src="Icons/mapvision_logo.jpg" alt="Mapvision"></div>
           </div>
-          <p class="card-summary">Designed core creation workflows and template discovery within Canva's main editor, improving publishing completion rates across all user tiers.</p>
+          <p class="card-summary">Lead UX efforts and applied modern design principles to create intuitive interfaces for complex industrial telemetry systems that use AI for image evaluation and data creation.</p>
           <hr class="card-divider">
           <div class="card-details">
             <div class="card-achievements">
               <div class="card-section-label">Key Achievements</div>
               <ul>
-                <li>Redesigned the template picker — lifted publish completion by 22%</li>
-                <li>Co-designed the brand kit onboarding flow shipped to 40M+ users</li>
-                <li>Partnered with the growth team on viral sharing surface features</li>
+                <li>Collaborated cross-functionally with engineers and product managers to deliver 50+ Projects</li>
+                <li>Established the design system in Figma working with graphic designers and product developers</li>
+                <li>Measure a 78% increase in satisfaction across the board on conducted surveys and interviews</li>
+                <li>Mentored 3 members on usage of Figma, design systems, and atomic design principles</li>
               </ul>
             </div>
           </div>
           <div class="card-skills-row">
             <div class="card-section-label">Skills Applied</div>
             <div class="card-chips">
-              <span class="card-chip">Interaction Design</span>
-              <span class="card-chip">A/B Testing</span>
-              <span class="card-chip">Visual Design</span>
+              <span class="card-chip">PRODUCT DESIGN</span>
+              <span class="card-chip">UI/UX DESIGN</span>
+              <span class="card-chip">MENTORING</span>
             </div>
           </div>
         </div>
@@ -1068,12 +1323,12 @@ footer {
             <div class="card-meta">
               <div class="card-meta-row">
                 <span class="card-date">2018 – 2020</span>
-                <span class="card-badge">Lead Designer</span>
+                <span class="card-badge">Full-Time</span>
               </div>
-              <div class="card-title">Lead UX Designer</div>
-              <div class="card-company">Atlassian</div>
+              <div class="card-title">Fullstack - UI/UX Developer</div>
+              <div class="card-company">Mapvision</div>
             </div>
-            <div class="card-logo"><img src="Icons/1646648525749.jpg" alt="Atlassian"></div>
+            <div class="card-logo"><img src="Icons/mapvision_logo.jpg" alt="Mapvision"></div>
           </div>
           <p class="card-summary">Owned UX across Jira's reporting and dashboards, turning complex data workflows into clear, actionable views for engineering teams and stakeholders.</p>
           <hr class="card-divider">
@@ -1110,7 +1365,7 @@ footer {
               <div class="card-title">UX Designer</div>
               <div class="card-company">Afterpay</div>
             </div>
-            <div class="card-logo"><img src="Icons/1647882894837.jpg" alt="Afterpay"></div>
+            <div class="card-logo"><img src="Icons/1631323307895.jpg" alt="Ajeco"></div>
           </div>
           <p class="card-summary">Designed merchant and consumer-facing checkout and account management during Afterpay's rapid growth from 200K to 3M active users.</p>
           <hr class="card-divider">
@@ -1222,6 +1477,117 @@ footer {
   </div>
 </section>
 
+<!-- ─── TESTIMONIALS ──────────────────────────────── -->
+<section id="testimonials" style="background:var(--bg);">
+  <div class="testimonials-section fiu">
+    <p class="testimonials-eyebrow">Endorsements</p>
+    <h2 class="testimonials-title">What people say</h2>
+    <div class="testimonials-grid">
+
+      <!-- 1 -->
+      <div class="tcard fiu">
+        <div class="tcard-quote-mark">&ldquo;</div>
+        <p class="tcard-body">John has a rare ability to hold <em>deep user empathy and commercial precision</em> in the same hand. The design system he built at Telstra is still the most coherent one I've seen in a large enterprise. He ships — and what he ships is excellent.</p>
+        <hr class="tcard-divider">
+        <div class="tcard-profile">
+          <div class="tcard-profile-left">
+            <img class="tcard-avatar" src="Icons/1631323307895.jpg" alt="Sarah K.">
+            <div class="tcard-author">
+              <span class="tcard-name">Sarah Kowalski</span>
+              <span class="tcard-role">Head of Product Design</span>
+              <span class="tcard-company">Telstra</span>
+            </div>
+          </div>
+          <a href="#" class="tcard-link" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="tcard fiu">
+        <div class="tcard-quote-mark">&ldquo;</div>
+        <p class="tcard-body">Working with John at Canva was a lesson in <em>moving fast without losing craft</em>. He pushed the template picker redesign through three rounds of testing, held the bar on visual quality, and landed a result the whole team was proud of. A genuine collaborator.</p>
+        <hr class="tcard-divider">
+        <div class="tcard-profile">
+          <div class="tcard-profile-left">
+            <img class="tcard-avatar" src="Icons/1638953672268.jpg" alt="Marcus T.">
+            <div class="tcard-author">
+              <span class="tcard-name">Marcus Tran</span>
+              <span class="tcard-role">Senior Product Manager</span>
+              <span class="tcard-company">Canva</span>
+            </div>
+          </div>
+          <a href="#" class="tcard-link" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="tcard fiu">
+        <div class="tcard-quote-mark">&ldquo;</div>
+        <p class="tcard-body">John took one of Jira's most complained-about surfaces and <em>turned it into something teams actually wanted to use</em>. He brought rigour to the research, clarity to the design, and kept the engineering relationship tight throughout. Rare combination.</p>
+        <hr class="tcard-divider">
+        <div class="tcard-profile">
+          <div class="tcard-profile-left">
+            <img class="tcard-avatar" src="Icons/1646648525749.jpg" alt="Priya M.">
+            <div class="tcard-author">
+              <span class="tcard-name">Priya Menon</span>
+              <span class="tcard-role">Engineering Lead</span>
+              <span class="tcard-company">Atlassian</span>
+            </div>
+          </div>
+          <a href="#" class="tcard-link" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="tcard fiu">
+        <div class="tcard-quote-mark">&ldquo;</div>
+        <p class="tcard-body">At Afterpay, John was designing for a product growing faster than anyone could have predicted. He <em>kept the experience coherent under serious pressure</em> — the checkout work alone meaningfully moved our core conversion metrics. He is exactly the kind of designer you want in a growth environment.</p>
+        <hr class="tcard-divider">
+        <div class="tcard-profile">
+          <div class="tcard-profile-left">
+            <img class="tcard-avatar" src="Icons/1647882894837.jpg" alt="Lena B.">
+            <div class="tcard-author">
+              <span class="tcard-name">Lena Byrne</span>
+              <span class="tcard-role">Director of Product</span>
+              <span class="tcard-company">Afterpay</span>
+            </div>
+          </div>
+          <a href="#" class="tcard-link" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="tcard fiu">
+        <div class="tcard-quote-mark">&ldquo;</div>
+        <p class="tcard-body">John ran our UX capability at Vodafone with the instincts of a strategist and the hands of a practitioner. He understood <em>the full service layer, not just the screen</em> — and he built a testing program from nothing that is still running. Strong leader, stronger designer.</p>
+        <hr class="tcard-divider">
+        <div class="tcard-profile">
+          <div class="tcard-profile-left">
+            <img class="tcard-avatar" src="Icons/1749053598235.jpg" alt="Daniel W.">
+            <div class="tcard-author">
+              <span class="tcard-name">Daniel Weir</span>
+              <span class="tcard-role">Chief Digital Officer</span>
+              <span class="tcard-company">Vodafone AU</span>
+            </div>
+          </div>
+          <a href="#" class="tcard-link" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ─── EDITORIAL: PRECISION BANNER ───────────────── -->
 <section class="banner" id="features">
   <div class="banner-glow"></div>
@@ -1279,65 +1645,145 @@ footer {
   </div>
 </section>
 
-<!-- ─── STATS BAR ──────────────────────────────────── -->
-<div class="stats-bar">
-  <div class="stats-inner">
-    <div class="stat fiu">
-      <div class="stat-num">46<span class="stat-unit"> min</span></div>
-      <div class="stat-lbl">Max Flight Time</div>
-    </div>
-    <div class="stat fiu">
-      <div class="stat-num">87<span class="stat-unit"> km/h</span></div>
-      <div class="stat-lbl">Top Speed</div>
-    </div>
-    <div class="stat fiu">
-      <div class="stat-num">12<span class="stat-unit"> km</span></div>
-      <div class="stat-lbl">Transmission Range</div>
-    </div>
-    <div class="stat fiu">
-      <div class="stat-num">4<span class="stat-unit">K</span></div>
-      <div class="stat-lbl">Resolution @ 120 fps</div>
-    </div>
-  </div>
-</div>
 
-<!-- ─── FEATURE CARDS ─────────────────────────────── -->
-<section style="background:var(--bg);">
-  <div class="cards-section">
-    <div class="cards-header">
-      <p class="label fiu">Intelligent Systems</p>
-      <h2 class="d2 fiu mt-sm">Built for what's next.</h2>
-    </div>
-    <div class="cards-grid">
-      <div class="feat-card fiu">
-        <div class="feat-card-icon">🛡</div>
-        <div class="feat-card-title">Obstacle Intelligence</div>
-        <div class="feat-card-body">Neural-network perception maps the environment 30× per second — making micro-corrections invisible to the pilot.</div>
+<!-- ─── ABOUT ME ────────────────────────────────────── -->
+<section id="about" style="background:var(--bg);">
+  <div class="about-section">
+    <p class="about-eyebrow fiu">Profile</p>
+    <h2 class="about-heading fiu">About me</h2>
+    <div class="about-layout">
+
+      <!-- Left column -->
+      <div class="about-left">
+        <div class="about-portrait-card fiu">
+          <img src="Icons/309990524_490325403144967_8395168285254375454_n.png" alt="John Jurvanen">
+        </div>
+        <!-- Location -->
+        <div class="about-meta-card fiu">
+          <div class="about-meta-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="about-meta-text">
+            <span class="about-meta-label">Location</span>
+            <span class="about-meta-value">Melbourne, VIC, Australia</span>
+          </div>
+        </div>
+        <!-- Availability -->
+        <div class="about-meta-card fiu">
+          <div class="about-meta-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="about-meta-text">
+            <span class="about-meta-label">Availability</span>
+            <span class="about-meta-value">Open to work — immediate</span>
+          </div>
+        </div>
+        <!-- Email -->
+        <div class="about-meta-card fiu">
+          <div class="about-meta-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="about-meta-text">
+            <span class="about-meta-label">Email</span>
+            <span class="about-meta-value">john@jurvanen.com</span>
+          </div>
+        </div>
+        <!-- LinkedIn -->
+        <div class="about-meta-card fiu">
+          <div class="about-meta-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div class="about-meta-text">
+            <span class="about-meta-label">LinkedIn</span>
+            <span class="about-meta-value">linkedin.com/in/johnjurvanen</span>
+          </div>
+        </div>
       </div>
-      <div class="feat-card fiu">
-        <div class="feat-card-icon">📡</div>
-        <div class="feat-card-title">O4 Transmission</div>
-        <div class="feat-card-body">Triple-band adaptive signal. Sub-30 ms latency. Live 4K feed at 12 km with zero compression artifacts.</div>
-      </div>
-      <div class="feat-card fiu">
-        <div class="feat-card-icon">🌬</div>
-        <div class="feat-card-title">Wind Mastery</div>
-        <div class="feat-card-body">Active stabilisation holds position in Level 7 winds (61 km/h). PID loops auto-adapt to conditions in real time.</div>
-      </div>
-      <div class="feat-card fiu">
-        <div class="feat-card-icon">🤖</div>
-        <div class="feat-card-title">AI Subject Tracking</div>
-        <div class="feat-card-body">ActiveTrack 4.0 recognises 100+ object classes, maintaining frame composition at any terrain or speed.</div>
-      </div>
-      <div class="feat-card fiu">
-        <div class="feat-card-icon">🔋</div>
-        <div class="feat-card-title">Solid-State Power</div>
-        <div class="feat-card-body">First production drone with a semi-solid-state battery — 20% higher energy density, stable at extreme temperatures.</div>
-      </div>
-      <div class="feat-card fiu">
-        <div class="feat-card-icon">🌐</div>
-        <div class="feat-card-title">Global Awareness</div>
-        <div class="feat-card-body">Integrated ADS-B, real-time geofencing, and automated regulatory compliance in 120+ countries.</div>
+
+      <!-- Right column -->
+      <div class="about-right">
+
+        <!-- About Me card -->
+        <div class="about-card fiu">
+          <div class="about-card-title">About Me</div>
+          <div class="about-bio">
+            <p>I'm a product designer and UX lead with over a decade of experience building digital products that people actually want to use. My work sits at the intersection of rigorous user research, systems thinking, and high-craft visual design — across mobile, web, and enterprise platforms in some of Australia's most recognised companies.</p>
+            <p>What drives me is the space between complexity and clarity. I'm drawn to the hardest problems — onboarding flows that need to serve millions, design systems that need to scale across hundreds of components, service experiences that touch customers at their most stressed moments — and I find them satisfying precisely because solving them well takes every skill at once.</p>
+            <p>Outside of the screen, I think about how physical design and spatial reasoning inform digital work. I believe the best digital products feel like well-built objects: purposeful, considered, and satisfying to hold.</p>
+          </div>
+        </div>
+
+        <!-- Quick Facts card -->
+        <div class="about-card fiu">
+          <div class="about-card-title">Quick Facts</div>
+          <div class="about-facts">
+            <div class="about-fact-row">
+              <div class="about-fact-marker"></div>
+              <div class="about-fact-body">
+                <div class="about-fact-lead">10+ years across startup, scale-up, and enterprise</div>
+                <div class="about-fact-desc">From 3-person founding teams to design orgs of 60+ people, I've worked at every scale and adapted accordingly — moving fast when needed, applying rigour when it counts.</div>
+              </div>
+            </div>
+            <div class="about-fact-row">
+              <div class="about-fact-marker"></div>
+              <div class="about-fact-body">
+                <div class="about-fact-lead">Equally fluent in design and front-end code</div>
+                <div class="about-fact-desc">I build prototypes in code when Figma isn't enough, contribute to component libraries in React, and can read a pull request without needing a translator. It changes how I collaborate with engineers.</div>
+              </div>
+            </div>
+            <div class="about-fact-row">
+              <div class="about-fact-marker"></div>
+              <div class="about-fact-body">
+                <div class="about-fact-lead">Built design systems that outlasted my tenure</div>
+                <div class="about-fact-desc">The systems I've established at Telstra and ANZ are still in active use. I treat design systems as product problems — with governance, contribution models, and adoption strategies — not just component libraries.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Core Competencies card -->
+        <div class="about-card fiu">
+          <div class="about-card-title">Core Competencies</div>
+          <div class="about-competencies">
+            <div class="about-comp-item">
+              <div class="about-comp-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              </div>
+              <span class="about-comp-label">UX Strategy</span>
+            </div>
+            <div class="about-comp-item">
+              <div class="about-comp-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+              </div>
+              <span class="about-comp-label">Design Systems</span>
+            </div>
+            <div class="about-comp-item">
+              <div class="about-comp-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <span class="about-comp-label">Product Design</span>
+            </div>
+            <div class="about-comp-item">
+              <div class="about-comp-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <span class="about-comp-label">User Research</span>
+            </div>
+            <div class="about-comp-item">
+              <div class="about-comp-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <span class="about-comp-label">Fullstack Development</span>
+            </div>
+            <div class="about-comp-item">
+              <div class="about-comp-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+              </div>
+              <span class="about-comp-label">Interaction Design</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1378,86 +1824,6 @@ footer {
 </section>
 
 
-<!-- ─── SPECS SECTION ──────────────────────────────── -->
-<section id="specs">
-  <div class="specs-inner">
-    <div class="specs-header">
-      <p class="label fiu">Technical Specifications</p>
-      <h2 class="d2 fiu mt-sm">APEX Pro One</h2>
-      <p class="body-copy fiu mt-med" style="max-width:440px;margin-left:auto;margin-right:auto;">
-        Every number earned.<br>Every specification deliberate.
-      </p>
-    </div>
-    <div class="specs-grid fiu">
-
-      <div class="spec-group">
-        <div class="spec-group-name">Aircraft</div>
-        <div class="spec-row"><span class="spec-k">Takeoff Weight</span><span class="spec-v">895 g</span></div>
-        <div class="spec-row"><span class="spec-k">Folded Dimensions</span><span class="spec-v">183 × 97 × 84 mm</span></div>
-        <div class="spec-row"><span class="spec-k">Unfolded Dimensions</span><span class="spec-v">380 × 342 × 84 mm</span></div>
-        <div class="spec-row"><span class="spec-k">Max Ascent Speed</span><span class="spec-v">8 m/s (S-Mode)</span></div>
-        <div class="spec-row"><span class="spec-k">Max Descent Speed</span><span class="spec-v">6 m/s (S-Mode)</span></div>
-        <div class="spec-row"><span class="spec-k">Max Speed</span><span class="spec-v">87 km/h (S-Mode)</span></div>
-        <div class="spec-row"><span class="spec-k">Wind Resistance</span><span class="spec-v">Level 7 (61 km/h)</span></div>
-        <div class="spec-row"><span class="spec-k">Operating Temperature</span><span class="spec-v">−20 °C to 50 °C</span></div>
-      </div>
-
-      <div class="spec-group">
-        <div class="spec-group-name">Main Camera</div>
-        <div class="spec-row"><span class="spec-k">Sensor</span><span class="spec-v">1/2-inch CMOS, 20 MP</span></div>
-        <div class="spec-row"><span class="spec-k">Aperture</span><span class="spec-v">f/1.8 – f/11</span></div>
-        <div class="spec-row"><span class="spec-k">Video Resolution</span><span class="spec-v">4K @ 120 fps</span></div>
-        <div class="spec-row"><span class="spec-k">Slow Motion</span><span class="spec-v">1080p @ 480 fps</span></div>
-        <div class="spec-row"><span class="spec-k">Dynamic Range</span><span class="spec-v">12.8 stops</span></div>
-        <div class="spec-row"><span class="spec-k">ISO Range</span><span class="spec-v">100 – 6400</span></div>
-        <div class="spec-row"><span class="spec-k">Photo Format</span><span class="spec-v">RAW (DNG) + JPEG</span></div>
-        <div class="spec-row"><span class="spec-k">Max Shutter Speed</span><span class="spec-v">1/8000 s</span></div>
-      </div>
-
-      <div class="spec-group">
-        <div class="spec-group-name">Gimbal</div>
-        <div class="spec-row"><span class="spec-k">Axes</span><span class="spec-v">3-axis (tilt / roll / pan)</span></div>
-        <div class="spec-row"><span class="spec-k">Stabilisation Type</span><span class="spec-v">Magnetic encoder</span></div>
-        <div class="spec-row"><span class="spec-k">Accuracy</span><span class="spec-v">±0.01°</span></div>
-        <div class="spec-row"><span class="spec-k">Tilt Range</span><span class="spec-v">−90° to +35°</span></div>
-        <div class="spec-row"><span class="spec-k">Max Rotation Speed</span><span class="spec-v">120°/s</span></div>
-        <div class="spec-row"><span class="spec-k">Angular Jitter</span><span class="spec-v">±0.005°</span></div>
-      </div>
-
-      <div class="spec-group">
-        <div class="spec-group-name">Battery</div>
-        <div class="spec-row"><span class="spec-k">Capacity</span><span class="spec-v">4,920 mAh</span></div>
-        <div class="spec-row"><span class="spec-k">Voltage</span><span class="spec-v">15.4 V</span></div>
-        <div class="spec-row"><span class="spec-k">Chemistry</span><span class="spec-v">Semi-Solid-State LiPo</span></div>
-        <div class="spec-row"><span class="spec-k">Max Flight Time</span><span class="spec-v">46 minutes</span></div>
-        <div class="spec-row"><span class="spec-k">Charge Time</span><span class="spec-v">65 min (35 W)</span></div>
-        <div class="spec-row"><span class="spec-k">Self-Heating</span><span class="spec-v">Active below 5 °C</span></div>
-      </div>
-
-      <div class="spec-group">
-        <div class="spec-group-name">Transmission</div>
-        <div class="spec-row"><span class="spec-k">System</span><span class="spec-v">O4 Pro</span></div>
-        <div class="spec-row"><span class="spec-k">Max Range</span><span class="spec-v">12 km (FCC)</span></div>
-        <div class="spec-v"></div>
-        <div class="spec-row"><span class="spec-k">Live Video Quality</span><span class="spec-v">4K / 60 fps</span></div>
-        <div class="spec-row"><span class="spec-k">Latency</span><span class="spec-v">&lt; 30 ms</span></div>
-        <div class="spec-row"><span class="spec-k">Frequency Bands</span><span class="spec-v">2.4 / 5.8 / 6 GHz</span></div>
-        <div class="spec-row"><span class="spec-k">Antenna</span><span class="spec-v">Triple-band adaptive</span></div>
-      </div>
-
-      <div class="spec-group">
-        <div class="spec-group-name">Sensing & Safety</div>
-        <div class="spec-row"><span class="spec-k">Obstacle Sensing</span><span class="spec-v">6-directional</span></div>
-        <div class="spec-row"><span class="spec-k">Forward Vision</span><span class="spec-v">Stereo, ±30° FOV</span></div>
-        <div class="spec-row"><span class="spec-k">Downward Sensor</span><span class="spec-v">LIDAR + stereo</span></div>
-        <div class="spec-row"><span class="spec-k">GPS</span><span class="spec-v">Dual-band RTK</span></div>
-        <div class="spec-row"><span class="spec-k">GNSS</span><span class="spec-v">GPS + GLONASS + BDS</span></div>
-        <div class="spec-row"><span class="spec-k">ADS-B</span><span class="spec-v">Integrated receiver</span></div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <!-- ─── FOOTER ─────────────────────────────────────── -->
 <footer>
