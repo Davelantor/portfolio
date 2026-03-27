@@ -430,7 +430,7 @@ body {
 .card-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch;
   margin-bottom: 18px;
 }
 .card-meta { flex: 1; padding-right: 18px; }
@@ -472,8 +472,8 @@ body {
   color: var(--text-2);
 }
 .card-logo {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: auto;
   border-radius: 11px;
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(255,255,255,0.1);
@@ -488,7 +488,7 @@ body {
   overflow: hidden;
   letter-spacing: -0.02em;
 }
-.card-logo img { width: 100%; height: 100%; object-fit: cover; }
+.card-logo img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .card-logo--blue   { background: rgba(0,113,227,0.18);  border-color: rgba(0,113,227,0.35);  color: #4da3ff; }
 .card-logo--pink   { background: rgba(227,0,113,0.18);  border-color: rgba(227,0,113,0.35);  color: #ff6bb5; }
 .card-logo--green  { background: rgba(52,199,89,0.15);  border-color: rgba(52,199,89,0.3);   color: #4cd964; }
@@ -585,16 +585,48 @@ body {
 
 /* Progress dots */
 .seq-dots {
-  position: absolute; bottom: 28px; left: 50%;
+  position: absolute;
+  left: calc(50% + 324px);
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 20;
+  gap: 0;
+}
+.seq-dots::before {
+  content: '';
+  position: absolute;
+  top: 5px; bottom: 5px;
+  left: 50%;
+  width: 1px;
   transform: translateX(-50%);
-  display: flex; gap: 7px; z-index: 20;
+  background: rgba(255,255,255,0.08);
 }
 .seq-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: rgba(255,255,255,0.18);
-  transition: background 0.3s, transform 0.3s;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.16);
+  position: relative; z-index: 1;
+  flex-shrink: 0;
+  transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease), border-color 0.4s var(--ease);
 }
-.seq-dot.on { background: rgba(255,255,255,0.75); transform: scale(1.35); }
+.seq-dot + .seq-dot { margin-top: 24px; }
+.seq-dot.past {
+  background: rgba(0,113,227,0.4);
+  border-color: rgba(0,113,227,0.55);
+}
+.seq-dot.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.18), 0 0 18px rgba(0,113,227,0.55);
+}
+@media (max-width: 900px) { .seq-dots { display: none; } }
 
 /* ─── EDITORIAL: BANNER ──────────────────────────────── */
 .banner {
@@ -967,7 +999,7 @@ footer {
               <div class="card-title">Senior UX Lead</div>
               <div class="card-company">Telstra</div>
             </div>
-            <div class="card-logo card-logo--blue">T</div>
+            <div class="card-logo"><img src="Icons/1631323307895.jpg" alt="Telstra"></div>
           </div>
           <p class="card-summary">Led experience design across Telstra's consumer digital suite, managing a team of 6 while shipping a redesigned self-service app to 9M+ customers.</p>
           <hr class="card-divider">
@@ -1004,7 +1036,7 @@ footer {
               <div class="card-title">Product Designer</div>
               <div class="card-company">Canva</div>
             </div>
-            <div class="card-logo card-logo--pink">Ca</div>
+            <div class="card-logo"><img src="Icons/1638953672268.jpg" alt="Canva"></div>
           </div>
           <p class="card-summary">Designed core creation workflows and template discovery within Canva's main editor, improving publishing completion rates across all user tiers.</p>
           <hr class="card-divider">
@@ -1041,7 +1073,7 @@ footer {
               <div class="card-title">Lead UX Designer</div>
               <div class="card-company">Atlassian</div>
             </div>
-            <div class="card-logo card-logo--blue">A</div>
+            <div class="card-logo"><img src="Icons/1646648525749.jpg" alt="Atlassian"></div>
           </div>
           <p class="card-summary">Owned UX across Jira's reporting and dashboards, turning complex data workflows into clear, actionable views for engineering teams and stakeholders.</p>
           <hr class="card-divider">
@@ -1078,7 +1110,7 @@ footer {
               <div class="card-title">UX Designer</div>
               <div class="card-company">Afterpay</div>
             </div>
-            <div class="card-logo card-logo--green">Ap</div>
+            <div class="card-logo"><img src="Icons/1647882894837.jpg" alt="Afterpay"></div>
           </div>
           <p class="card-summary">Designed merchant and consumer-facing checkout and account management during Afterpay's rapid growth from 200K to 3M active users.</p>
           <hr class="card-divider">
@@ -1115,7 +1147,7 @@ footer {
               <div class="card-title">UI/UX Designer</div>
               <div class="card-company">REA Group</div>
             </div>
-            <div class="card-logo card-logo--red">R</div>
+            <div class="card-logo"><img src="Icons/1749053598235.jpg" alt="REA Group"></div>
           </div>
           <p class="card-summary">Shaped the property search and listing experience on realestate.com.au, surfacing contextual insights within search results in collaboration with data science teams.</p>
           <hr class="card-divider">
@@ -1152,7 +1184,7 @@ footer {
               <div class="card-title">Junior UX Designer</div>
               <div class="card-company">MYOB</div>
             </div>
-            <div class="card-logo card-logo--purple">M</div>
+            <div class="card-logo"><img src="Icons/309990524_490325403144967_8395168285254375454_n.png" alt="MYOB"></div>
           </div>
           <p class="card-summary">Supported senior designers on MYOB's accounting and payroll SaaS products, contributing to pattern library work and running usability sessions with small business users.</p>
           <hr class="card-divider">
@@ -1370,7 +1402,7 @@ footer {
               <div class="card-title">Design Systems Lead</div>
               <div class="card-company">ANZ Bank</div>
             </div>
-            <div class="card-logo card-logo--teal">ANZ</div>
+            <div class="card-logo"><img src="Icons/bimar_it_services___arkas_holding_logo.jpg" alt="ANZ Bank"></div>
           </div>
           <p class="card-summary">Established ANZ's first unified design system across web and mobile, coordinating across 8 product teams to create a single source of truth for components and patterns.</p>
           <hr class="card-divider">
@@ -1415,7 +1447,7 @@ footer {
               <div class="card-title">Product Designer</div>
               <div class="card-company">Zip Co</div>
             </div>
-            <div class="card-logo card-logo--yellow">Z</div>
+            <div class="card-logo"><img src="Icons/mapvision_logo.jpg" alt="Zip Co"></div>
           </div>
           <p class="card-summary">Designed Zip's buy-now-pay-later consumer app experience, focusing on the account dashboard, repayment flows, and real-time spend insights for 2.7M customers.</p>
           <hr class="card-divider">
@@ -1460,7 +1492,7 @@ footer {
               <div class="card-title">UX Lead</div>
               <div class="card-company">Vodafone AU</div>
             </div>
-            <div class="card-logo card-logo--red">V</div>
+            <div class="card-logo"><img src="Icons/metic_finland_immigration_services_logo.jpg" alt="Vodafone AU"></div>
           </div>
           <p class="card-summary">Led UX strategy and delivery for Vodafone's self-service digital channels, aligning online account management with the in-store and call centre service model.</p>
           <hr class="card-divider">
@@ -1505,7 +1537,7 @@ footer {
               <div class="card-title">UX Designer</div>
               <div class="card-company">Deloitte Digital</div>
             </div>
-            <div class="card-logo card-logo--blue">D</div>
+            <div class="card-logo"><img src="Icons/Screenshot 2026-03-27 214208.png" alt="Deloitte Digital"></div>
           </div>
           <p class="card-summary">Embedded UX designer working with government and financial services clients, bringing human-centred design practices to complex enterprise transformation projects.</p>
           <hr class="card-divider">
@@ -1538,12 +1570,40 @@ footer {
         </div>
       </div>
 
-      <!-- 5: App ecosystem -->
+      <!-- 5: Role — Freelance -->
       <div class="callout pos-br" data-s="0.70" data-e="0.84">
         <div class="card">
-          <div class="card-tag">Ecosystem</div>
-          <div class="card-title">APEX Fly App</div>
-          <div class="card-body">iOS and Android. Real-time telemetry, live 4K preview, mission planning, and one-tap edit suite — always in sync.</div>
+          <div class="card-header">
+            <div class="card-meta">
+              <div class="card-meta-row">
+                <span class="card-date">2013 – 2015</span>
+                <span class="card-badge">UI Design</span>
+              </div>
+              <div class="card-title">UI Designer</div>
+              <div class="card-company">Independent / Freelance</div>
+            </div>
+            <div class="card-logo"><img src="Icons/1631323307895.jpg" alt="Freelance"></div>
+          </div>
+          <p class="card-summary">Worked independently across branding, web design, and early mobile projects for small businesses and startups, building practical skills across the full visual design stack.</p>
+          <hr class="card-divider">
+          <div class="card-details">
+            <div class="card-achievements">
+              <div class="card-section-label">Key Achievements</div>
+              <ul>
+                <li>Delivered 12+ end-to-end brand and web projects on time and budget</li>
+                <li>Designed UI for 3 early-stage startup MVPs through to launch</li>
+                <li>Built a recurring client base entirely through referrals</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-skills-row">
+            <div class="card-section-label">Skills Applied</div>
+            <div class="card-chips">
+              <span class="card-chip">Branding</span>
+              <span class="card-chip">Web Design</span>
+              <span class="card-chip">Visual Identity</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1900,12 +1960,22 @@ footer {
 
   /* ── Progress dots (seq1 only) ── */
   function tickDots (sy) {
-    const p    = sectionProgress(seq1El, sy);
-    const dots = seq1El.querySelectorAll('.seq-dot');
-    const n    = dots.length;
-    dots.forEach(function (d, i) {
-      const centre = i / (n - 1);
-      d.classList.toggle('on', Math.abs(p - centre) < 0.12);
+    const p           = sectionProgress(seq1El, sy);
+    const cards       = seq1El.querySelectorAll('.callout:not(.pos-c)');
+    const dots        = seq1El.querySelectorAll('.seq-dot');
+    const dotsWrap    = seq1El.querySelector('.seq-dots');
+    const firstS      = cards.length ? parseFloat(cards[0].dataset.s) : 1;
+
+    dotsWrap.style.opacity = p >= firstS ? '1' : '0';
+
+    cards.forEach(function (c, i) {
+      if (!dots[i]) return;
+      const s      = parseFloat(c.dataset.s);
+      const e      = parseFloat(c.dataset.e);
+      const active = p >= s && p <= e;
+      const past   = p > e;
+      dots[i].classList.toggle('on',   active);
+      dots[i].classList.toggle('past', !active && past);
     });
   }
 
