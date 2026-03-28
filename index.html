@@ -798,12 +798,14 @@ body {
 /* ── Left column ── */
 .about-left { display: flex; flex-direction: column; gap: 12px; }
 .about-portrait-card {
+  border-radius: 18px;
+  aspect-ratio: 3/4;
+}
+.about-portrait-card .tilt-card-inner {
   background: rgba(8,8,8,0.25);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px; overflow: hidden;
-  aspect-ratio: 3/4;
 }
 .about-portrait-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .about-meta-card {
@@ -1150,6 +1152,102 @@ footer {
   .stats-inner { grid-template-columns: repeat(2, 1fr); }
   .card { width: 100%; padding: 20px 18px; }
   .pos-tl, .pos-tr, .pos-ml, .pos-mr, .pos-bl, .pos-br { width: 92vw; }
+}
+
+/* ─── 3D TILT CARDS ─────────────────────────────────── */
+.tilt-card {
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+.tilt-card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease-out;
+  will-change: transform, box-shadow;
+}
+/* Grain texture overlay */
+.tilt-card-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+}
+/* Parallax image layer inside tilt card */
+.tilt-card-inner .tilt-parallax-img {
+  transform: translateZ(24px) scale(1.02);
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+/* Parallax text/badge layers */
+.tilt-card-inner .tilt-parallax-text {
+  transform: translateZ(40px);
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+.tilt-card-inner .tilt-parallax-badge {
+  transform: translateZ(56px);
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+/* Hover lift shadow */
+.tilt-card-inner.tilt-active {
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.5),
+    0 8px 24px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(255,255,255,0.06);
+}
+/* Staggered shelf entrance animation */
+.shelf-enter {
+  opacity: 0;
+  transform: translateY(60px) perspective(1000px) rotateX(8deg);
+  transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.shelf-enter.shelf-visible {
+  opacity: 1;
+  transform: translateY(0) perspective(1000px) rotateX(0deg);
+}
+/* About portrait tilt specifics */
+.about-portrait-card.tilt-card .tilt-card-inner {
+  border-radius: 18px;
+  overflow: hidden;
+}
+/* Experience card tilt specifics */
+.card.tilt-card-inner {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+/* Shine/glare effect on hover */
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255,255,255,0.12) 0%,
+    transparent 60%
+  );
+}
+.tilt-active .tilt-glare { opacity: 1; }
+
+/* Disable tilt on touch/mobile */
+@media (hover: none) {
+  .tilt-card-inner { transform: none !important; }
+  .tilt-card-inner .tilt-parallax-img,
+  .tilt-card-inner .tilt-parallax-text,
+  .tilt-card-inner .tilt-parallax-badge { transform: none !important; }
 }
 
 </style>
@@ -1655,8 +1753,11 @@ footer {
 
       <!-- Left column -->
       <div class="about-left">
-        <div class="about-portrait-card fiu">
-          <img src="Icons/309990524_490325403144967_8395168285254375454_n.png" alt="John Jurvanen">
+        <div class="about-portrait-card tilt-card shelf-enter fiu">
+          <div class="tilt-card-inner" style="border-radius:18px;overflow:hidden;width:100%;height:100%;">
+            <img class="tilt-parallax-img" src="Icons/309990524_490325403144967_8395168285254375454_n.png" alt="John Jurvanen" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <div class="tilt-glare"></div>
+          </div>
         </div>
         <!-- Location -->
         <div class="about-meta-card fiu">
@@ -2144,8 +2245,155 @@ footer {
     });
   }
 
+  /* ────────────────────────────────────────────────────
+     3D TILT CARD ENGINE
+     • Cursor-driven perspective rotation on hover
+     • Internal parallax layers at different depths
+     • Glare effect tracking cursor position
+     • Shelf entrance stagger animation
+  ──────────────────────────────────────────────────── */
+  function initTiltCards () {
+    var MAX_TILT = 12; // degrees
+    var PARALLAX_IMG  = 24; // px translateZ for images
+    var PARALLAX_TEXT = 40; // px translateZ for text
+    var PARALLAX_BADGE = 56; // px translateZ for badges
+
+    /* ── Enhance experience cards dynamically ── */
+    document.querySelectorAll('.callout .card').forEach(function (card) {
+      // Wrap card content for 3D
+      card.classList.add('tilt-card-inner');
+      card.style.transformStyle = 'preserve-3d';
+
+      // Create perspective wrapper
+      var wrapper = document.createElement('div');
+      wrapper.className = 'tilt-card';
+      card.parentNode.insertBefore(wrapper, card);
+      wrapper.appendChild(card);
+
+      // Add glare element
+      var glare = document.createElement('div');
+      glare.className = 'tilt-glare';
+      card.appendChild(glare);
+
+      // Mark parallax layers
+      var logo = card.querySelector('.card-logo');
+      if (logo) logo.classList.add('tilt-parallax-img');
+
+      var title = card.querySelector('.card-title');
+      if (title) title.classList.add('tilt-parallax-text');
+
+      var badges = card.querySelectorAll('.card-badge');
+      badges.forEach(function (b) { b.classList.add('tilt-parallax-badge'); });
+    });
+
+    /* ── Attach mouse events to all tilt cards ── */
+    document.querySelectorAll('.tilt-card').forEach(function (wrapper) {
+      var inner = wrapper.querySelector('.tilt-card-inner');
+      if (!inner) return;
+
+      var glare = inner.querySelector('.tilt-glare');
+      var raf = null;
+
+      wrapper.addEventListener('mouseenter', function () {
+        inner.classList.add('tilt-active');
+        inner.style.transition = 'box-shadow 0.3s ease-out';
+      });
+
+      wrapper.addEventListener('mousemove', function (e) {
+        if (raf) return;
+        raf = requestAnimationFrame(function () {
+          var rect = wrapper.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          var w = rect.width;
+          var h = rect.height;
+
+          // Normalized -1 to 1
+          var nx = (x / w - 0.5) * 2;
+          var ny = (y / h - 0.5) * 2;
+
+          // Rotation (inverted Y for natural feel)
+          var rotateX = -ny * MAX_TILT;
+          var rotateY = nx * MAX_TILT;
+
+          inner.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) scale3d(1.02,1.02,1.02)';
+
+          // Parallax offsets for internal elements
+          var imgEls = inner.querySelectorAll('.tilt-parallax-img');
+          imgEls.forEach(function (el) {
+            el.style.transform = 'translateZ(' + PARALLAX_IMG + 'px) translate(' + (nx * 4).toFixed(1) + 'px,' + (ny * 4).toFixed(1) + 'px) scale(1.02)';
+          });
+
+          var textEls = inner.querySelectorAll('.tilt-parallax-text');
+          textEls.forEach(function (el) {
+            el.style.transform = 'translateZ(' + PARALLAX_TEXT + 'px) translate(' + (nx * 8).toFixed(1) + 'px,' + (ny * 6).toFixed(1) + 'px)';
+          });
+
+          var badgeEls = inner.querySelectorAll('.tilt-parallax-badge');
+          badgeEls.forEach(function (el) {
+            el.style.transform = 'translateZ(' + PARALLAX_BADGE + 'px) translate(' + (nx * 12).toFixed(1) + 'px,' + (ny * 8).toFixed(1) + 'px)';
+          });
+
+          // Glare position
+          if (glare) {
+            glare.style.setProperty('--glare-x', ((x / w) * 100).toFixed(1) + '%');
+            glare.style.setProperty('--glare-y', ((y / h) * 100).toFixed(1) + '%');
+          }
+
+          raf = null;
+        });
+      });
+
+      wrapper.addEventListener('mouseleave', function () {
+        if (raf) { cancelAnimationFrame(raf); raf = null; }
+        inner.classList.remove('tilt-active');
+        inner.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease-out';
+        inner.style.transform = '';
+
+        // Reset parallax layers
+        var imgEls = inner.querySelectorAll('.tilt-parallax-img');
+        imgEls.forEach(function (el) { el.style.transform = ''; });
+        var textEls = inner.querySelectorAll('.tilt-parallax-text');
+        textEls.forEach(function (el) { el.style.transform = ''; });
+        var badgeEls = inner.querySelectorAll('.tilt-parallax-badge');
+        badgeEls.forEach(function (el) { el.style.transform = ''; });
+
+        if (glare) {
+          glare.style.setProperty('--glare-x', '50%');
+          glare.style.setProperty('--glare-y', '50%');
+        }
+      });
+    });
+
+    /* ── Shelf entrance stagger ── */
+    var shelfObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          // Find all shelf-enter siblings for stagger
+          var parent = entry.target.parentElement;
+          var siblings = parent ? parent.querySelectorAll('.shelf-enter') : [entry.target];
+          var idx = Array.prototype.indexOf.call(siblings, entry.target);
+          var delay = Math.max(0, idx) * 120;
+
+          setTimeout(function () {
+            entry.target.classList.add('shelf-visible');
+          }, delay);
+
+          shelfObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.shelf-enter').forEach(function (el) {
+      shelfObserver.observe(el);
+    });
+  }
+
   /* ── GO ── */
   boot();
+
+  /* Init tilt after DOM is fully ready */
+  initTiltCards();
 
 }());
 </script>
