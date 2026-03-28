@@ -183,7 +183,13 @@ body {
 }
 
 /* ── Default state: show dot only (ring is separate) ── */
-.cur-rocket, .cur-link, .cur-loader-pct { display: none; }
+.cur-rocket, .cur-link, .cur-loader-pct, .cur-expand { display: none; }
+
+/* Expand icon */
+.cur-expand {
+  transform: translate(-50%, -50%);
+  transition: opacity 0.15s;
+}
 
 /* ── Scroll state ── */
 #cur-main[data-state="scroll"] .cur-dot,
@@ -208,9 +214,17 @@ body {
 #cur-main[data-state="loader"] .cur-link { display: none; }
 #cur-main[data-state="loader"] .cur-loader-pct { display: flex; }
 
+/* ── Expand state ── */
+#cur-main[data-state="expand"] .cur-dot,
+#cur-main[data-state="expand"] .cur-rocket,
+#cur-main[data-state="expand"] .cur-link,
+#cur-main[data-state="expand"] .cur-loader-pct { display: none; }
+#cur-main[data-state="expand"] .cur-expand { display: block; }
+
 /* Ring hidden in non-default states */
 #cur-ring-wrap[data-state="scroll"],
 #cur-ring-wrap[data-state="external"],
+#cur-ring-wrap[data-state="expand"],
 #cur-ring-wrap[data-state="loader"] { opacity: 0; }
 
 /* ─── NAV ────────────────────────────────────────────── */
@@ -2163,6 +2177,17 @@ footer {
     </svg>
   </div>
 
+  <!-- Expand (pp-quote / pp-card hover) -->
+  <div class="cur-expand">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+         stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 3 21 3 21 9"/>
+      <polyline points="9 21 3 21 3 15"/>
+      <line x1="21" y1="3" x2="14" y2="10"/>
+      <line x1="3" y1="21" x2="10" y2="14"/>
+    </svg>
+  </div>
+
   <!-- Loader: live percentage -->
   <div class="cur-loader-pct">
     <span class="cur-pct-num" id="curPctNum">0</span>
@@ -2665,6 +2690,12 @@ footer {
   /* ── Hover detection ── */
   document.addEventListener('mouseover', function (e) {
     if (curMain.dataset.state === 'loader') return;
+
+    /* pp-quote and pp-card: expand cursor */
+    if (e.target.closest('.pp-quote, .pp-card')) {
+      setState('expand');
+      return;
+    }
 
     var a = e.target.closest('a, button, [role="button"]');
     if (!a) { setState('default'); return; }
