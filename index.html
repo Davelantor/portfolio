@@ -615,7 +615,27 @@ body {
   flex-shrink: 0;
   transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease), border-color 0.4s var(--ease);
 }
-.seq-dot + .seq-dot { margin-top: 24px; }
+.seq-dot-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.seq-dot-item + .seq-dot-item { margin-top: 24px; }
+.seq-dot-year {
+  position: absolute;
+  left: calc(100% + 10px);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.28);
+  white-space: nowrap;
+  line-height: 1;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+  transition: color 0.4s var(--ease);
+  pointer-events: none;
+}
+.seq-dot.on + .seq-dot-year  { color: rgba(255,255,255,0.88); }
+.seq-dot.past + .seq-dot-year { color: rgba(0,113,227,0.6); }
 .seq-dot.past {
   background: rgba(0,113,227,0.4);
   border-color: rgba(0,113,227,0.55);
@@ -1467,12 +1487,12 @@ footer {
     </div><!-- cta-layer -->
 
     <div class="seq-dots" id="dots1">
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2026</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2020</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2018</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2016</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2014</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2013</span></div>
     </div>
   </div>
 </section>
