@@ -272,6 +272,8 @@ body {
   display: inline-block;
   color: var(--accent);
   font-weight: 600;
+  width: 160px;
+  text-align: left;
   opacity: 1;
   transition: opacity 0.25s var(--ease);
 }
@@ -648,6 +650,7 @@ body {
 }
 /* Section wrapper */
 .pp-section { overflow: hidden; }
+.pp-row { margin-bottom: 94px; }
 .pp-header {
   padding: 100px 40px 56px;
   max-width: 1200px;
@@ -659,9 +662,12 @@ body {
   overflow: hidden;
   width: 100%;
   position: relative;
+  background: rgba(8, 8, 8, 0.5);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.pp-row--light { background: #f5f5f7; }
-.pp-row--dark  { background: var(--surface); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); }
 
 /* Scrolling track */
 @keyframes ppScrollLeft {
@@ -684,7 +690,7 @@ body {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(20px, 2.6vw, 34px);
   font-weight: 400;
-  color: #1d1d1f;
+  color: var(--text-1);
   padding: 44px 60px;
   white-space: nowrap;
   cursor: pointer;
@@ -1612,11 +1618,16 @@ footer {
   <!-- Row 1: Pull quotes — light bg, fast -->
   <div class="pp-row pp-row--light" id="ppRow1">
     <div class="pp-track" id="ppTrack1">
-      <span class="pp-quote" data-id="0">&ldquo;He ships &mdash; and what he ships is excellent.&rdquo;<span class="pp-attr">Sarah Kowalski, Telstra</span></span>
-      <span class="pp-quote" data-id="1">&ldquo;Moving fast without losing craft.&rdquo;<span class="pp-attr">Marcus Tran, Canva</span></span>
-      <span class="pp-quote" data-id="2">&ldquo;Rare combination.&rdquo;<span class="pp-attr">Priya Menon, Atlassian</span></span>
-      <span class="pp-quote" data-id="3">&ldquo;Exactly the kind of designer you want in a growth environment.&rdquo;<span class="pp-attr">Lena Byrne, Afterpay</span></span>
-      <span class="pp-quote" data-id="4">&ldquo;Strong leader, stronger designer.&rdquo;<span class="pp-attr">Daniel Weir, Vodafone AU</span></span>
+      <span class="pp-quote" data-id="0">&ldquo;High-quality.&rdquo;<span class="pp-attr">Teppo Aalto, CPO</span></span>
+      <span class="pp-quote" data-id="1">&ldquo;Very Customer Oriented.&rdquo;<span class="pp-attr">Kosti Kannas, CTO</span></span>
+      <span class="pp-quote" data-id="2">&ldquo;Amazing Multi-disciplinary team player.&rdquo;<span class="pp-attr">Tommi Martela, Head of Product Development</span></span>
+      <span class="pp-quote" data-id="3">&ldquo;Dependable.&rdquo;<span class="pp-attr">Ernest Arendarenko, Tech Lead</span></span>
+      <span class="pp-quote" data-id="4">&ldquo;I would recommend him.&rdquo;<span class="pp-attr">Lasse Ylinen, Software Engineering Manager</span></span>
+      <span class="pp-quote" data-id="0">&ldquo;Exceptional UX/UI expertise.&rdquo;<span class="pp-attr">Teppo Aalto, CPO</span></span>
+      <span class="pp-quote" data-id="1">&ldquo;Truly a great asset.&rdquo;<span class="pp-attr">Kosti Kannas, CTO</span></span>
+      <span class="pp-quote" data-id="2">&ldquo;Excellent SD Skills.&rdquo;<span class="pp-attr">Tommi Martela, Head of Product Development</span></span>
+      <span class="pp-quote" data-id="3">&ldquo;Very fast iterations.&rdquo;<span class="pp-attr">Ernest Arendarenko, Tech Lead</span></span>
+      <span class="pp-quote" data-id="4">&ldquo;Multiple successful product launches.&rdquo;<span class="pp-attr">Lasse Ylinen, Software Engineering Manager</span></span>
     </div>
   </div>
 
@@ -1624,41 +1635,41 @@ footer {
   <div class="pp-row pp-row--dark" id="ppRow2">
     <div class="pp-track" id="ppTrack2">
 
-      <!-- 0: Sarah Kowalski -->
+      <!-- 0: Teppo Aalto -->
       <div class="pp-card" data-id="0">
         <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body">John has a rare ability to hold <em>deep user empathy and commercial precision</em> in the same hand. The design system he built at Telstra is still the most coherent one I've seen in a large enterprise. He ships — and what he ships is excellent.</p>
+        <p class="tcard-body">During customer meetings, John was able to <em>adjust and refine UI concepts on the fly</em>, incorporating feedback in real time and turning customer input into concrete, <em>design updates within minutes</em>.</p>
         <hr class="tcard-divider">
         <div class="tcard-profile">
           <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Icons/1631323307895.jpg" alt="Sarah K.">
+            <img class="tcard-avatar" src="Icons/1646648525749.jpg" alt="Teppo Aalto">
             <div class="tcard-author">
-              <span class="tcard-name">Sarah Kowalski</span>
-              <span class="tcard-role">Head of Product Design</span>
-              <span class="tcard-company">Telstra</span>
+              <span class="tcard-name">Teppo Aalto</span>
+              <span class="tcard-role">Chief Product Officer</span>
+              <span class="tcard-company">Mapvision</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn" onclick="event.stopPropagation()">
+          <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- 1: Marcus Tran -->
+      <!-- 1: Kosti Kannas -->
       <div class="pp-card" data-id="1">
         <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body">Working with John at Canva was a lesson in <em>moving fast without losing craft</em>. He pushed the template picker redesign through three rounds of testing, held the bar on visual quality, and landed a result the whole team was proud of. A genuine collaborator.</p>
+        <p class="tcard-body">He is also very <em>customer oriented</em> and always interested to learn how the customers are using his designs. What separates him from the rest is his <em>ability to always make you feel good</em> when interacting with him. That's something unique!</p>
         <hr class="tcard-divider">
         <div class="tcard-profile">
           <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Icons/1638953672268.jpg" alt="Marcus T.">
+            <img class="tcard-avatar" src="Icons/1638953672268.jpg" alt="Kosti Kannas">
             <div class="tcard-author">
-              <span class="tcard-name">Marcus Tran</span>
-              <span class="tcard-role">Senior Product Manager</span>
-              <span class="tcard-company">Canva</span>
+              <span class="tcard-name">Kosti Kannas</span>
+              <span class="tcard-role">Chief Technology Officer</span>
+              <span class="tcard-company">Mapvision</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn" onclick="event.stopPropagation()">
+          <a href="#" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
@@ -1678,7 +1689,7 @@ footer {
               <span class="tcard-company">Atlassian</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn" onclick="event.stopPropagation()">
+          <a href="#" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
@@ -1698,7 +1709,7 @@ footer {
               <span class="tcard-company">Afterpay</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn" onclick="event.stopPropagation()">
+          <a href="#" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
@@ -1718,29 +1729,13 @@ footer {
               <span class="tcard-company">Vodafone AU</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn" onclick="event.stopPropagation()">
+          <a href="#" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
       </div>
-
     </div>
   </div>
-
-  <!-- Row 3: Company logos — light bg, slow -->
-  <div class="pp-row pp-row--light" id="ppRow3">
-    <div class="pp-track" id="ppTrack3">
-      <span class="pp-logo--text">Telstra</span>
-      <span class="pp-logo--text">Canva</span>
-      <span class="pp-logo--text">Atlassian</span>
-      <span class="pp-logo--text">Afterpay</span>
-      <span class="pp-logo--text">Vodafone</span>
-      <img class="pp-logo" src="Icons/mapvision_logo.jpg" alt="MapVision">
-      <img class="pp-logo" src="Icons/bimar_it_services___arkas_holding_logo.jpg" alt="Bimar / Arkas">
-      <img class="pp-logo" src="Icons/metic_finland_immigration_services_logo.jpg" alt="Metic Finland">
-    </div>
-  </div>
-
 </section>
 
 <!-- Praise Parade modal (populated by JS) -->
@@ -2291,15 +2286,15 @@ footer {
     var PP_DATA = [
       {
         id: 0, pullQuote: 'He ships \u2014 and what he ships is excellent.',
-        body: 'John has a rare ability to hold <em>deep user empathy and commercial precision</em> in the same hand. The design system he built at Telstra is still the most coherent one I\u2019ve seen in a large enterprise. He ships \u2014 and what he ships is excellent.',
-        avatar: 'Icons/1631323307895.jpg', name: 'Sarah Kowalski',
-        role: 'Head of Product Design', company: 'Telstra', linkedin: '#'
+        body: 'I worked with John through Product Management, especially during a project where we designed a user interface for a global automotive OEM. In this collaboration, John demonstrated exceptional UX/UI expertise and an impressive ability to translate complex and sometimes ambiguous customer needs into clear, intuitive UI solutions. <br>He created multiple UI prototypes that were reviewed and accepted by the OEM, and what truly stood out was his ability to iterate extremely quickly. During customer meetings, John was able to adjust and refine UI concepts on the fly, incorporating feedback in real time and turning customer input into concrete, high-quality design updates within minutes. <br>John combines strong design thinking with a deep understanding of product and implementation realities. He is highly collaborative, customer-focused, and a pleasure to work with. I would confidently recommend him for lead UX/UI roles, especially in complex, industrial or B2B product environments.',
+        avatar: 'Icons/1646648525749.jpg', name: 'Teppo Aalto',
+        role: 'Chief Product Officer', company: 'Mapvision', linkedin: 'https://www.linkedin.com/in/davelantor/details/recommendations/'
       },
       {
         id: 1, pullQuote: 'Moving fast without losing craft.',
         body: 'Working with John at Canva was a lesson in <em>moving fast without losing craft</em>. He pushed the template picker redesign through three rounds of testing, held the bar on visual quality, and landed a result the whole team was proud of. A genuine collaborator.',
-        avatar: 'Icons/1638953672268.jpg', name: 'Marcus Tran',
-        role: 'Senior Product Manager', company: 'Canva', linkedin: '#'
+        avatar: 'Icons/1638953672268.jpg', name: 'Kosti Kannas',
+        role: 'Senior Product Manager', company: 'Canva', linkedin: 'https://www.linkedin.com/in/davelantor/details/recommendations/'
       },
       {
         id: 2, pullQuote: 'Rare combination.',
@@ -2352,38 +2347,10 @@ footer {
       applyDuration(t.el, t.speed, 1);
     });
 
-    // ── Scroll velocity → accelerate all rows ──────────
-    var lastY = window.scrollY;
-    var lastT = performance.now();
-    var velScale = 1;
-    var decayTimer = null;
-
-    window.addEventListener('scroll', function () {
-      var now = performance.now();
-      var dy = Math.abs(window.scrollY - lastY);
-      var dt = now - lastT;
-      if (dt > 0) {
-        var vel = dy / dt; // px/ms
-        velScale = 1 + Math.min(vel * 5, 3); // 1× – 4×
-        tracks.forEach(function (t) {
-          if (t.el) applyDuration(t.el, t.speed, velScale);
-        });
-      }
-      lastY = window.scrollY;
-      lastT = now;
-      clearTimeout(decayTimer);
-      decayTimer = setTimeout(function () {
-        velScale = 1;
-        tracks.forEach(function (t) {
-          if (t.el) applyDuration(t.el, t.speed, 1);
-        });
-      }, 300);
-    }, { passive: true });
-
     // ── Resize: recalculate durations ──────────────────
     window.addEventListener('resize', function () {
       tracks.forEach(function (t) {
-        if (t.el) applyDuration(t.el, t.speed, velScale);
+        if (t.el) applyDuration(t.el, t.speed, 1);
       });
     });
 
