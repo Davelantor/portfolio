@@ -8,6 +8,7 @@
 
 /* ─── RESET & VARIABLES ─────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@media (pointer: fine) { *, *::before, *::after { cursor: none !important; } }
 
 :root {
   --bg:          #000000;
@@ -15,8 +16,8 @@
   --card:        rgba(255,255,255,0.045);
   --card-border: rgba(255,255,255,0.09);
   --text-1:      #f5f5f7;
-  --text-2:      #86868b;
-  --text-3:      #515154;
+  --text-2:      #c9c9c9;
+  --text-3:      #9d9d9d;
   --accent:      #0071e3;
   --accent-h:    #0077ed;
   --font-d:      'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
@@ -115,6 +116,116 @@ body {
   text-transform: uppercase;
   color: var(--text-3);
 }
+
+/* ─── CUSTOM CURSOR ─────────────────────────────────── */
+/* Main cursor: dot + non-ring state indicators */
+#cur-main, #cur-ring-wrap {
+  position: fixed; top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+}
+#cur-main > * { position: absolute; top: 0; left: 0; }
+
+.cur-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.15s;
+}
+.cur-ring {
+  position: absolute; top: 0; left: 0;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.55);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s, width 0.2s var(--ease), height 0.2s var(--ease);
+}
+
+/* Rocket */
+.cur-rocket {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  transform: translate(-50%, -50%);
+}
+.cur-rocket-body {
+  display: block;
+  transition: transform 0.2s var(--ease);
+}
+.cur-rocket-chevron { display: flex; }
+.cur-rocket-chevron svg {
+  transition: transform 0.2s var(--ease);
+}
+
+/* External link */
+.cur-link {
+  transform: translate(-50%, -50%);
+}
+
+/* Loader percentage */
+.cur-loader-pct {
+  display: flex; align-items: baseline; gap: 2px;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+.cur-pct-num {
+  font-family: var(--font-d);
+  font-size: 34px; font-weight: 700;
+  letter-spacing: -0.05em; line-height: 1;
+  color: #fff;
+  min-width: 1.8ch; text-align: right;
+}
+.cur-pct-unit {
+  font-family: var(--font-d);
+  font-size: 14px; font-weight: 300;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── Default state: show dot only (ring is separate) ── */
+.cur-rocket, .cur-link, .cur-loader-pct, .cur-expand { display: none; }
+
+/* Expand icon */
+.cur-expand {
+  transform: translate(-50%, -50%);
+  transition: opacity 0.15s;
+}
+
+/* ── Scroll state ── */
+#cur-main[data-state="scroll"] .cur-dot,
+#cur-main[data-state="scroll"] .cur-link,
+#cur-main[data-state="scroll"] .cur-loader-pct { display: none; }
+#cur-main[data-state="scroll"] .cur-rocket { display: flex; }
+
+/* Rocket direction: up = default (0°), down = rotate 180° */
+#cur-main[data-dir="down"] .cur-rocket-body { transform: rotate(180deg); }
+/* Chevron direction */
+#cur-main[data-dir="down"] .cur-rocket-chevron svg { transform: rotate(180deg); }
+
+/* ── External state ── */
+#cur-main[data-state="external"] .cur-dot,
+#cur-main[data-state="external"] .cur-rocket,
+#cur-main[data-state="external"] .cur-loader-pct { display: none; }
+#cur-main[data-state="external"] .cur-link { display: block; }
+
+/* ── Loader state ── */
+#cur-main[data-state="loader"] .cur-dot,
+#cur-main[data-state="loader"] .cur-rocket,
+#cur-main[data-state="loader"] .cur-link { display: none; }
+#cur-main[data-state="loader"] .cur-loader-pct { display: flex; }
+
+/* ── Expand state ── */
+#cur-main[data-state="expand"] .cur-dot,
+#cur-main[data-state="expand"] .cur-rocket,
+#cur-main[data-state="expand"] .cur-link,
+#cur-main[data-state="expand"] .cur-loader-pct { display: none; }
+#cur-main[data-state="expand"] .cur-expand { display: block; }
+
+/* Ring hidden in non-default states */
+#cur-ring-wrap[data-state="scroll"],
+#cur-ring-wrap[data-state="external"],
+#cur-ring-wrap[data-state="expand"],
+#cur-ring-wrap[data-state="loader"] { opacity: 0; }
 
 /* ─── NAV ────────────────────────────────────────────── */
 #nav {
@@ -272,6 +383,8 @@ body {
   display: inline-block;
   color: var(--accent);
   font-weight: 600;
+  width: 160px;
+  text-align: left;
   opacity: 1;
   transition: opacity 0.25s var(--ease);
 }
@@ -563,9 +676,9 @@ body {
 
 /* Center callout typography */
 .center-tag {
-  font-size: 11px; font-weight: 600;
+  font-size: 14px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--accent);
+  color: rgb(0, 0, 0);
   margin-bottom: 14px;
 }
 .center-title {
@@ -596,12 +709,18 @@ body {
   align-items: center;
   z-index: 20;
   gap: 0;
+  background: rgba(8, 8, 8, 0.5);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px 52px 20px 18px;
 }
 .seq-dots::before {
   content: '';
   position: absolute;
   top: 5px; bottom: 5px;
-  left: 50%;
+  left: 22px;
   width: 1px;
   transform: translateX(-50%);
   background: rgba(255,255,255,0.08);
@@ -615,7 +734,27 @@ body {
   flex-shrink: 0;
   transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease), transform 0.4s var(--ease), border-color 0.4s var(--ease);
 }
-.seq-dot + .seq-dot { margin-top: 24px; }
+.seq-dot-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.seq-dot-item + .seq-dot-item { margin-top: 24px; }
+.seq-dot-year {
+  position: absolute;
+  left: calc(100% + 10px);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.28);
+  white-space: nowrap;
+  line-height: 1;
+  text-shadow: 0 0 8px rgba(0,0,0,0.9), 0 1px 8px rgba(0,0,0,0.85), 0 2px 14px rgba(0,0,0,0.7);
+  transition: color 0.4s var(--ease);
+  pointer-events: none;
+}
+.seq-dot.on + .seq-dot-year  { color: rgba(255,255,255,0.88); }
+.seq-dot.past + .seq-dot-year { color: rgb(0, 128, 255); }
 .seq-dot.past {
   background: rgba(0,113,227,0.4);
   border-color: rgba(0,113,227,0.55);
@@ -628,12 +767,7 @@ body {
 }
 @media (max-width: 900px) { .seq-dots { display: none; } }
 
-/* ─── TESTIMONIALS ───────────────────────────────────── */
-.testimonials-section {
-  padding: 120px 40px;
-  max-width: 1600px;
-  margin: 0 auto;
-}
+/* ─── PRAISE PARADE ──────────────────────────────────── */
 .testimonials-eyebrow {
   font-size: 11px;
   font-weight: 600;
@@ -648,44 +782,102 @@ body {
   font-weight: 700;
   letter-spacing: -0.035em;
   color: var(--text-1);
-  margin-bottom: 64px;
+  margin-bottom: 0;
   line-height: 1.05;
 }
-.testimonials-grid {
+/* Section wrapper */
+.pp-section { overflow: hidden; }
+.pp-row { margin-bottom: 94px; }
+.pp-header {
+  padding: 100px 40px 56px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Row skeleton */
+.pp-row {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  background: rgba(8, 8, 8, 0.5);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Scrolling track */
+@keyframes ppScrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.pp-track {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  width: max-content;
+  align-items: center;
+  animation: ppScrollLeft linear infinite;
+  animation-play-state: running;
+  will-change: transform;
 }
-.tcard {
-  flex: 0 1 340px;
+.pp-row:hover .pp-track,
+.pp-row:focus-within .pp-track { animation-play-state: paused; }
+
+/* Row 1 — pull quotes */
+.pp-quote {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(20px, 2.6vw, 34px);
+  font-weight: 400;
+  color: var(--text-1);
+  padding: 44px 60px;
+  white-space: nowrap;
+  cursor: pointer;
+  border-right: 1px solid rgba(0,0,0,0.08);
+  transition: color 0.2s;
+  user-select: none;
 }
-.tcard {
-  background: rgba(8, 8, 8, 0.502);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(255,255,255,0.08);
+.pp-quote:hover { color: var(--accent); }
+.pp-quote .pp-attr {
+  font-family: var(--font-t, system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: #86868b;
+  margin-left: 18px;
+  font-style: normal;
+}
+
+/* Row 2 — full testimonial cards */
+.pp-card {
+  flex: none;
+  width: 340px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.09);
   border-radius: 18px;
-  padding: 32px 30px 26px;
+  padding: 28px 28px 22px;
+  margin: 28px 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
   display: flex;
   flex-direction: column;
   gap: 0;
-  position: relative;
+}
+.pp-card:hover {
+  border-color: rgba(0,113,227,0.4);
+  transform: translateY(-2px);
 }
 .tcard-quote-mark {
   font-family: Georgia, serif;
-  font-size: 52px;
+  font-size: 48px;
   line-height: 1;
   color: var(--accent);
   opacity: 0.7;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   user-select: none;
 }
 .tcard-body {
-  font-size: 15px;
-  line-height: 1.72;
+  font-size: 14px;
+  line-height: 1.7;
   color: rgba(255,255,255,0.72);
-  margin-bottom: 28px;
+  margin-bottom: 24px;
   flex: 1;
 }
 .tcard-body em {
@@ -696,7 +888,7 @@ body {
 .tcard-divider {
   border: none;
   border-top: 1px solid rgba(255,255,255,0.07);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 .tcard-profile {
   display: flex;
@@ -707,7 +899,7 @@ body {
 .tcard-profile-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   min-width: 0;
 }
 .tcard-avatar {
@@ -742,7 +934,7 @@ body {
 }
 .tcard-company {
   font-size: 12px;
-  color: var(--text-3);
+  color: var(--accent);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -767,9 +959,83 @@ body {
   background: rgba(0,113,227,0.1);
   color: var(--accent);
 }
-@media (max-width: 768px) {
-  .testimonials-section { padding: 80px 24px; }
-  .tcard { flex: 1 1 100%; }
+
+/* Row 3 — logo strip */
+.pp-logo {
+  height: 30px;
+  padding: 0 44px;
+  opacity: 0.4;
+  filter: grayscale(1);
+  object-fit: contain;
+  transition: opacity 0.2s, filter 0.2s;
+  flex: none;
+}
+.pp-logo--text {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #1d1d1f;
+  opacity: 0.32;
+  padding: 36px 48px;
+  white-space: nowrap;
+  border-right: 1px solid rgba(0,0,0,0.08);
+  transition: opacity 0.2s;
+  user-select: none;
+}
+.pp-logo:hover  { opacity: 0.85; filter: grayscale(0); }
+.pp-logo--text:hover { opacity: 0.75; }
+
+/* Modal */
+.pp-modal-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+}
+.pp-modal-overlay.is-open { opacity: 1; pointer-events: all; }
+.pp-modal {
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 44px 44px 36px;
+  max-width: 560px;
+  width: calc(100% - 48px);
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.36s var(--ease-out);
+  position: relative;
+}
+.pp-modal-overlay.is-open .pp-modal { transform: translateY(0) scale(1); }
+.pp-modal-close {
+  position: absolute; top: 18px; right: 18px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-2);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+.pp-modal-close:hover { background: rgba(255,255,255,0.12); color: var(--text-1); }
+.pp-modal-body { font-size: 16px; line-height: 1.72; color: rgba(255,255,255,0.78); margin-bottom: 28px; }
+.pp-modal-body em { font-style: normal; color: var(--text-1); font-weight: 500; }
+.pp-modal-divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin-bottom: 22px; }
+.pp-modal-profile { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.pp-modal-profile-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.pp-modal-avatar { width: 52px; height: 52px; border-radius: 12px; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; }
+.pp-modal-author { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.pp-modal-name { font-size: 15px; font-weight: 600; color: var(--text-1); }
+.pp-modal-role { font-size: 13px; color: var(--text-2); }
+.pp-modal-company { font-size: 13px; color: var(--text-3); }
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .pp-track { animation: none !important; }
 }
 
 /* ─── ABOUT ME ───────────────────────────────────────── */
@@ -1332,14 +1598,14 @@ footer {
     <div class="cta-layer">
 
       <!-- 0: Intro title -->
-      <div class="callout pos-c" data-s="0.00" data-e="0.14">
+      <div class="callout pos-c" data-s="0.00" data-e="0.2">
         <p class="center-tag">Where I’ve Shined</p>
         <h2 class="center-title">Relentless craft<br>Explosive product thinking</h2>
         <p class="center-body">From building products to defining them, I turn complexity into bold, intuitive experiences that move people and businesses forward.</p>
       </div>
 
       <!-- 1: Role — METIC GLOBAL -->
-      <div class="callout pos-tl" data-s="0.14" data-e="0.28">
+      <div class="callout pos-tl" data-s="0.2" data-e="0.35">
         <div class="card">
           <div class="card-header">
             <div class="card-meta">
@@ -1376,7 +1642,7 @@ footer {
       </div>
 
       <!-- 2: Role — Canva -->
-      <div class="callout pos-tr" data-s="0.28" data-e="0.42">
+      <div class="callout pos-tr" data-s="0.35" data-e="0.48">
         <div class="card">
           <div class="card-header">
             <div class="card-meta">
@@ -1386,7 +1652,7 @@ footer {
                 <span class="card-badge">Advancement</span>
               </div>
               <div class="card-title">UX Lead</div>
-              <div class="card-company">Mapvision</div>
+              <div class="card-company">MAPVISION</div>
             </div>
             <div class="card-logo"><img src="Icons/mapvision_logo.jpg" alt="Mapvision"></div>
           </div>
@@ -1415,7 +1681,7 @@ footer {
       </div>
 
       <!-- 3: Role — Atlassian -->
-      <div class="callout pos-mr" data-s="0.42" data-e="0.56">
+      <div class="callout pos-mr" data-s="0.48" data-e="0.61">
         <div class="card">
           <div class="card-header">
             <div class="card-meta">
@@ -1452,7 +1718,7 @@ footer {
       </div>
 
       <!-- 4: Role — Afterpay -->
-      <div class="callout pos-ml" data-s="0.56" data-e="0.70">
+      <div class="callout pos-ml" data-s="0.61" data-e="0.74">
         <div class="card">
           <div class="card-header">
             <div class="card-meta">
@@ -1489,7 +1755,7 @@ footer {
       </div>
 
       <!-- 5: Role — REA Group -->
-      <div class="callout pos-br" data-s="0.70" data-e="0.84">
+      <div class="callout pos-br" data-s="0.74" data-e="0.87">
         <div class="card">
           <div class="card-header">
             <div class="card-meta">
@@ -1526,7 +1792,7 @@ footer {
       </div>
 
       <!-- 6: Role — MYOB -->
-      <div class="callout pos-bl" data-s="0.84" data-e="0.98">
+      <div class="callout pos-bl" data-s="0.87" data-e="1">
         <div class="card">
           <div class="card-header">
             <div class="card-meta">
@@ -1565,65 +1831,87 @@ footer {
     </div><!-- cta-layer -->
 
     <div class="seq-dots" id="dots1">
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
-      <div class="seq-dot"></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2026</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2020</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2018</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2016</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2014</span></div>
+      <div class="seq-dot-item"><div class="seq-dot"></div><span class="seq-dot-year">2013</span></div>
     </div>
   </div>
 </section>
 
-<!-- ─── TESTIMONIALS ──────────────────────────────── -->
-<section id="testimonials" style="background:var(--bg);">
-  <div class="testimonials-section fiu">
+<!-- ─── THE PRAISE PARADE ───────────────────────── -->
+<section id="testimonials" class="pp-section">
+
+  <!-- Header -->
+  <div class="pp-header fiu">
     <p class="testimonials-eyebrow">Endorsements</p>
-    <h2 class="testimonials-title">What people say</h2>
-    <div class="testimonials-grid">
+    <h2 class="testimonials-title">The Praise Parade</h2>
+  </div>
 
-      <!-- 1 -->
-      <div class="tcard fiu">
+  <!-- Row 1: Pull quotes — light bg, fast -->
+  <div class="pp-row pp-row--light" id="ppRow1">
+    <div class="pp-track" id="ppTrack1">
+      <span class="pp-quote" data-id="0">&ldquo;High-quality.&rdquo;<span class="pp-attr">Teppo Aalto, CPO</span></span>
+      <span class="pp-quote" data-id="1">&ldquo;Very Customer Oriented.&rdquo;<span class="pp-attr">Kosti Kannas, CTO</span></span>
+      <span class="pp-quote" data-id="2">&ldquo;Amazing Multi-disciplinary team player.&rdquo;<span class="pp-attr">Tommi Martela, Head of Product Development</span></span>
+      <span class="pp-quote" data-id="3">&ldquo;Dependable.&rdquo;<span class="pp-attr">Ernest Arendarenko, Tech Lead</span></span>
+      <span class="pp-quote" data-id="4">&ldquo;I would recommend him.&rdquo;<span class="pp-attr">Lasse Ylinen, Software Engineering Manager</span></span>
+      <span class="pp-quote" data-id="0">&ldquo;Exceptional UX/UI expertise.&rdquo;<span class="pp-attr">Teppo Aalto, CPO</span></span>
+      <span class="pp-quote" data-id="1">&ldquo;Truly a great asset.&rdquo;<span class="pp-attr">Kosti Kannas, CTO</span></span>
+      <span class="pp-quote" data-id="2">&ldquo;Excellent SD Skills.&rdquo;<span class="pp-attr">Tommi Martela, Head of Product Development</span></span>
+      <span class="pp-quote" data-id="3">&ldquo;Very fast iterations.&rdquo;<span class="pp-attr">Ernest Arendarenko, Tech Lead</span></span>
+      <span class="pp-quote" data-id="4">&ldquo;Multiple successful product launches.&rdquo;<span class="pp-attr">Lasse Ylinen, Software Engineering Manager</span></span>
+    </div>
+  </div>
+
+  <!-- Row 2: Full testimonial cards — dark bg, medium speed -->
+  <div class="pp-row pp-row--dark" id="ppRow2">
+    <div class="pp-track" id="ppTrack2">
+
+      <!-- 0: Teppo Aalto -->
+      <div class="pp-card" data-id="0">
         <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body">John has a rare ability to hold <em>deep user empathy and commercial precision</em> in the same hand. The design system he built at Telstra is still the most coherent one I've seen in a large enterprise. He ships — and what he ships is excellent.</p>
+        <p class="tcard-body">During customer meetings, John was able to <em>adjust and refine UI concepts on the fly</em>, incorporating feedback in real time and turning customer input into concrete, <em>design updates within minutes</em>.</p>
         <hr class="tcard-divider">
         <div class="tcard-profile">
           <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Icons/1631323307895.jpg" alt="Sarah K.">
+            <img class="tcard-avatar" src="Icons/1646648525749.jpg" alt="Teppo Aalto">
             <div class="tcard-author">
-              <span class="tcard-name">Sarah Kowalski</span>
-              <span class="tcard-role">Head of Product Design</span>
-              <span class="tcard-company">Telstra</span>
+              <span class="tcard-name">Teppo Aalto</span>
+              <span class="tcard-role">Chief Product Officer</span>
+              <span class="tcard-company">Mapvision</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- 2 -->
-      <div class="tcard fiu">
+      <!-- 1: Kosti Kannas -->
+      <div class="pp-card" data-id="1">
         <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body">Working with John at Canva was a lesson in <em>moving fast without losing craft</em>. He pushed the template picker redesign through three rounds of testing, held the bar on visual quality, and landed a result the whole team was proud of. A genuine collaborator.</p>
+        <p class="tcard-body">He is also very <em>customer oriented</em> and always interested to learn how the customers are using his designs. What separates him from the rest is his <em>ability to always make you feel good</em> when interacting with him. That's something unique!</p>
         <hr class="tcard-divider">
         <div class="tcard-profile">
           <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Icons/1638953672268.jpg" alt="Marcus T.">
+            <img class="tcard-avatar" src="Icons/1638953672268.jpg" alt="Kosti Kannas">
             <div class="tcard-author">
-              <span class="tcard-name">Marcus Tran</span>
-              <span class="tcard-role">Senior Product Manager</span>
-              <span class="tcard-company">Canva</span>
+              <span class="tcard-name">Kosti Kannas</span>
+              <span class="tcard-role">Chief Technology Officer</span>
+              <span class="tcard-company">Mapvision</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn">
+          <a href="#" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- 3 -->
-      <div class="tcard fiu">
+      <!-- 2: Priya Menon -->
+      <div class="pp-card" data-id="2">
         <div class="tcard-quote-mark">&ldquo;</div>
         <p class="tcard-body">John took one of Jira's most complained-about surfaces and <em>turned it into something teams actually wanted to use</em>. He brought rigour to the research, clarity to the design, and kept the engineering relationship tight throughout. Rare combination.</p>
         <hr class="tcard-divider">
@@ -1636,14 +1924,14 @@ footer {
               <span class="tcard-company">Atlassian</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn">
+          <a href="#" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- 4 -->
-      <div class="tcard fiu">
+      <!-- 3: Lena Byrne -->
+      <div class="pp-card" data-id="3">
         <div class="tcard-quote-mark">&ldquo;</div>
         <p class="tcard-body">At Afterpay, John was designing for a product growing faster than anyone could have predicted. He <em>kept the experience coherent under serious pressure</em> — the checkout work alone meaningfully moved our core conversion metrics. He is exactly the kind of designer you want in a growth environment.</p>
         <hr class="tcard-divider">
@@ -1656,14 +1944,14 @@ footer {
               <span class="tcard-company">Afterpay</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn">
+          <a href="#" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- 5 -->
-      <div class="tcard fiu">
+      <!-- 4: Daniel Weir -->
+      <div class="pp-card" data-id="4">
         <div class="tcard-quote-mark">&ldquo;</div>
         <p class="tcard-body">John ran our UX capability at Vodafone with the instincts of a strategist and the hands of a practitioner. He understood <em>the full service layer, not just the screen</em> — and he built a testing program from nothing that is still running. Strong leader, stronger designer.</p>
         <hr class="tcard-divider">
@@ -1676,24 +1964,28 @@ footer {
               <span class="tcard-company">Vodafone AU</span>
             </div>
           </div>
-          <a href="#" class="tcard-link" aria-label="LinkedIn">
+          <a href="#" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         </div>
       </div>
-
     </div>
   </div>
 </section>
+
+<!-- Praise Parade modal (populated by JS) -->
+<div class="pp-modal-overlay" id="ppModal" role="dialog" aria-modal="true" aria-label="Testimonial detail">
+  <div class="pp-modal" id="ppModalInner"></div>
+</div>
 
 <!-- ─── EDITORIAL: PRECISION BANNER ───────────────── -->
 <section class="banner" id="features">
   <div class="banner-glow"></div>
   <div class="banner-content">
-    <p class="label fiu">Engineered Differently</p>
-    <h2 class="d1 fiu">Precision.<br>Redefined.</h2>
+    <p class="label fiu">Products I Drove</p>
+    <h2 class="d1 fiu">O<br>and Shaped</h2>
     <p class="body-copy mt-med fiu" style="max-width:520px;margin-left:auto;margin-right:auto;">
-      Every component of APEX Pro One was conceived from a blank slate. The result is a drone that doesn't just fly — it thinks, adapts, and creates.
+      Software platforms and enterprise tools I helped shape through product thinking, UX leadership, and close cross-functional collaboration.
     </p>
     <div class="mt-lg fiu">
       <a href="#" class="btn-white">See the Technology</a>
@@ -1948,6 +2240,67 @@ footer {
 </footer>
 
 
+<!-- ─── CUSTOM CURSOR ───────────────────────────────── -->
+<!-- Main cursor: dot + state-specific indicators -->
+<div id="cur-main" data-state="loader" data-dir="down">
+  <div class="cur-dot"></div>
+
+  <!-- Scroll link: rocket + direction chevron -->
+  <div class="cur-rocket">
+    <svg class="cur-rocket-body" width="22" height="30" viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Body + nose -->
+      <path d="M11 2C8 6 5.5 11 5.5 17H16.5C16.5 11 14 6 11 2Z" stroke="white" stroke-width="1.4" stroke-linejoin="round"/>
+      <!-- Porthole -->
+      <circle cx="11" cy="12.5" r="2.2" stroke="white" stroke-width="1.2"/>
+      <!-- Left fin -->
+      <path d="M5.5 17L2 22.5H6.5V17" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- Right fin -->
+      <path d="M16.5 17L20 22.5H15.5V17" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- Nozzle -->
+      <path d="M7.5 22.5H14.5" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+      <!-- Flame -->
+      <path d="M9 23.5Q11 27.5 13 23.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    </svg>
+    <div class="cur-rocket-chevron">
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+        <path d="M1 5L5 1L9 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- External link icon (accent colour) -->
+  <div class="cur-link">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+      <polyline points="15 3 21 3 21 9"/>
+      <line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+  </div>
+
+  <!-- Expand (pp-quote / pp-card hover) -->
+  <div class="cur-expand">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+         stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 3 21 3 21 9"/>
+      <polyline points="9 21 3 21 3 15"/>
+      <line x1="21" y1="3" x2="14" y2="10"/>
+      <line x1="3" y1="21" x2="10" y2="14"/>
+    </svg>
+  </div>
+
+  <!-- Loader: live percentage -->
+  <div class="cur-loader-pct">
+    <span class="cur-pct-num" id="curPctNum">0</span>
+    <span class="cur-pct-unit">%</span>
+  </div>
+</div>
+
+<!-- Ring cursor (lerp-follows mouse, default state only) -->
+<div id="cur-ring-wrap" data-state="loader">
+  <div class="cur-ring"></div>
+</div>
+
 <!-- ════════════════════════════════════════════════════
      APEX SCROLL ENGINE
      ════════════════════════════════════════════════════ -->
@@ -2097,6 +2450,7 @@ footer {
 
     startEngine();
     initReveal();
+    initPraiseParade();
     initPerfBars();
   }
 
@@ -2152,7 +2506,7 @@ footer {
     /* Parallax: shift bgV2 upward 32px after it becomes fully visible,
        until its centre sits 128px above the top of the screen.           */
     const parallaxStart = seq1Bot - vh + 2048;
-    const parallaxP     = Math.max(0, Math.min(1, (sy - parallaxStart) / (vh * 4)));
+    const parallaxP     = Math.max(0, Math.min(1, (sy - parallaxStart) / (vh * 1)));
     bgV2.style.transform = 'translateY(' + (-(parallaxP * (vh / 4 + 64))).toFixed(1) + 'px)';
 
     if (frames1.length && canvasIn > 0.01) {
@@ -2221,6 +2575,137 @@ footer {
     document.querySelectorAll('.fiu:not(#hero .fiu)').forEach(function (el) {
       obs.observe(el);
     });
+  }
+
+  /* ────────────────────────────────────────────────────
+     PRAISE PARADE — three-row infinite marquee
+  ──────────────────────────────────────────────────── */
+  function initPraiseParade () {
+    // ── Data ───────────────────────────────────────────
+    var PP_DATA = [
+      {
+        id: 0, pullQuote: 'He ships \u2014 and what he ships is excellent.',
+        body: 'I worked with John through Product Management, especially during a project where we designed a user interface for a global automotive OEM. In this collaboration, John demonstrated exceptional UX/UI expertise and an impressive ability to translate complex and sometimes ambiguous customer needs into clear, intuitive UI solutions. <br>He created multiple UI prototypes that were reviewed and accepted by the OEM, and what truly stood out was his ability to iterate extremely quickly. During customer meetings, John was able to adjust and refine UI concepts on the fly, incorporating feedback in real time and turning customer input into concrete, high-quality design updates within minutes. <br>John combines strong design thinking with a deep understanding of product and implementation realities. He is highly collaborative, customer-focused, and a pleasure to work with. I would confidently recommend him for lead UX/UI roles, especially in complex, industrial or B2B product environments.',
+        avatar: 'Icons/1646648525749.jpg', name: 'Teppo Aalto',
+        role: 'Chief Product Officer', company: 'Mapvision', linkedin: 'https://www.linkedin.com/in/davelantor/details/recommendations/'
+      },
+      {
+        id: 1, pullQuote: 'Moving fast without losing craft.',
+        body: 'Working with John at Canva was a lesson in <em>moving fast without losing craft</em>. He pushed the template picker redesign through three rounds of testing, held the bar on visual quality, and landed a result the whole team was proud of. A genuine collaborator.',
+        avatar: 'Icons/1638953672268.jpg', name: 'Kosti Kannas',
+        role: 'Senior Product Manager', company: 'Canva', linkedin: 'https://www.linkedin.com/in/davelantor/details/recommendations/'
+      },
+      {
+        id: 2, pullQuote: 'Rare combination.',
+        body: 'John took one of Jira\u2019s most complained-about surfaces and <em>turned it into something teams actually wanted to use</em>. He brought rigour to the research, clarity to the design, and kept the engineering relationship tight throughout. Rare combination.',
+        avatar: 'Icons/1646648525749.jpg', name: 'Priya Menon',
+        role: 'Engineering Lead', company: 'Atlassian', linkedin: '#'
+      },
+      {
+        id: 3, pullQuote: 'Exactly the kind of designer you want in a growth environment.',
+        body: 'At Afterpay, John was designing for a product growing faster than anyone could have predicted. He <em>kept the experience coherent under serious pressure</em> \u2014 the checkout work alone meaningfully moved our core conversion metrics. He is exactly the kind of designer you want in a growth environment.',
+        avatar: 'Icons/1647882894837.jpg', name: 'Lena Byrne',
+        role: 'Director of Product', company: 'Afterpay', linkedin: '#'
+      },
+      {
+        id: 4, pullQuote: 'Strong leader, stronger designer.',
+        body: 'John ran our UX capability at Vodafone with the instincts of a strategist and the hands of a practitioner. He understood <em>the full service layer, not just the screen</em> \u2014 and he built a testing program from nothing that is still running. Strong leader, stronger designer.',
+        avatar: 'Icons/1749053598235.jpg', name: 'Daniel Weir',
+        role: 'Chief Digital Officer', company: 'Vodafone AU', linkedin: '#'
+      }
+    ];
+
+    var LI_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+
+    // ── Seamless loop: duplicate children ──────────────
+    function duplicateTrack (track) {
+      var originals = Array.from(track.children);
+      originals.forEach(function (child) {
+        var clone = child.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      });
+    }
+
+    // ── Set animation-duration = halfWidth / (speed * scale) ──
+    function applyDuration (track, speed, scale) {
+      var half = track.scrollWidth / 2;
+      var dur = half / (speed * (scale || 1));
+      track.style.animationDuration = dur.toFixed(2) + 's';
+    }
+
+    var tracks = [
+      { el: document.getElementById('ppTrack1'), speed: 120 },
+      { el: document.getElementById('ppTrack2'), speed: 70 },
+      { el: document.getElementById('ppTrack3'), speed: 40 }
+    ];
+
+    tracks.forEach(function (t) {
+      if (!t.el) return;
+      duplicateTrack(t.el);
+      applyDuration(t.el, t.speed, 1);
+    });
+
+    // ── Resize: recalculate durations ──────────────────
+    window.addEventListener('resize', function () {
+      tracks.forEach(function (t) {
+        if (t.el) applyDuration(t.el, t.speed, 1);
+      });
+    });
+
+    // ── Modal ──────────────────────────────────────────
+    var overlay = document.getElementById('ppModal');
+    var inner   = document.getElementById('ppModalInner');
+    if (!overlay || !inner) return;
+
+    function openModal (id) {
+      var d = PP_DATA[id];
+      if (!d) return;
+      inner.innerHTML =
+        '<button class="pp-modal-close" id="ppClose" aria-label="Close">&times;</button>' +
+        '<p class="pp-modal-body">\u201c' + d.body + '\u201d</p>' +
+        '<hr class="pp-modal-divider">' +
+        '<div class="pp-modal-profile">' +
+          '<div class="pp-modal-profile-left">' +
+            '<img class="pp-modal-avatar" src="' + d.avatar + '" alt="' + d.name + '">' +
+            '<div class="pp-modal-author">' +
+              '<span class="pp-modal-name">' + d.name + '</span>' +
+              '<span class="pp-modal-role">' + d.role + '</span>' +
+              '<span class="pp-modal-company">' + d.company + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<a href="' + d.linkedin + '" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener">' + LI_SVG + '</a>' +
+        '</div>';
+      overlay.classList.add('is-open');
+      document.getElementById('ppClose').addEventListener('click', closeModal);
+    }
+
+    function closeModal () {
+      overlay.classList.remove('is-open');
+    }
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ── Click delegation (works on originals + clones) ─
+    var row1 = document.getElementById('ppRow1');
+    var row2 = document.getElementById('ppRow2');
+    if (row1) {
+      row1.addEventListener('click', function (e) {
+        var q = e.target.closest('.pp-quote');
+        if (q && q.dataset.id != null) openModal(+q.dataset.id);
+      });
+    }
+    if (row2) {
+      row2.addEventListener('click', function (e) {
+        var c = e.target.closest('.pp-card');
+        if (c && c.dataset.id != null) openModal(+c.dataset.id);
+      });
+    }
   }
 
   /* ────────────────────────────────────────────────────
@@ -2394,6 +2879,127 @@ footer {
 
   /* Init tilt after DOM is fully ready */
   initTiltCards();
+
+}());
+</script>
+
+<!-- ─── CUSTOM CURSOR ENGINE ────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+
+  var curMain   = document.getElementById('cur-main');
+  var curRing   = document.getElementById('cur-ring-wrap');
+  var curPctNum = document.getElementById('curPctNum');
+
+  var mx = -400, my = -400;  /* mouse position   */
+  var rx = -400, ry = -400;  /* ring lerp target */
+
+  /* ── Sync both state wrappers ── */
+  function setState(state, dir) {
+    curMain.dataset.state = state;
+    curRing.dataset.state = state;
+    if (dir !== undefined) curMain.dataset.dir = dir;
+  }
+
+  /* ── Mouse move: main cursor tracks instantly ── */
+  document.addEventListener('mousemove', function (e) {
+    mx = e.clientX;
+    my = e.clientY;
+    curMain.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+  });
+
+  /* ── Ring lerp loop ── */
+  (function animRing() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    curRing.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+    requestAnimationFrame(animRing);
+  }());
+
+  /* ── Classify an anchor element ── */
+  function classifyLink(a) {
+    var href = a.getAttribute('href') || '';
+    if (!href || href === '#') return 'default';
+    if (/^https?:\/\//.test(href) || /^\/\//.test(href) || a.target === '_blank') return 'external';
+    if (href.charAt(0) === '#') return 'scroll';
+    return 'default';
+  }
+
+  /* ── Determine up/down for a scroll anchor ── */
+  function scrollDir(href) {
+    try {
+      var target = document.querySelector(href);
+      if (!target) return 'down';
+      return target.getBoundingClientRect().top < 0 ? 'up' : 'down';
+    } catch (e) { return 'down'; }
+  }
+
+  /* ── Hover detection ── */
+  document.addEventListener('mouseover', function (e) {
+    if (curMain.dataset.state === 'loader') return;
+
+    /* pp-quote and pp-card: expand cursor */
+    if (e.target.closest('.pp-quote, .pp-card')) {
+      setState('expand');
+      return;
+    }
+
+    var a = e.target.closest('a, button, [role="button"]');
+    if (!a) { setState('default'); return; }
+
+    var kind = classifyLink(a);
+    if (kind === 'scroll') {
+      setState('scroll', scrollDir(a.getAttribute('href')));
+    } else if (kind === 'external') {
+      setState('external');
+    } else {
+      setState('default');
+    }
+  });
+
+  /* ── Re-evaluate direction on scroll (target may cross viewport) ── */
+  document.addEventListener('scroll', function () {
+    if (curMain.dataset.state !== 'scroll') return;
+    var a = document.elementFromPoint(mx, my);
+    if (!a) return;
+    var link = a.closest('a');
+    if (!link) return;
+    var href = link.getAttribute('href') || '';
+    if (href.charAt(0) === '#' && href.length > 1) {
+      curMain.dataset.dir = scrollDir(href);
+    }
+  }, { passive: true });
+
+  /* ── Hide when cursor leaves window ── */
+  document.addEventListener('mouseleave', function () {
+    curMain.style.opacity = '0';
+    curRing.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', function () {
+    curMain.style.opacity = '';
+    curRing.style.opacity = '';
+  });
+
+  /* ── Loader progress: watch fill bar width ── */
+  var loaderFillEl = document.getElementById('loader-fill');
+  var loaderEl     = document.getElementById('loader');
+
+  var progressObs = new MutationObserver(function () {
+    var w = parseFloat(loaderFillEl.style.width) || 0;
+    curPctNum.textContent = Math.round(w);
+  });
+  progressObs.observe(loaderFillEl, { attributes: true, attributeFilter: ['style'] });
+
+  /* ── Switch out of loader state when loader hides ── */
+  var loaderObs = new MutationObserver(function () {
+    if (loaderEl.classList.contains('hidden')) {
+      setState('default');
+      progressObs.disconnect();
+      loaderObs.disconnect();
+    }
+  });
+  loaderObs.observe(loaderEl, { attributes: true, attributeFilter: ['class'] });
 
 }());
 </script>
