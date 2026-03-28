@@ -8,6 +8,7 @@
 
 /* ─── RESET & VARIABLES ─────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@media (pointer: fine) { *, *::before, *::after { cursor: none !important; } }
 
 :root {
   --bg:          #000000;
@@ -115,6 +116,102 @@ body {
   text-transform: uppercase;
   color: var(--text-3);
 }
+
+/* ─── CUSTOM CURSOR ─────────────────────────────────── */
+/* Main cursor: dot + non-ring state indicators */
+#cur-main, #cur-ring-wrap {
+  position: fixed; top: 0; left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+}
+#cur-main > * { position: absolute; top: 0; left: 0; }
+
+.cur-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.15s;
+}
+.cur-ring {
+  position: absolute; top: 0; left: 0;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.55);
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s, width 0.2s var(--ease), height 0.2s var(--ease);
+}
+
+/* Rocket */
+.cur-rocket {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  transform: translate(-50%, -50%);
+}
+.cur-rocket-body {
+  display: block;
+  transition: transform 0.2s var(--ease);
+}
+.cur-rocket-chevron { display: flex; }
+.cur-rocket-chevron svg {
+  transition: transform 0.2s var(--ease);
+}
+
+/* External link */
+.cur-link {
+  transform: translate(-50%, -50%);
+}
+
+/* Loader percentage */
+.cur-loader-pct {
+  display: flex; align-items: baseline; gap: 2px;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+.cur-pct-num {
+  font-family: var(--font-d);
+  font-size: 34px; font-weight: 700;
+  letter-spacing: -0.05em; line-height: 1;
+  color: #fff;
+  min-width: 1.8ch; text-align: right;
+}
+.cur-pct-unit {
+  font-family: var(--font-d);
+  font-size: 14px; font-weight: 300;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ── Default state: show dot only (ring is separate) ── */
+.cur-rocket, .cur-link, .cur-loader-pct { display: none; }
+
+/* ── Scroll state ── */
+#cur-main[data-state="scroll"] .cur-dot,
+#cur-main[data-state="scroll"] .cur-link,
+#cur-main[data-state="scroll"] .cur-loader-pct { display: none; }
+#cur-main[data-state="scroll"] .cur-rocket { display: flex; }
+
+/* Rocket direction: up = default (0°), down = rotate 180° */
+#cur-main[data-dir="down"] .cur-rocket-body { transform: rotate(180deg); }
+/* Chevron direction */
+#cur-main[data-dir="down"] .cur-rocket-chevron svg { transform: rotate(180deg); }
+
+/* ── External state ── */
+#cur-main[data-state="external"] .cur-dot,
+#cur-main[data-state="external"] .cur-rocket,
+#cur-main[data-state="external"] .cur-loader-pct { display: none; }
+#cur-main[data-state="external"] .cur-link { display: block; }
+
+/* ── Loader state ── */
+#cur-main[data-state="loader"] .cur-dot,
+#cur-main[data-state="loader"] .cur-rocket,
+#cur-main[data-state="loader"] .cur-link { display: none; }
+#cur-main[data-state="loader"] .cur-loader-pct { display: flex; }
+
+/* Ring hidden in non-default states */
+#cur-ring-wrap[data-state="scroll"],
+#cur-ring-wrap[data-state="external"],
+#cur-ring-wrap[data-state="loader"] { opacity: 0; }
 
 /* ─── NAV ────────────────────────────────────────────── */
 #nav {
@@ -2028,6 +2125,56 @@ footer {
 </footer>
 
 
+<!-- ─── CUSTOM CURSOR ───────────────────────────────── -->
+<!-- Main cursor: dot + state-specific indicators -->
+<div id="cur-main" data-state="loader" data-dir="down">
+  <div class="cur-dot"></div>
+
+  <!-- Scroll link: rocket + direction chevron -->
+  <div class="cur-rocket">
+    <svg class="cur-rocket-body" width="22" height="30" viewBox="0 0 22 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Body + nose -->
+      <path d="M11 2C8 6 5.5 11 5.5 17H16.5C16.5 11 14 6 11 2Z" stroke="white" stroke-width="1.4" stroke-linejoin="round"/>
+      <!-- Porthole -->
+      <circle cx="11" cy="12.5" r="2.2" stroke="white" stroke-width="1.2"/>
+      <!-- Left fin -->
+      <path d="M5.5 17L2 22.5H6.5V17" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- Right fin -->
+      <path d="M16.5 17L20 22.5H15.5V17" stroke="white" stroke-width="1.2" stroke-linejoin="round"/>
+      <!-- Nozzle -->
+      <path d="M7.5 22.5H14.5" stroke="white" stroke-width="1.3" stroke-linecap="round"/>
+      <!-- Flame -->
+      <path d="M9 23.5Q11 27.5 13 23.5" stroke="rgba(255,255,255,0.45)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    </svg>
+    <div class="cur-rocket-chevron">
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+        <path d="M1 5L5 1L9 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- External link icon (accent colour) -->
+  <div class="cur-link">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+      <polyline points="15 3 21 3 21 9"/>
+      <line x1="10" y1="14" x2="21" y2="3"/>
+    </svg>
+  </div>
+
+  <!-- Loader: live percentage -->
+  <div class="cur-loader-pct">
+    <span class="cur-pct-num" id="curPctNum">0</span>
+    <span class="cur-pct-unit">%</span>
+  </div>
+</div>
+
+<!-- Ring cursor (lerp-follows mouse, default state only) -->
+<div id="cur-ring-wrap" data-state="loader">
+  <div class="cur-ring"></div>
+</div>
+
 <!-- ════════════════════════════════════════════════════
      APEX SCROLL ENGINE
      ════════════════════════════════════════════════════ -->
@@ -2459,6 +2606,121 @@ footer {
 
   /* ── GO ── */
   boot();
+
+}());
+</script>
+
+<!-- ─── CUSTOM CURSOR ENGINE ────────────────────────── -->
+<script>
+(function () {
+  'use strict';
+
+  var curMain   = document.getElementById('cur-main');
+  var curRing   = document.getElementById('cur-ring-wrap');
+  var curPctNum = document.getElementById('curPctNum');
+
+  var mx = -400, my = -400;  /* mouse position   */
+  var rx = -400, ry = -400;  /* ring lerp target */
+
+  /* ── Sync both state wrappers ── */
+  function setState(state, dir) {
+    curMain.dataset.state = state;
+    curRing.dataset.state = state;
+    if (dir !== undefined) curMain.dataset.dir = dir;
+  }
+
+  /* ── Mouse move: main cursor tracks instantly ── */
+  document.addEventListener('mousemove', function (e) {
+    mx = e.clientX;
+    my = e.clientY;
+    curMain.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+  });
+
+  /* ── Ring lerp loop ── */
+  (function animRing() {
+    rx += (mx - rx) * 0.14;
+    ry += (my - ry) * 0.14;
+    curRing.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+    requestAnimationFrame(animRing);
+  }());
+
+  /* ── Classify an anchor element ── */
+  function classifyLink(a) {
+    var href = a.getAttribute('href') || '';
+    if (!href || href === '#') return 'default';
+    if (/^https?:\/\//.test(href) || /^\/\//.test(href) || a.target === '_blank') return 'external';
+    if (href.charAt(0) === '#') return 'scroll';
+    return 'default';
+  }
+
+  /* ── Determine up/down for a scroll anchor ── */
+  function scrollDir(href) {
+    try {
+      var target = document.querySelector(href);
+      if (!target) return 'down';
+      return target.getBoundingClientRect().top < 0 ? 'up' : 'down';
+    } catch (e) { return 'down'; }
+  }
+
+  /* ── Hover detection ── */
+  document.addEventListener('mouseover', function (e) {
+    if (curMain.dataset.state === 'loader') return;
+
+    var a = e.target.closest('a, button, [role="button"]');
+    if (!a) { setState('default'); return; }
+
+    var kind = classifyLink(a);
+    if (kind === 'scroll') {
+      setState('scroll', scrollDir(a.getAttribute('href')));
+    } else if (kind === 'external') {
+      setState('external');
+    } else {
+      setState('default');
+    }
+  });
+
+  /* ── Re-evaluate direction on scroll (target may cross viewport) ── */
+  document.addEventListener('scroll', function () {
+    if (curMain.dataset.state !== 'scroll') return;
+    var a = document.elementFromPoint(mx, my);
+    if (!a) return;
+    var link = a.closest('a');
+    if (!link) return;
+    var href = link.getAttribute('href') || '';
+    if (href.charAt(0) === '#' && href.length > 1) {
+      curMain.dataset.dir = scrollDir(href);
+    }
+  }, { passive: true });
+
+  /* ── Hide when cursor leaves window ── */
+  document.addEventListener('mouseleave', function () {
+    curMain.style.opacity = '0';
+    curRing.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', function () {
+    curMain.style.opacity = '';
+    curRing.style.opacity = '';
+  });
+
+  /* ── Loader progress: watch fill bar width ── */
+  var loaderFillEl = document.getElementById('loader-fill');
+  var loaderEl     = document.getElementById('loader');
+
+  var progressObs = new MutationObserver(function () {
+    var w = parseFloat(loaderFillEl.style.width) || 0;
+    curPctNum.textContent = Math.round(w);
+  });
+  progressObs.observe(loaderFillEl, { attributes: true, attributeFilter: ['style'] });
+
+  /* ── Switch out of loader state when loader hides ── */
+  var loaderObs = new MutationObserver(function () {
+    if (loaderEl.classList.contains('hidden')) {
+      setState('default');
+      progressObs.disconnect();
+      loaderObs.disconnect();
+    }
+  });
+  loaderObs.observe(loaderEl, { attributes: true, attributeFilter: ['class'] });
 
 }());
 </script>
