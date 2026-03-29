@@ -933,7 +933,7 @@ body {
 }
 .tcard-quote-mark {
   font-family: Georgia, serif;
-  font-size: 48px;
+  font-size: var(--fs-4xl);
   line-height: 1;
   color: var(--accent);
   opacity: 0.7;
@@ -1210,6 +1210,47 @@ body {
   color: var(--accent); flex-shrink: 0;
 }
 .about-comp-label { font-size: var(--fs-sm); font-weight: 500; color: var(--text-1); }
+
+/* ─── CERTIFICATE MARQUEE ───────────────────────────── */
+.cert-marquee-wrapper {
+  overflow: hidden; margin-top: 24px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+.cert-marquee-track {
+  display: flex; gap: 12px; width: max-content;
+  animation: certScroll 40s linear infinite;
+}
+.cert-marquee-track:hover { animation-play-state: paused; }
+@keyframes certScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.cert-card {
+  flex-shrink: 0; width: 260px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: row; align-items: stretch;
+  transition: border-color 0.25s var(--ease);
+}
+.cert-card:hover { border-color: rgba(0,113,227,0.4); }
+.cert-card-img { width: 80px; flex-shrink: 0; object-fit: cover; display: block; }
+.cert-card-body { padding: 10px 12px; display: flex; flex-direction: column; justify-content: center; }
+.cert-card-title { font-size: var(--fs-xs); font-weight: 600; color: var(--text-1); line-height: 1.4; margin-bottom: 5px; }
+.cert-card-org { font-size: var(--fs-xs); color: var(--accent); font-weight: 500; margin-bottom: 2px; }
+.cert-card-date { font-size: var(--fs-xs); color: var(--text-3); }
+.btn-certs {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 16px;
+  font-size: var(--fs-sm); font-weight: 500; color: var(--text-2);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
+  padding: 7px 16px; text-decoration: none;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.btn-certs:hover { color: var(--text-1); border-color: rgba(255,255,255,0.22); }
+.btn-certs svg { flex-shrink: 0; }
+
 @media (max-width: 960px) {
   .about-layout { grid-template-columns: 1fr; }
   .about-section { padding: 80px 24px; }
@@ -1247,7 +1288,7 @@ body {
 }
 .about-seq-right {
   position: relative;
-  min-height: 460px;
+  min-height: 540px;
 }
 .about-panel {
   position: absolute; inset: 0;
@@ -1304,7 +1345,7 @@ body {
 }
 .about-cta-group { display: flex; flex-direction: column; gap: 6px; }
 .about-cta-label {
-  font-size: 11px; line-height: 1.5; color: var(--text-3);
+  font-size: var(--fs-xs); line-height: 1.5; color: var(--text-3);
   padding: 0 2px;
 }
 .about-cta-card {
@@ -1325,7 +1366,7 @@ body {
 }
 .about-cta-arrow {
   margin-left: auto; flex-shrink: 0;
-  font-size: 13px; color: var(--text-3);
+  font-size: var(--fs-sm); color: var(--text-3);
   transition: color 0.25s var(--ease), transform 0.25s var(--ease);
 }
 .about-cta-card:hover .about-cta-arrow { color: var(--accent); transform: translateX(3px); }
@@ -2489,9 +2530,134 @@ footer {
               <div class="about-comp-icon">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
               </div>
-              <span class="about-comp-label">Interaction Design</span>
+              <span class="about-comp-label">Enterprise Strategy</span>
             </div>
           </div>
+
+          <!-- Certificate Marquee -->
+          <div class="cert-marquee-wrapper">
+            <div class="cert-marquee-track">
+              <!-- Set 1 -->
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D560BAQH32RJQCl3dDQ/company-logo_100_100/B56ZYQ0mrGGoAU-/0/1744038948046/microsoft_logo?e=1776297600&v=beta&t=Qu2N5DbnVoQhOs41NQmukHC8b5E6Eykyk_INtrXMavw" alt="Google UX Design">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Product Experiences in the AI Era</div>
+                  <div class="cert-card-org">Microsoft</div>
+                  <div class="cert-card-date">Issued Jan 2026</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D560BAQH32RJQCl3dDQ/company-logo_100_100/B56ZYQ0mrGGoAU-/0/1744038948046/microsoft_logo?e=1776297600&v=beta&t=Qu2N5DbnVoQhOs41NQmukHC8b5E6Eykyk_INtrXMavw" alt="Meta Product Design">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Enterprise Product Management</div>
+                  <div class="cert-card-org">Microsoft</div>
+                  <div class="cert-card-date">Issued Jan 2026</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D560BAQH32RJQCl3dDQ/company-logo_100_100/B56ZYQ0mrGGoAU-/0/1744038948046/microsoft_logo?e=1776297600&v=beta&t=Qu2N5DbnVoQhOs41NQmukHC8b5E6Eykyk_INtrXMavw" alt="Figma Advanced">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Product Design and UX/UI</div>
+                  <div class="cert-card-org">Microsoft</div>
+                  <div class="cert-card-date">Issued Jan 2026</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D4E0BAQGswgFabFDexw/company-logo_100_100/B4EZxXcgGEHsAQ-/0/1770993616001/blue_prism_limited_logo?e=1776297600&v=beta&t=32b27y3P66yu8Lu7mBRhZ8XQoOT5dzSawIjibxlHlF0" alt="NNG UX Certification">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Robotic Process Automation</div>
+                  <div class="cert-card-org">Nielsen Norman Group</div>
+                  <div class="cert-card-date">Issued Aug 2023</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D4D0BAQEvm2QP5s8sZA/company-logo_100_100/company-logo_100_100/0/1681968383806?e=1776297600&v=beta&t=54Li8qfOKAQa8l_4hi-wEtDkLSFuV-U2Wuy2KfTyqak" alt="Interaction Design">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Data-Driven PM</div>
+                  <div class="cert-card-org">NASBA</div>
+                  <div class="cert-card-date">Issued Jan 2026</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D4E0BAQGv3cqOuUMY7g/company-logo_100_100/B4EZmhegXHGcAU-/0/1759350753990/google_logo?e=1776297600&v=beta&t=kVDVa3DnbUKASJdkPCfTp5Ucx26CVzU2xASTq-DJ6Vg" alt="AWS Cloud Practitioner">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Google UX Design Specialization</div>
+                  <div class="cert-card-org">Google</div>
+                  <div class="cert-card-date">Issued Jul 2023</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D4E0BAQGv3cqOuUMY7g/company-logo_100_100/B4EZmhegXHGcAU-/0/1759350753990/google_logo?e=1776297600&v=beta&t=kVDVa3DnbUKASJdkPCfTp5Ucx26CVzU2xASTq-DJ6Vg" alt="AWS Cloud Practitioner">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Responsive Web Design</div>
+                  <div class="cert-card-org">Google</div>
+                  <div class="cert-card-date">Issued Jun 2023</div>
+                </div>
+              </div>
+              <!-- Duplicate set for seamless infinite loop -->
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D560BAQH32RJQCl3dDQ/company-logo_100_100/B56ZYQ0mrGGoAU-/0/1744038948046/microsoft_logo?e=1776297600&v=beta&t=Qu2N5DbnVoQhOs41NQmukHC8b5E6Eykyk_INtrXMavw" alt="Google UX Design">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Product Experiences in the AI Era</div>
+                  <div class="cert-card-org">Microsoft</div>
+                  <div class="cert-card-date">Issued Jan 2026</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D560BAQH32RJQCl3dDQ/company-logo_100_100/B56ZYQ0mrGGoAU-/0/1744038948046/microsoft_logo?e=1776297600&v=beta&t=Qu2N5DbnVoQhOs41NQmukHC8b5E6Eykyk_INtrXMavw" alt="Meta Product Design">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Enterprise Product Management</div>
+                  <div class="cert-card-org">Microsoft</div>
+                  <div class="cert-card-date">Issued Jan 2026</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D560BAQH32RJQCl3dDQ/company-logo_100_100/B56ZYQ0mrGGoAU-/0/1744038948046/microsoft_logo?e=1776297600&v=beta&t=Qu2N5DbnVoQhOs41NQmukHC8b5E6Eykyk_INtrXMavw" alt="Figma Advanced">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Product Design and UX/UI</div>
+                  <div class="cert-card-org">Microsoft</div>
+                  <div class="cert-card-date">Issued Jan 2026</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D4E0BAQGswgFabFDexw/company-logo_100_100/B4EZxXcgGEHsAQ-/0/1770993616001/blue_prism_limited_logo?e=1776297600&v=beta&t=32b27y3P66yu8Lu7mBRhZ8XQoOT5dzSawIjibxlHlF0" alt="NNG UX Certification">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Robotic Process Automation</div>
+                  <div class="cert-card-org">Nielsen Norman Group</div>
+                  <div class="cert-card-date">Issued Aug 2023</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D4D0BAQEvm2QP5s8sZA/company-logo_100_100/company-logo_100_100/0/1681968383806?e=1776297600&v=beta&t=54Li8qfOKAQa8l_4hi-wEtDkLSFuV-U2Wuy2KfTyqak" alt="Interaction Design">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Data-Driven PM</div>
+                  <div class="cert-card-org">NASBA</div>
+                  <div class="cert-card-date">Issued Jan 2026</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D4E0BAQGv3cqOuUMY7g/company-logo_100_100/B4EZmhegXHGcAU-/0/1759350753990/google_logo?e=1776297600&v=beta&t=kVDVa3DnbUKASJdkPCfTp5Ucx26CVzU2xASTq-DJ6Vg" alt="AWS Cloud Practitioner">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Google UX Design Specialization</div>
+                  <div class="cert-card-org">Google</div>
+                  <div class="cert-card-date">Issued Jul 2023</div>
+                </div>
+              </div>
+              <div class="cert-card">
+                <img class="cert-card-img" src="https://media.licdn.com/dms/image/v2/D4E0BAQGv3cqOuUMY7g/company-logo_100_100/B4EZmhegXHGcAU-/0/1759350753990/google_logo?e=1776297600&v=beta&t=kVDVa3DnbUKASJdkPCfTp5Ucx26CVzU2xASTq-DJ6Vg" alt="AWS Cloud Practitioner">
+                <div class="cert-card-body">
+                  <div class="cert-card-title">Responsive Web Design</div>
+                  <div class="cert-card-org">Google</div>
+                  <div class="cert-card-date">Issued Jun 2023</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Replace href with your certifications profile URL -->
+          <a href="https://www.linkedin.com/in/davelantor/details/certifications/" target="_blank" rel="noopener noreferrer" class="btn-certs">
+            View all certifications
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
         </div>
 
         <!-- Panel 3: Image Gallery -->
@@ -3110,7 +3276,7 @@ footer {
   }
 
   /* ────────────────────────────────────────────────────
-     PRAISE PARADE — three-row infinite marquee
+     PRAISE PARADE — ttwo-row infinite marquee
   ──────────────────────────────────────────────────── */
   function initPraiseParade () {
     // ── Data ───────────────────────────────────────────
