@@ -1452,7 +1452,17 @@ footer {
   transition: transform 0.15s ease-out;
   will-change: transform;
 }
-/* Parallax text/badge layers */
+/* Parallax text layers — three depths */
+.tilt-card-inner .tilt-parallax-text-sm {
+  transform: translateZ(20px);
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+.tilt-card-inner .tilt-parallax-text-md {
+  transform: translateZ(32px);
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
 .tilt-card-inner .tilt-parallax-text {
   transform: translateZ(40px);
   transition: transform 0.15s ease-out;
@@ -1512,6 +1522,8 @@ footer {
 @media (hover: none) {
   .tilt-card-inner { transform: none !important; }
   .tilt-card-inner .tilt-parallax-img,
+  .tilt-card-inner .tilt-parallax-text-sm,
+  .tilt-card-inner .tilt-parallax-text-md,
   .tilt-card-inner .tilt-parallax-text,
   .tilt-card-inner .tilt-parallax-badge { transform: none !important; }
 }
@@ -2738,114 +2750,124 @@ footer {
      • Shelf entrance stagger animation
   ──────────────────────────────────────────────────── */
   function initTiltCards () {
-    var MAX_TILT = 12; // degrees
-    var PARALLAX_IMG  = 24; // px translateZ for images
-    var PARALLAX_TEXT = 40; // px translateZ for text
-    var PARALLAX_BADGE = 56; // px translateZ for badges
+    var MAX_TILT      = 3;
+    var PARALLAX_IMG  = 24;
+    var PARALLAX_TEXT = 40;
+    var PARALLAX_BADGE = 56;
 
     /* ── Enhance experience cards dynamically ── */
     document.querySelectorAll('.callout .card').forEach(function (card) {
-      // Wrap card content for 3D
       card.classList.add('tilt-card-inner');
       card.style.transformStyle = 'preserve-3d';
 
-      // Create perspective wrapper
       var wrapper = document.createElement('div');
       wrapper.className = 'tilt-card';
       card.parentNode.insertBefore(wrapper, card);
       wrapper.appendChild(card);
 
-      // Add glare element
       var glare = document.createElement('div');
       glare.className = 'tilt-glare';
       card.appendChild(glare);
 
-      // Mark parallax layers
       var logo = card.querySelector('.card-logo');
       if (logo) logo.classList.add('tilt-parallax-img');
-
       var title = card.querySelector('.card-title');
-      if (title) title.classList.add('tilt-parallax-text');
-
-      var badges = card.querySelectorAll('.card-badge');
-      badges.forEach(function (b) { b.classList.add('tilt-parallax-badge'); });
+      if (title) title.classList.add('tilt-parallax-text');           // nx * 8
+      var company = card.querySelector('.card-company');
+      if (company) company.classList.add('tilt-parallax-text-md');    // nx * 4
+      card.querySelectorAll('.card-section-label').forEach(function (el) { el.classList.add('tilt-parallax-text-sm'); }); // nx * 2
+      card.querySelectorAll('.card-badge, .card-chip').forEach(function (b) { b.classList.add('tilt-parallax-badge'); });
     });
 
-    /* ── Attach mouse events to all tilt cards ── */
+    /* ── Enhance split-media panels ── */
+    document.querySelectorAll('.split-media').forEach(function (media) {
+      media.classList.add('tilt-card-inner');
+      media.style.transformStyle = 'preserve-3d';
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'tilt-card';
+      wrapper.style.perspective = '1000px';
+      media.parentNode.insertBefore(wrapper, media);
+      wrapper.appendChild(media);
+
+      var glare = document.createElement('div');
+      glare.className = 'tilt-glare';
+      media.appendChild(glare);
+    });
+
+    /* ── Collect all tilt cards and mark active ── */
+    var allTilts = [];
     document.querySelectorAll('.tilt-card').forEach(function (wrapper) {
       var inner = wrapper.querySelector('.tilt-card-inner');
       if (!inner) return;
+      inner.classList.add('tilt-active');
+      inner.style.transition = 'transform 0.1s ease-out, box-shadow 0.3s ease-out';
+      allTilts.push({ wrapper: wrapper, inner: inner, glare: inner.querySelector('.tilt-glare') });
+    });
 
-      var glare = inner.querySelector('.tilt-glare');
-      var raf = null;
+    /* ── Single global mousemove drives all visible cards ── */
+    var tiltRaf = null;
+    document.addEventListener('mousemove', function (e) {
+      if (tiltRaf) return;
+      tiltRaf = requestAnimationFrame(function () {
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var mx = e.clientX;
+        var my = e.clientY;
 
-      wrapper.addEventListener('mouseenter', function () {
-        inner.classList.add('tilt-active');
-        inner.style.transition = 'box-shadow 0.3s ease-out';
-      });
+        allTilts.forEach(function (c) {
+          var rect = c.wrapper.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > vh) return; // skip off-screen
 
-      wrapper.addEventListener('mousemove', function (e) {
-        if (raf) return;
-        raf = requestAnimationFrame(function () {
-          var rect = wrapper.getBoundingClientRect();
-          var x = e.clientX - rect.left;
-          var y = e.clientY - rect.top;
-          var w = rect.width;
-          var h = rect.height;
+          var cx = rect.left + rect.width  / 2;
+          var cy = rect.top  + rect.height / 2;
+          var nx = Math.max(-1, Math.min(1, (mx - cx) / (vw / 2)));
+          var ny = Math.max(-1, Math.min(1, (my - cy) / (vh / 2)));
 
-          // Normalized -1 to 1
-          var nx = (x / w - 0.5) * 2;
-          var ny = (y / h - 0.5) * 2;
-
-          // Rotation (inverted Y for natural feel)
           var rotateX = -ny * MAX_TILT;
-          var rotateY = nx * MAX_TILT;
+          var rotateY =  nx * MAX_TILT;
 
-          inner.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) scale3d(1.02,1.02,1.02)';
+          c.inner.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) scale3d(1.02,1.02,1.02)';
 
-          // Parallax offsets for internal elements
-          var imgEls = inner.querySelectorAll('.tilt-parallax-img');
-          imgEls.forEach(function (el) {
+          c.inner.querySelectorAll('.tilt-parallax-img').forEach(function (el) {
             el.style.transform = 'translateZ(' + PARALLAX_IMG + 'px) translate(' + (nx * 4).toFixed(1) + 'px,' + (ny * 4).toFixed(1) + 'px) scale(1.02)';
           });
-
-          var textEls = inner.querySelectorAll('.tilt-parallax-text');
-          textEls.forEach(function (el) {
+          c.inner.querySelectorAll('.tilt-parallax-text-sm').forEach(function (el) {
+            el.style.transform = 'translateZ(20px) translate(' + (nx * 2).toFixed(1) + 'px,' + (ny * 1.5).toFixed(1) + 'px)';
+          });
+          c.inner.querySelectorAll('.tilt-parallax-text-md').forEach(function (el) {
+            el.style.transform = 'translateZ(32px) translate(' + (nx * 4).toFixed(1) + 'px,' + (ny * 3).toFixed(1) + 'px)';
+          });
+          c.inner.querySelectorAll('.tilt-parallax-text').forEach(function (el) {
             el.style.transform = 'translateZ(' + PARALLAX_TEXT + 'px) translate(' + (nx * 8).toFixed(1) + 'px,' + (ny * 6).toFixed(1) + 'px)';
           });
-
-          var badgeEls = inner.querySelectorAll('.tilt-parallax-badge');
-          badgeEls.forEach(function (el) {
+          c.inner.querySelectorAll('.tilt-parallax-badge').forEach(function (el) {
             el.style.transform = 'translateZ(' + PARALLAX_BADGE + 'px) translate(' + (nx * 12).toFixed(1) + 'px,' + (ny * 8).toFixed(1) + 'px)';
           });
 
-          // Glare position
-          if (glare) {
-            glare.style.setProperty('--glare-x', ((x / w) * 100).toFixed(1) + '%');
-            glare.style.setProperty('--glare-y', ((y / h) * 100).toFixed(1) + '%');
+          if (c.glare) {
+            var gx = rect.width  > 0 ? ((mx - rect.left) / rect.width  * 100).toFixed(1) : 50;
+            var gy = rect.height > 0 ? ((my - rect.top)  / rect.height * 100).toFixed(1) : 50;
+            c.glare.style.setProperty('--glare-x', gx + '%');
+            c.glare.style.setProperty('--glare-y', gy + '%');
           }
-
-          raf = null;
         });
+
+        tiltRaf = null;
       });
+    });
 
-      wrapper.addEventListener('mouseleave', function () {
-        if (raf) { cancelAnimationFrame(raf); raf = null; }
-        inner.classList.remove('tilt-active');
-        inner.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease-out';
-        inner.style.transform = '';
-
-        // Reset parallax layers
-        var imgEls = inner.querySelectorAll('.tilt-parallax-img');
-        imgEls.forEach(function (el) { el.style.transform = ''; });
-        var textEls = inner.querySelectorAll('.tilt-parallax-text');
-        textEls.forEach(function (el) { el.style.transform = ''; });
-        var badgeEls = inner.querySelectorAll('.tilt-parallax-badge');
-        badgeEls.forEach(function (el) { el.style.transform = ''; });
-
-        if (glare) {
-          glare.style.setProperty('--glare-x', '50%');
-          glare.style.setProperty('--glare-y', '50%');
+    /* ── Reset on mouse leave ── */
+    document.addEventListener('mouseleave', function () {
+      allTilts.forEach(function (c) {
+        c.inner.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease-out';
+        c.inner.style.transform = '';
+        c.inner.querySelectorAll('.tilt-parallax-img, .tilt-parallax-text-sm, .tilt-parallax-text-md, .tilt-parallax-text, .tilt-parallax-badge').forEach(function (el) {
+          el.style.transform = '';
+        });
+        if (c.glare) {
+          c.glare.style.setProperty('--glare-x', '50%');
+          c.glare.style.setProperty('--glare-y', '50%');
         }
       });
     });
