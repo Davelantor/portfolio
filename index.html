@@ -1246,6 +1246,38 @@ body {
 }
 .about-gallery-item:hover img { transform: scale(1.06); filter: grayscale(0%); }
 .about-gallery-item--featured { grid-row: span 2; }
+/* Contact panel */
+.about-contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+  margin-top: 4px;
+}
+.about-cta-group { display: flex; flex-direction: column; gap: 6px; }
+.about-cta-label {
+  font-size: 11px; line-height: 1.5; color: var(--text-3);
+  padding: 0 2px;
+}
+.about-cta-card {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(8,8,8,0.25);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 12px 14px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease);
+  cursor: pointer;
+}
+.about-cta-card:hover {
+  border-color: rgba(0,113,227,0.35);
+  background: rgba(0,113,227,0.06);
+  transform: translateY(-2px);
+}
+.about-cta-arrow {
+  margin-left: auto; flex-shrink: 0;
+  font-size: 13px; color: var(--text-3);
+  transition: color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.about-cta-card:hover .about-cta-arrow { color: var(--accent); transform: translateX(3px); }
 /* Progress dots */
 .about-seq-dots {
   position: absolute;
@@ -2247,7 +2279,7 @@ footer {
 </div><!-- /scene-stack -->
 
 <!-- ─── ABOUT ME ────────────────────────────────────── -->
-<section id="about" class="about-seq-section" style="height:500vh;">
+<section id="about" class="about-seq-section" style="height:625vh;">
   <div class="about-seq-sticky">
 
     <div class="about-seq-layout">
@@ -2403,6 +2435,71 @@ footer {
           </div>
         </div>
 
+        <!-- Panel 4: Contact -->
+        <div class="about-panel" id="aboutPanel4">
+          <p class="about-panel-eyebrow">Get in Touch</p>
+          <h2 class="about-panel-heading">Let's work<br>together.</h2>
+          <div class="about-contact-grid">
+
+            <div class="about-cta-group">
+              <p class="about-cta-label">Find more about me</p>
+              <a href="https://www.linkedin.com/in/davelantor/" class="about-cta-card" target="_blank" rel="noopener">
+                <div class="about-meta-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </div>
+                <div class="about-meta-text">
+                  <span class="about-meta-label">LinkedIn</span>
+                  <span class="about-meta-value">linkedin.com/in/davelantor</span>
+                </div>
+                <span class="about-cta-arrow">↗</span>
+              </a>
+            </div>
+
+            <div class="about-cta-group">
+              <p class="about-cta-label">This site was built by me in 24 h — take a peek under the hood</p>
+              <a href="https://github.com/" class="about-cta-card" target="_blank" rel="noopener">
+                <div class="about-meta-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </div>
+                <div class="about-meta-text">
+                  <span class="about-meta-label">GitHub</span>
+                  <span class="about-meta-value">View source code</span>
+                </div>
+                <span class="about-cta-arrow">↗</span>
+              </a>
+            </div>
+
+            <div class="about-cta-group">
+              <p class="about-cta-label">Reach out to me</p>
+              <a href="mailto:john@jurvanen.com" class="about-cta-card">
+                <div class="about-meta-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div class="about-meta-text">
+                  <span class="about-meta-label">Email</span>
+                  <span class="about-meta-value">john@jurvanen.com</span>
+                </div>
+                <span class="about-cta-arrow">↗</span>
+              </a>
+            </div>
+
+            <div class="about-cta-group">
+              <p class="about-cta-label">See my full background</p>
+              <a href="#" class="about-cta-card" download>
+                <div class="about-meta-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </div>
+                <div class="about-meta-text">
+                  <span class="about-meta-label">Download CV</span>
+                  <span class="about-meta-value">John Jurvanen — 2026</span>
+                </div>
+                <span class="about-cta-arrow">↓</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
       </div><!-- /about-seq-right -->
     </div><!-- /about-seq-layout -->
 
@@ -2412,67 +2509,12 @@ footer {
       <div class="about-seq-dot" id="aboutDot1"></div>
       <div class="about-seq-dot" id="aboutDot2"></div>
       <div class="about-seq-dot" id="aboutDot3"></div>
+      <div class="about-seq-dot" id="aboutDot4"></div>
     </div>
 
   </div><!-- /about-seq-sticky -->
 </section>
 
-<!-- ─── PERFORMANCE STRIP ──────────────────────────── -->
-<section class="perf-strip">
-  <div class="perf-inner">
-    <h2 class="d3 perf-title fiu">Performance<br>at every axis.</h2>
-    <div class="perf-rows">
-      <div class="perf-row fiu" data-perf="92">
-        <span class="perf-name">Wind Resistance</span>
-        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:92%"></div></div>
-        <span class="perf-val">Level 7</span>
-      </div>
-      <div class="perf-row fiu" data-perf="88">
-        <span class="perf-name">Battery Efficiency</span>
-        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:88%"></div></div>
-        <span class="perf-val">46 min</span>
-      </div>
-      <div class="perf-row fiu" data-perf="95">
-        <span class="perf-name">Signal Stability</span>
-        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:95%"></div></div>
-        <span class="perf-val">12 km</span>
-      </div>
-      <div class="perf-row fiu" data-perf="78">
-        <span class="perf-name">Top Speed</span>
-        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:78%"></div></div>
-        <span class="perf-val">87 km/h</span>
-      </div>
-      <div class="perf-row fiu" data-perf="85">
-        <span class="perf-name">Image Stabilisation</span>
-        <div class="perf-bar-wrap"><div class="perf-bar" style="--target:85%"></div></div>
-        <span class="perf-val">±0.01°</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ─── FOOTER ─────────────────────────────────────── -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">APEX</div>
-      <ul class="footer-nav">
-        <li><a href="#">Buy</a></li>
-        <li><a href="#">Support</a></li>
-        <li><a href="#">Academy</a></li>
-        <li><a href="#">Enterprise</a></li>
-        <li><a href="#">Safety</a></li>
-        <li><a href="#">Newsroom</a></li>
-      </ul>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2026 APEX Aerial Systems, Inc. All rights reserved. Specifications subject to change.</p>
-      <p class="footer-copy">Pro One. Pro Camera. Pro Performance.</p>
-    </div>
-  </div>
-</footer>
 
 
 <!-- ─── CUSTOM CURSOR ───────────────────────────────── -->
@@ -2845,7 +2887,7 @@ footer {
 
     var p = sectionProgress(aboutSeqEl, sy);
     var n = aboutPanels.length;
-    var BOUNDS = [0, 0.25, 0.5, 0.75, 1];
+    var BOUNDS = [0, 0.2, 0.4, 0.6, 0.8, 1];
 
     aboutPanels.forEach(function (panel, i) {
       var s = BOUNDS[i];
