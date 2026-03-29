@@ -284,16 +284,32 @@ body {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--text-1); }
-.nav-order {
-  font-size: var(--fs-sm); font-weight: 500;
-  background: var(--accent);
+.nav-links a.is-active {
   color: var(--text-1);
-  padding: 6px 18px;
-  border-radius: 980px;
-  text-decoration: none;
-  transition: background 0.2s;
+  position: relative;
 }
-.nav-order:hover { background: var(--accent-h); }
+.nav-links a.is-active::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px; background: var(--text-1);
+  border-radius: 1px;
+}
+.nav-order {
+  display: flex; align-items: center; gap: 6px;
+  font-size: var(--fs-sm); font-weight: 500; font-family: inherit;
+  color: var(--text-2);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 6px 14px;
+  border-radius: 980px;
+  text-decoration: none; cursor: pointer;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+.nav-order:hover {
+  color: var(--text-1);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+}
 
 /* ─── PERSISTENT BACKGROUND LAYER ───────────────────── */
 #bg {
@@ -1311,8 +1327,15 @@ body {
   .about-seq-dots { display: none; }
 }
 
+/* ─── PRAISE PARADE SEQUENCE ────────────────────────── */
+#pp-sequence { position: relative; height: 250vh; }
+#pp-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+}
+
 /* ─── SCENE STACK ───────────────────────────────────── */
-#scene-stack { position: relative; height: 500vh; }
+#scene-stack { position: relative; height: 375vh; }
 #scene-sticky {
   position: sticky; top: 0;
   height: 100vh; overflow: hidden;
@@ -1345,16 +1368,19 @@ body {
 /* About: starts invisible, JS fades it in */
 #about { opacity: 0; }
 @media (max-width: 960px) {
+  #pp-sequence { height: auto; }
+  #pp-sticky { position: static; height: auto; overflow: visible; }
+  #testimonials { height: auto; }
+  #testimonials .pp-header { padding-top: 100px; padding-bottom: 56px; }
   #scene-stack { height: auto; }
   #scene-sticky { position: static; height: auto; overflow: visible; }
-  .scene { position: static; opacity: 1 !important; pointer-events: auto; }
+  .scene { position: static; opacity: 1 !important; transform: none !important; pointer-events: auto; }
   .scene .fiu {
     opacity: 0 !important; transform: translateY(28px) !important;
     transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out) !important;
   }
   .scene .fiu.on { opacity: 1 !important; transform: none !important; }
-  #testimonials, #features, #performance, #design-section { height: auto; }
-  #testimonials .pp-header { padding-top: 100px; padding-bottom: 56px; }
+  #features, #performance, #design-section { height: auto; }
   #performance { padding-top: 20px !important; padding-bottom: 20px !important; display: block; }
   #design-section { padding-bottom: 20px !important; display: block; }
   #features { background: linear-gradient(160deg, #050510 0%, #000 60%) !important; }
@@ -1761,14 +1787,18 @@ footer {
 
 <!-- ─── NAV ───────────────────────────────────────── -->
 <nav id="nav" class="transparent">
-  <a href="#" class="nav-logo">APEX</a>
-  <ul class="nav-links">
-    <li><a href="#seq1">History</a></li>
-    <li><a href="#testimonials">Recommendations</a></li>
-    <li><a href="#features">Projects</a></li>
-    <li><a href="#about">About Me</a></li>
+  <a href="#" class="nav-logo">John Jurvanen</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#seq1" data-section="seq1">History</a></li>
+    <li><a href="#recomendations" data-section="recomendations">Recommendations</a></li>
+    <li><a href="#projects" data-section="projects">Projects</a></li>
+    <li><a href="#about" data-section="about">About Me</a></li>
+    <li><a href="#contact" data-section="contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-order">Contact</a>
+  <a href="https://drive.usercontent.google.com/u/0/uc?id=1CP3madEy3mjqbR83WRutBnSOuhxuUHZL&export=download" class="nav-order" download target="_blank" rel="noopener">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download CV
+  </a>
 </nav>
 
 <!-- ─── PERSISTENT BACKGROUND ────────────────────── -->
@@ -2065,146 +2095,158 @@ footer {
   </div>
 </section>
 
-<!-- ─── SCENE STACK ─────────────────────────────────── -->
-<div id="scene-stack">
-<div id="scene-sticky">
 
-<!-- Scene 0: Praise Parade -->
-<div class="scene">
-<section id="testimonials" class="pp-section">
 
-  <!-- Header -->
-  <div class="pp-header fiu">
-    <p class="testimonials-eyebrow">Endorsements</p>
-    <h2 class="testimonials-title">The Praise Parade</h2>
-  </div>
+<section id="recomendations">
+  <!-- ─── PRAISE PARADE SEQUENCE ──────────────────────── -->
+  <div id="pp-sequence">
+    <div id="pp-sticky">
+  <section id="testimonials" class="pp-section">
 
-  <!-- Row 1: Pull quotes — light bg, fast -->
-  <div class="pp-row pp-row--light" id="ppRow1">
-    <div class="pp-track" id="ppTrack1">
-      <span class="pp-quote" data-id="0">&ldquo;High-quality.&rdquo;<span class="pp-attr">Teppo Aalto, CPO</span></span>
-      <span class="pp-quote" data-id="1">&ldquo;Very Customer Oriented.&rdquo;<span class="pp-attr">Kosti Kannas, CTO</span></span>
-      <span class="pp-quote" data-id="2">&ldquo;Amazing Multi-disciplinary team player.&rdquo;<span class="pp-attr">Tommi Martela, Head of Product Development</span></span>
-      <span class="pp-quote" data-id="3">&ldquo;Dependable.&rdquo;<span class="pp-attr">Ernest Arendarenko, Tech Lead</span></span>
-      <span class="pp-quote" data-id="4">&ldquo;I would recommend him.&rdquo;<span class="pp-attr">Lasse Ylinen, Software Engineering Manager</span></span>
-      <span class="pp-quote" data-id="0">&ldquo;Exceptional UX/UI expertise.&rdquo;<span class="pp-attr">Teppo Aalto, CPO</span></span>
-      <span class="pp-quote" data-id="1">&ldquo;Truly a great asset.&rdquo;<span class="pp-attr">Kosti Kannas, CTO</span></span>
-      <span class="pp-quote" data-id="2">&ldquo;Excellent SD Skills.&rdquo;<span class="pp-attr">Tommi Martela, Head of Product Development</span></span>
-      <span class="pp-quote" data-id="3">&ldquo;Very fast iterations.&rdquo;<span class="pp-attr">Ernest Arendarenko, Tech Lead</span></span>
-      <span class="pp-quote" data-id="4">&ldquo;Multiple successful product launches.&rdquo;<span class="pp-attr">Lasse Ylinen, Software Engineering Manager</span></span>
+    <!-- Header -->
+    <div class="pp-header fiu">
+      <p class="testimonials-eyebrow">Endorsements</p>
+      <h2 class="testimonials-title">The Praise Parade</h2>
     </div>
-  </div>
 
-  <!-- Row 2: Full testimonial cards — dark bg, medium speed -->
-  <div class="pp-row pp-row--dark" id="ppRow2">
-    <div class="pp-track" id="ppTrack2">
-
-      <!-- 0: Teppo Aalto -->
-      <div class="pp-card" data-id="0">
-        <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body">During customer meetings, John was able to <em>adjust and refine UI concepts on the fly</em>, incorporating feedback in real time and turning customer input into concrete, <em>design updates within minutes</em>.</p>
-        <hr class="tcard-divider">
-        <div class="tcard-profile">
-          <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Images/Contacts/Teppo.jpg" alt="Teppo Aalto">
-            <div class="tcard-author">
-              <span class="tcard-name">Teppo Aalto</span>
-              <span class="tcard-role">Chief Product Officer</span>
-              <span class="tcard-company">Mapvision</span>
-            </div>
-          </div>
-          <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- 1: Kosti Kannas -->
-      <div class="pp-card" data-id="1">
-        <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body">He is also very <em>customer oriented</em> and always interested to learn how the customers are using his designs. What separates him from the rest is his <em>ability to always make you feel good</em> when interacting with him. That's something unique!</p>
-        <hr class="tcard-divider">
-        <div class="tcard-profile">
-          <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Images/Contacts/Kosti.jpg" alt="Kosti Kannas">
-            <div class="tcard-author">
-              <span class="tcard-name">Kosti Kannas</span>
-              <span class="tcard-role">Chief Technology Officer</span>
-              <span class="tcard-company">Mapvision</span>
-            </div>
-          </div>
-          <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- 2: Tommi Martela -->
-      <div class="pp-card" data-id="2">
-        <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body">John has truly been an amazing <em>multi-disciplinary team player</em> in our development team. Leading our UX efforts, creating <em>amazing Figma prototypes</em> that leave both product owners and customers begging for more.</p>
-        <hr class="tcard-divider">
-        <div class="tcard-profile">
-          <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Images/Contacts/Tommi.jpg" alt="Tommi Martela">
-            <div class="tcard-author">
-              <span class="tcard-name">Tommi Martela</span>
-              <span class="tcard-role">Head Of Product Development</span>
-              <span class="tcard-company">Mapvision</span>
-            </div>
-          </div>
-          <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- 3: Ernest Arendarenko -->
-      <div class="pp-card" data-id="3">
-        <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body">He is <em>dependable</em>, consistently delivered in sprints and contributes to technical discussions while always keeping long-term user impact in mind through <em>clear use cases and flows</em>. In his UX role he showed <em>creativity, vision and care</em> ...</p>
-        <hr class="tcard-divider">
-        <div class="tcard-profile">
-          <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Images/Contacts/Ernest.jpg" alt="Ernest Arendarenko">
-            <div class="tcard-author">
-              <span class="tcard-name">Ernest Arendarenko</span>
-              <span class="tcard-role">Tech Lead / Team Lead</span>
-              <span class="tcard-company">Mapvision</span>
-            </div>
-          </div>
-          <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- 4: Lasse Ylinen -->
-      <div class="pp-card" data-id="4">
-        <div class="tcard-quote-mark">&ldquo;</div>
-        <p class="tcard-body"><em>Collaborated with product management</em> to bring their vision to live. Additionally he collected early feedback from customers via prototyping and questionnaires, leading to <em>multiple successful product launches</em>.</p>
-        <hr class="tcard-divider">
-        <div class="tcard-profile">
-          <div class="tcard-profile-left">
-            <img class="tcard-avatar" src="Images/Contacts/Lasse.jpg" alt="Lasse Ylinen">
-            <div class="tcard-author">
-              <span class="tcard-name">Lasse Ylinen</span>
-              <span class="tcard-role">Software Engineering Manager</span>
-              <span class="tcard-company">Mapvision</span>
-            </div>
-          </div>
-          <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
+    <!-- Row 1: Pull quotes — light bg, fast -->
+    <div class="pp-row pp-row--light" id="ppRow1">
+      <div class="pp-track" id="ppTrack1">
+        <span class="pp-quote" data-id="0">&ldquo;High-quality.&rdquo;<span class="pp-attr">Teppo Aalto, CPO</span></span>
+        <span class="pp-quote" data-id="1">&ldquo;Very Customer Oriented.&rdquo;<span class="pp-attr">Kosti Kannas, CTO</span></span>
+        <span class="pp-quote" data-id="2">&ldquo;Amazing Multi-disciplinary team player.&rdquo;<span class="pp-attr">Tommi Martela, Head of Product Development</span></span>
+        <span class="pp-quote" data-id="3">&ldquo;Dependable.&rdquo;<span class="pp-attr">Ernest Arendarenko, Tech Lead</span></span>
+        <span class="pp-quote" data-id="4">&ldquo;I would recommend him.&rdquo;<span class="pp-attr">Lasse Ylinen, Software Engineering Manager</span></span>
+        <span class="pp-quote" data-id="0">&ldquo;Exceptional UX/UI expertise.&rdquo;<span class="pp-attr">Teppo Aalto, CPO</span></span>
+        <span class="pp-quote" data-id="1">&ldquo;Truly a great asset.&rdquo;<span class="pp-attr">Kosti Kannas, CTO</span></span>
+        <span class="pp-quote" data-id="2">&ldquo;Excellent SD Skills.&rdquo;<span class="pp-attr">Tommi Martela, Head of Product Development</span></span>
+        <span class="pp-quote" data-id="3">&ldquo;Very fast iterations.&rdquo;<span class="pp-attr">Ernest Arendarenko, Tech Lead</span></span>
+        <span class="pp-quote" data-id="4">&ldquo;Multiple successful product launches.&rdquo;<span class="pp-attr">Lasse Ylinen, Software Engineering Manager</span></span>
       </div>
     </div>
+
+    <!-- Row 2: Full testimonial cards — dark bg, medium speed -->
+    <div class="pp-row pp-row--dark" id="ppRow2">
+      <div class="pp-track" id="ppTrack2">
+
+        <!-- 0: Teppo Aalto -->
+        <div class="pp-card" data-id="0">
+          <div class="tcard-quote-mark">&ldquo;</div>
+          <p class="tcard-body">During customer meetings, John was able to <em>adjust and refine UI concepts on the fly</em>, incorporating feedback in real time and turning customer input into concrete, <em>design updates within minutes</em>.</p>
+          <hr class="tcard-divider">
+          <div class="tcard-profile">
+            <div class="tcard-profile-left">
+              <img class="tcard-avatar" src="Images/Contacts/Teppo.jpg" alt="Teppo Aalto">
+              <div class="tcard-author">
+                <span class="tcard-name">Teppo Aalto</span>
+                <span class="tcard-role">Chief Product Officer</span>
+                <span class="tcard-company">Mapvision</span>
+              </div>
+            </div>
+            <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 1: Kosti Kannas -->
+        <div class="pp-card" data-id="1">
+          <div class="tcard-quote-mark">&ldquo;</div>
+          <p class="tcard-body">He is also very <em>customer oriented</em> and always interested to learn how the customers are using his designs. What separates him from the rest is his <em>ability to always make you feel good</em> when interacting with him. That's something unique!</p>
+          <hr class="tcard-divider">
+          <div class="tcard-profile">
+            <div class="tcard-profile-left">
+              <img class="tcard-avatar" src="Images/Contacts/Kosti.jpg" alt="Kosti Kannas">
+              <div class="tcard-author">
+                <span class="tcard-name">Kosti Kannas</span>
+                <span class="tcard-role">Chief Technology Officer</span>
+                <span class="tcard-company">Mapvision</span>
+              </div>
+            </div>
+            <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2: Tommi Martela -->
+        <div class="pp-card" data-id="2">
+          <div class="tcard-quote-mark">&ldquo;</div>
+          <p class="tcard-body">John has truly been an amazing <em>multi-disciplinary team player</em> in our development team. Leading our UX efforts, creating <em>amazing Figma prototypes</em> that leave both product owners and customers begging for more.</p>
+          <hr class="tcard-divider">
+          <div class="tcard-profile">
+            <div class="tcard-profile-left">
+              <img class="tcard-avatar" src="Images/Contacts/Tommi.jpg" alt="Tommi Martela">
+              <div class="tcard-author">
+                <span class="tcard-name">Tommi Martela</span>
+                <span class="tcard-role">Head Of Product Development</span>
+                <span class="tcard-company">Mapvision</span>
+              </div>
+            </div>
+            <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3: Ernest Arendarenko -->
+        <div class="pp-card" data-id="3">
+          <div class="tcard-quote-mark">&ldquo;</div>
+          <p class="tcard-body">He is <em>dependable</em>, consistently delivered in sprints and contributes to technical discussions while always keeping long-term user impact in mind through <em>clear use cases and flows</em>. In his UX role he showed <em>creativity, vision and care</em> ...</p>
+          <hr class="tcard-divider">
+          <div class="tcard-profile">
+            <div class="tcard-profile-left">
+              <img class="tcard-avatar" src="Images/Contacts/Ernest.jpg" alt="Ernest Arendarenko">
+              <div class="tcard-author">
+                <span class="tcard-name">Ernest Arendarenko</span>
+                <span class="tcard-role">Tech Lead / Team Lead</span>
+                <span class="tcard-company">Mapvision</span>
+              </div>
+            </div>
+            <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4: Lasse Ylinen -->
+        <div class="pp-card" data-id="4">
+          <div class="tcard-quote-mark">&ldquo;</div>
+          <p class="tcard-body"><em>Collaborated with product management</em> to bring their vision to live. Additionally he collected early feedback from customers via prototyping and questionnaires, leading to <em>multiple successful product launches</em>.</p>
+          <hr class="tcard-divider">
+          <div class="tcard-profile">
+            <div class="tcard-profile-left">
+              <img class="tcard-avatar" src="Images/Contacts/Lasse.jpg" alt="Lasse Ylinen">
+              <div class="tcard-author">
+                <span class="tcard-name">Lasse Ylinen</span>
+                <span class="tcard-role">Software Engineering Manager</span>
+                <span class="tcard-company">Mapvision</span>
+              </div>
+            </div>
+            <a href="https://www.linkedin.com/in/davelantor/details/recommendations/" class="tcard-link" aria-label="LinkedIn" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    </div><!-- /pp-sticky -->
+  </div><!-- /pp-sequence -->
+
+  <!-- Testimonial detail modal — fixed, lives outside sticky so it's not clipped -->
+  <div class="pp-modal-overlay" id="ppModal" role="dialog" aria-modal="true" aria-label="Testimonial detail">
+    <div class="pp-modal" id="ppModalInner"></div>
   </div>
+
 </section>
 
-</div><!-- /scene 0 -->
+<section id="projects">
 
-<!-- Scene 1: Banner -->
+  <!-- ─── SCENE STACK ─────────────────────────────────── -->
+  <div id="scene-stack">
+  <div id="scene-sticky">
+<!-- Scene 0: Banner -->
 <div class="scene">
 <section class="banner" id="features">
   <div class="banner-glow"></div>
@@ -2219,9 +2261,9 @@ footer {
     </div>
   </div>
 </section>
-</div><!-- /scene 1 -->
+</div><!-- /scene 0 -->
 
-<!-- Scene 2: Motor Split -->
+<!-- Scene 1: Motor Split -->
 <div class="scene">
 <!-- ─── SPLIT · Motor ─────────────────────────────── -->
 <section style="padding-top:20px;padding-bottom:20px;" id="performance">
@@ -2243,9 +2285,9 @@ footer {
     </div>
   </div>
 </section>
-</div><!-- /scene 2 -->
+</div><!-- /scene 1 -->
 
-<!-- Scene 3: Camera Split -->
+<!-- Scene 2: Camera Split -->
 <div class="scene">
 <!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
 <section style="padding-bottom:20px;" id="design-section">
@@ -2267,16 +2309,15 @@ footer {
     </div>
   </div>
 </section>
-</div><!-- /scene 3 -->
+</div><!-- /scene 2 -->
 
   </div><!-- /scene-sticky -->
 
-  <!-- Testimonial detail modal — fixed, lives outside sticky so it's not clipped -->
-  <div class="pp-modal-overlay" id="ppModal" role="dialog" aria-modal="true" aria-label="Testimonial detail">
-    <div class="pp-modal" id="ppModalInner"></div>
-  </div>
+
 
 </div><!-- /scene-stack -->
+
+</section>
 
 <!-- ─── ABOUT ME ────────────────────────────────────── -->
 <section id="about" class="about-seq-section" style="height:625vh;">
@@ -2515,7 +2556,8 @@ footer {
   </div><!-- /about-seq-sticky -->
 </section>
 
-
+<section id="contact">
+</section>
 
 <!-- ─── CUSTOM CURSOR ───────────────────────────────── -->
 <!-- Main cursor: dot + state-specific indicators -->
@@ -2601,9 +2643,15 @@ footer {
   let frames1   = [];
   let lastIdx1  = -1;
 
+  /* ── Praise Parade sequence ref ── */
+  const ppSeqEl = document.getElementById('pp-sequence');
+
   /* ── Scene stack refs ── */
   const sceneStackEl = document.getElementById('scene-stack');
   const sceneDivs    = Array.from(document.querySelectorAll('#scene-sticky > .scene'));
+
+  /* ── Nav active refs ── */
+  const navLinkEls = Array.from(document.querySelectorAll('#navLinks a'));
 
   /* ── About sequence refs ── */
   const aboutSeqEl   = document.getElementById('about');
@@ -2739,6 +2787,7 @@ footer {
     initReveal();
     initPraiseParade();
     initPerfBars();
+    initContactNav();
   }
 
   /* ────────────────────────────────────────────────────
@@ -2752,6 +2801,7 @@ footer {
   function onScroll () {
     const sy = window.scrollY;
     tickNav(sy);
+    tickNavActive(sy);
     tickBackground(sy);
     tickCallouts(sy);
     tickDots(sy);
@@ -2825,6 +2875,44 @@ footer {
       const past   = p > e;
       c.classList.toggle('on',   active);
       c.classList.toggle('past', !active && past);
+    });
+  }
+
+  /* ── Nav active section highlight ── */
+  function tickNavActive (sy) {
+    var vh  = window.innerHeight;
+    var mid = sy + vh * 0.45; // slightly above center gives earlier highlight feel
+
+    // Check if contact panel is active (about section, p >= 0.8)
+    var contactActive = false;
+    if (aboutSeqEl) {
+      var ap = sectionProgress(aboutSeqEl, sy);
+      contactActive = ap >= 0.8;
+    }
+
+    // Map each nav link to its target section element
+    var sectionMap = [
+      { section: seq1El,        href: '#seq1' },
+      { section: ppSeqEl,       href: '#recommendations' },
+      { section: sceneStackEl,  href: '#projects' },
+      { section: aboutSeqEl,    href: '#about' },
+      { section: aboutSeqEl,    href: '#contact' },
+    ];
+
+    var activeHref = null;
+    sectionMap.forEach(function (entry) {
+      if (!entry.section) return;
+      var top = entry.section.offsetTop;
+      var bot = top + entry.section.offsetHeight;
+      if (mid >= top && mid < bot) activeHref = entry.href;
+    });
+
+    // Override: contact panel within about takes over
+    if (contactActive) activeHref = null;
+
+    navLinkEls.forEach(function (a) {
+      var href = a.getAttribute('href');
+      a.classList.toggle('is-active', !contactActive && href === activeHref);
     });
   }
 
@@ -2949,6 +3037,22 @@ footer {
 
     document.querySelectorAll('.fiu:not(#hero .fiu)').forEach(function (el) {
       obs.observe(el);
+    });
+  }
+
+  /* ────────────────────────────────────────────────────
+     NAV SMOOTH SCROLL — handle anchor clicks on nav links
+  ──────────────────────────────────────────────────── */
+  function initContactNav () {
+    navLinkEls.forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      a.addEventListener('click', function (e) {
+        var target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+      });
     });
   }
 
