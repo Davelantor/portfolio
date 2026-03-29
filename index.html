@@ -68,7 +68,7 @@ body {
 #loader::before {
   content: '';
   position: absolute; inset: 0;
-  background-image: url('Star_Image.png');
+  background-image: url('Images/Star_Image.png');
   background-size: cover;
   background-position: center;
   filter: blur(10px);
@@ -1742,11 +1742,11 @@ footer {
 <!-- ─── PERSISTENT BACKGROUND ────────────────────── -->
 <div id="bg">
   <video id="bg-v1" autoplay loop muted playsinline preload="auto">
-    <source src="Star_Static.mp4" type="video/mp4">
+    <source src="Videos/Star_Static.mp4" type="video/mp4">
   </video>
   <canvas id="bg-canvas"></canvas>
   <video id="bg-v2" autoplay loop muted playsinline preload="auto" style="opacity:0">
-    <source src="BlackHole_Static.mp4" type="video/mp4">
+    <source src="Videos/BlackHole_Static.mp4" type="video/mp4">
   </video>
   <div id="bg-vignette"></div>
 </div>
@@ -2659,7 +2659,7 @@ footer {
   async function boot () {
     try {
       loaderText.textContent = 'Loading scroll sequence…';
-      frames1 = await extractFrames('Star_Hole_Transition.mp4', 'Scroll sequence', 0, 1.0);
+      frames1 = await extractFrames('Videos/Star_Hole_Transition.mp4', 'Scroll sequence', 0, 1.0);
 
       loaderFill.style.width = '100%';
       loaderText.textContent = 'Ready';
