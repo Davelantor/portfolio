@@ -1195,21 +1195,65 @@ body {
 .about-fact-lead { font-size: var(--fs-md); font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
 .about-fact-desc { font-size: var(--fs-sm); line-height: 1.62; color: var(--text-2); }
 .about-competencies {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.about-comp-summary {
+  background: rgba(0, 0, 0, 0.126);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(0,113,227,0.2);
+  border-radius: 10px; padding: 14px 16px;
+  font-size: var(--fs-sm); line-height: 1.65;
+  color: var(--text-1); font-weight: 500;
+}
+.about-comp-row {
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
 }
-.about-comp-item {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 10px; padding: 13px 14px;
-  display: flex; align-items: center; gap: 10px;
+.about-comp-group {
+  background: rgba(16, 16, 16, 0.72);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(80,110,200,0.12);
+  border-radius: 10px; padding: 14px 15px;
+  display: flex; flex-direction: column; gap: 9px;
 }
-.about-comp-icon {
-  width: 28px; height: 28px; border-radius: 7px;
-  background: rgba(0,113,227,0.1); border: 1px solid rgba(0,113,227,0.18);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--accent); flex-shrink: 0;
+.about-comp-group-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--text-3); margin: 0;
 }
-.about-comp-label { font-size: var(--fs-sm); font-weight: 500; color: var(--text-1); }
+.about-comp-text {
+  font-size: var(--fs-sm); line-height: 1.62; color: var(--text-2); margin: 0;
+}
+.about-comp-tags {
+  display: flex; flex-wrap: wrap; gap: 5px;
+}
+.about-comp-tag {
+  font-size: 11px; font-weight: 500;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 5px; padding: 3px 8px;
+  color: var(--text-1);
+}
+.about-comp-tag--code {
+  font-family: 'SF Mono', ui-monospace, 'Cascadia Code', monospace;
+  font-size: 10.5px;
+  color: var(--accent);
+  background: rgba(0,113,227,0.07);
+  border-color: rgba(0,113,227,0.18);
+}
+.about-comp-bullets {
+  margin: 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.about-comp-bullets li {
+  font-size: var(--fs-sm); line-height: 1.55; color: var(--text-2);
+  padding-left: 14px; position: relative;
+}
+.about-comp-bullets li::before {
+  content: ''; position: absolute; left: 0; top: 7px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent); opacity: 0.55;
+}
 
 /* ─── CERTIFICATE MARQUEE ───────────────────────────── */
 .cert-marquee-wrapper {
@@ -1461,6 +1505,52 @@ body {
   #design-section { padding-bottom: 20px !important; display: block; }
   #features { background: linear-gradient(160deg, #050510 0%, #000 60%) !important; }
   #about { opacity: 1; }
+}
+
+/* ─── PROFILE SUMMARY ───────────────────────────────── */
+#ps-sequence { position: relative; height: 250vh; }
+#ps-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+  display: flex; align-items: center;
+}
+.ps-inner {
+  width: 100%; max-width: 1240px; margin: 0 auto;
+  padding: 32px 48px 48px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.ps-header {
+  display: flex; align-items: center; gap: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+.ps-header-text { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+.ps-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent); margin: 0;
+}
+.ps-heading {
+  font-size: clamp(18px, 2vw, 28px); font-weight: 700; line-height: 1.15;
+  color: var(--text-1); margin: 0;
+}
+.ps-desc {
+  font-size: var(--fs-sm); line-height: 1.6; color: var(--text-2);
+  margin: 0; max-width: 420px; text-align: right;
+}
+.ps-competencies { gap: 8px; }
+.ps-competencies .about-comp-row { gap: 8px; }
+.ps-competencies .about-comp-group { padding: 11px 13px; gap: 7px; }
+.ps-competencies .about-comp-summary { padding: 11px 13px; }
+@media (max-width: 960px) {
+  #ps-sequence { height: auto; }
+  #ps-sticky { position: static; height: auto; overflow: visible; display: block; }
+  .ps-inner { padding: 48px 24px; gap: 20px; }
+  .ps-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .ps-desc { text-align: left; max-width: none; }
+}
+@media (max-width: 640px) {
+  .ps-inner { padding: 40px 20px; }
 }
 
 /* ─── EDITORIAL: BANNER ──────────────────────────────── */
@@ -1732,6 +1822,7 @@ footer {
   .stats-inner { grid-template-columns: repeat(2, 1fr); }
   .card { width: 100%; padding: 20px 18px; }
   .pos-tl, .pos-tr, .pos-ml, .pos-mr, .pos-bl, .pos-br { width: 92vw; }
+  .about-comp-row { grid-template-columns: 1fr; }
 }
 
 /* ─── 3D TILT CARDS ─────────────────────────────────── */
@@ -1901,7 +1992,7 @@ footer {
     <p class="hero-info fiu">End-to-End Product Builder&nbsp;&nbsp;|&nbsp;&nbsp;Product Design (UX/UI)&nbsp;&nbsp;|&nbsp;&nbsp;UX Lead</p>
     <p class="hero-career fiu">10+ year career ranging in <span class="hero-rotate" id="heroRotate">UX/UI Design</span></p>
     <div class="hero-actions fiu">
-      <a href="#about" data-about-panel="3" class="btn-ghost btn-icon">
+      <a href="#profile-summary" class="btn-ghost btn-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
           <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
@@ -2414,6 +2505,126 @@ footer {
 
 </section>
 
+<!-- ─── PROFILE SUMMARY ─────────────────────────────── -->
+<section id="profile-summary">
+  <div id="ps-sequence">
+    <div id="ps-sticky">
+      <div class="ps-inner">
+
+        <div class="ps-header">
+          <div class="ps-header-text">
+            <p class="ps-eyebrow">Position Summary</p>
+            <h2 class="ps-heading">What I bring to the table.</h2>
+          </div>
+        </div>
+
+        <div class="about-competencies ps-competencies">
+
+            <!-- Summary -->
+            <p class="about-comp-summary">Product design leader with developer depth, proven UX ownership, and strong fit for senior leadership roles in complex B2B, SaaS, and AI-driven products.</p>
+
+            <!-- Target Profile + Leadership Value -->
+            <div class="about-comp-row">
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Target Profile</p>
+                <p class="about-comp-text">Senior Product Designer / UX Lead with strong product thinking and software development depth.</p>
+                <div class="about-comp-tags">
+                  <span class="about-comp-tag">UX Lead</span>
+                  <span class="about-comp-tag">Staff / Principal PD</span>
+                  <span class="about-comp-tag">Head of Design</span>
+                  <span class="about-comp-tag">Product Leadership</span>
+                </div>
+              </div>
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Leadership Value</p>
+                <ul class="about-comp-bullets">
+                  <li>Built and established the UX function at Mapvision</li>
+                  <li>Created and scaled a design system across products and internal tools</li>
+                  <li>Owned end-to-end UX strategy, cross-team alignment, design reviews, and team mentorship</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Domain Strength + Execution Strengths -->
+            <div class="about-comp-row">
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Domain Strength</p>
+                <div class="about-comp-tags">
+                  <span class="about-comp-tag">AI-enabled industrial SaaS</span>
+                  <span class="about-comp-tag">Data-heavy products</span>
+                  <span class="about-comp-tag">B2B &amp; enterprise</span>
+                  <span class="about-comp-tag">Embedded &amp; telemetry</span>
+                </div>
+              </div>
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Execution Strengths</p>
+                <div class="about-comp-tags">
+                  <span class="about-comp-tag">End-to-end product design</span>
+                  <span class="about-comp-tag">Prototyping &amp; iteration</span>
+                  <span class="about-comp-tag">User research &amp; synthesis</span>
+                  <span class="about-comp-tag">Design systems</span>
+                  <span class="about-comp-tag">Accessibility</span>
+                  <span class="about-comp-tag">Dev fluency</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Technical Edge -->
+            <div class="about-comp-group">
+              <p class="about-comp-group-label">Technical Edge</p>
+              <p class="about-comp-text">Started in software development and moved into UX leadership. Brings hands-on knowledge of front-end and implementation constraints, making designs practical and easier to ship.</p>
+              <div class="about-comp-tags">
+                <span class="about-comp-tag about-comp-tag--code">C#</span>
+                <span class="about-comp-tag about-comp-tag--code">WPF</span>
+                <span class="about-comp-tag about-comp-tag--code">C/C++</span>
+                <span class="about-comp-tag about-comp-tag--code">ASP.NET</span>
+                <span class="about-comp-tag about-comp-tag--code">JavaScript</span>
+                <span class="about-comp-tag about-comp-tag--code">React</span>
+                <span class="about-comp-tag about-comp-tag--code">TypeScript</span>
+                <span class="about-comp-tag about-comp-tag--code">Miro</span>
+                <span class="about-comp-tag about-comp-tag--code">ZenHub</span>
+                <span class="about-comp-tag about-comp-tag--code">AI Tools</span>
+                <span class="about-comp-tag about-comp-tag--code">Claude Code</span>
+                <span class="about-comp-tag about-comp-tag--code">Figma Make</span>
+                <span class="about-comp-tag about-comp-tag--code">Google Stitch</span>
+              </div>
+            </div>
+
+            <!-- What Recruiters Should Notice -->
+            <div class="about-comp-group">
+              <p class="about-comp-group-label">What Recruiters Should Notice</p>
+              <ul class="about-comp-bullets">
+                <li>Turns complex, ambiguous business and user needs into clear, shippable product decisions</li>
+                <li>Strong in stakeholder alignment across product, engineering, and customers</li>
+                <li>Balances vision, usability, and implementation reality — reduces rework and improves delivery quality</li>
+              </ul>
+            </div>
+
+            <!-- Credibility + Education -->
+            <div class="about-comp-row">
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Credibility</p>
+                <ul class="about-comp-bullets">
+                  <li>Recommended by product, engineering, and technology leaders for lead UX/UI roles</li>
+                  <li>Repeatedly described as fast-iterating, collaborative, customer-focused, and strong at translating complexity into intuitive solutions</li>
+                </ul>
+              </div>
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Education</p>
+                <ul class="about-comp-bullets">
+                  <li>BS in Computer Engineering, Master's in Information Technology</li>
+                  <li>Certifications in UX, product management, scrum, AI for design, and accessibility</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── ABOUT ME ────────────────────────────────────── -->
 <section id="about" class="about-seq-section" style="height:625vh;">
   <div class="about-seq-sticky">
@@ -2456,11 +2667,11 @@ footer {
           <p class="about-panel-eyebrow">Profile</p>
           <h2 class="about-panel-heading">About me</h2>
           <div class="about-bio">
-            <p> </p>
-            <p> </p>
-            <p>End-to-end product builder combining UX design and software development to deliver intuitive, production-ready experiences. I translate complex problems and large datasets into clear, human-centered solutions, using prototyping and AI model integration to move from concept to shipped product. Collaborative and growth-minded.</p>
-            <p>With over two years of experience as a UX Designer at Mapvision, I contribute to crafting user-focused designs while leveraging my certifications in user experience design. My work emphasizes creating intuitive dashboards and seamless user interactions. </p>
-            <p>My professional journey includes software and game development, frontend design, and web development, all of which have honed my technical and design expertise. I am committed to delivering solutions that enhance user satisfaction and align with organizational goals, particularly within the automobile domain.</p>
+            <p></p>
+            <p></p>
+            <p>People I’ve worked with describe me as someone who makes the workday better: positive energy, genuine enthusiasm, and a sense of humor that makes collaboration feel easy and natural. I love turning complex products, data-heavy workflows, and ML-driven systems into clear, useful tools for real people. </p>
+            <p>In This constantly evolving work I have made AI is a big part of both how I work and what I’m curious about: I use tools like Figma Make, Google Stitch, ChatGPT, and ML Studio daily to speed up ideation, prototyping, writing, and delivery, and I enjoy exploring more agentic workflows as part of that process.</p>
+            <p>Outside of work, I enjoy cycling, participating in practical shooting events, camping and on more technical side, I like running models locally with LM Studio, testing new AI tools and models on my own setup, and building small experiments on local hardware,so staying close to emerging AI is not just part of my work, but something I genuinely enjoy.</p>
           </div>
         </div>
 
@@ -2623,44 +2834,7 @@ footer {
         <div class="about-panel" id="aboutPanel2">
           <p class="about-panel-eyebrow">Expertise</p>
           <h2 class="about-panel-heading">Core<br>Competencies</h2>
-          <div class="about-competencies">
-            <div class="about-comp-item">
-              <div class="about-comp-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-              </div>
-              <span class="about-comp-label">UX Strategy</span>
-            </div>
-            <div class="about-comp-item">
-              <div class="about-comp-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-              </div>
-              <span class="about-comp-label">Design Systems</span>
-            </div>
-            <div class="about-comp-item">
-              <div class="about-comp-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              </div>
-              <span class="about-comp-label">Product Design</span>
-            </div>
-            <div class="about-comp-item">
-              <div class="about-comp-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <span class="about-comp-label">User Research</span>
-            </div>
-            <div class="about-comp-item">
-              <div class="about-comp-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-              </div>
-              <span class="about-comp-label">Fullstack Development</span>
-            </div>
-            <div class="about-comp-item">
-              <div class="about-comp-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-              </div>
-              <span class="about-comp-label">Enterprise Strategy</span>
-            </div>
-          </div>
+          
         </div>
 
         <!-- Panel 3: Image Gallery -->
