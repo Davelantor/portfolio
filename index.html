@@ -1959,6 +1959,7 @@ footer {
     <li><a href="#seq1" data-section="seq1">History</a></li>
     <li><a href="#recomendations" data-section="recomendations">Recommendations</a></li>
     <li><a href="#projects" data-section="projects">Projects</a></li>
+    <li><a href="#profile-summary" data-section="profile-summary">Summary</a></li>
     <li><a href="#about" data-section="about">About Me</a></li>
     <li><a href="#contact" data-section="contact">Contact</a></li>
   </ul>
@@ -3044,7 +3045,8 @@ footer {
   const ppSeqEl = document.getElementById('pp-sequence');
 
   /* ── Scene stack refs ── */
-  const sceneStackEl = document.getElementById('scene-stack');
+  const sceneStackEl  = document.getElementById('scene-stack');
+  const psSeqEl       = document.getElementById('ps-sequence');
   const sceneDivs    = Array.from(document.querySelectorAll('#scene-sticky > .scene'));
 
   /* ── Nav active refs ── */
@@ -3293,6 +3295,7 @@ footer {
       { section: seq1El,        href: '#seq1' },
       { section: ppSeqEl,       href: '#recomendations' },
       { section: sceneStackEl,  href: '#projects' },
+      { section: psSeqEl,       href: '#profile-summary' },
       { section: aboutSeqEl,    href: '#about' },
     ];
 
