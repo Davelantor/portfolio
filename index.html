@@ -1167,6 +1167,118 @@ body {
   .about-portrait-card { aspect-ratio: 4/3; }
 }
 
+/* ─── ABOUT SCROLL SEQUENCE ─────────────────────────── */
+.about-seq-section { position: relative; }
+.about-seq-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 60px;
+}
+.about-seq-layout {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 36px;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  max-height: calc(100vh - 80px);
+  overflow: hidden;
+}
+.about-seq-left { display: flex; flex-direction: column; gap: 10px; }
+.about-seq-portrait {
+  border-radius: 18px; overflow: hidden;
+  height: 230px; aspect-ratio: auto;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.about-seq-portrait img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top; display: block;
+}
+.about-seq-right {
+  position: relative;
+  min-height: 460px;
+}
+.about-panel {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+  pointer-events: none;
+  overflow-y: auto; scrollbar-width: none;
+}
+.about-panel::-webkit-scrollbar { display: none; }
+.about-panel.is-active {
+  opacity: 1; transform: translateY(0); pointer-events: auto;
+}
+.about-panel.is-past {
+  opacity: 0; transform: translateY(-48px);
+}
+.about-panel-eyebrow {
+  font-size: var(--fs-xs); font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.about-panel-heading {
+  font-family: var(--font-d);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+  color: var(--text-1); margin-bottom: 28px;
+}
+/* Gallery */
+.about-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 90px;
+  gap: 8px;
+}
+.about-gallery-item {
+  border-radius: 10px; overflow: hidden;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.about-gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
+  filter: grayscale(20%);
+}
+.about-gallery-item:hover img { transform: scale(1.06); filter: grayscale(0%); }
+.about-gallery-item--featured { grid-row: span 2; }
+/* Progress dots */
+.about-seq-dots {
+  position: absolute;
+  bottom: 28px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; align-items: center; z-index: 20;
+  opacity: 0; transition: opacity 0.5s var(--ease);
+}
+.about-seq-dots.is-visible { opacity: 1; }
+.about-seq-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.35s var(--ease), transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.about-seq-dot.is-past { background: rgba(0,113,227,0.4); border-color: rgba(0,113,227,0.55); }
+.about-seq-dot.is-active {
+  background: var(--accent); border-color: var(--accent);
+  transform: scale(1.5);
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.18), 0 0 16px rgba(0,113,227,0.5);
+}
+@media (max-width: 960px) {
+  .about-seq-section { height: auto !important; }
+  .about-seq-sticky { position: static; height: auto; padding: 80px 24px; overflow: visible; }
+  .about-seq-layout { grid-template-columns: 1fr; max-height: none; overflow: visible; }
+  .about-seq-right { position: static; min-height: 0; }
+  .about-panel {
+    position: static; opacity: 1 !important; transform: none !important;
+    pointer-events: auto; overflow-y: visible; margin-bottom: 36px;
+  }
+  .about-panel.is-past { opacity: 1 !important; transform: none !important; }
+  .about-seq-dots { display: none; }
+}
+
 /* ─── EDITORIAL: BANNER ──────────────────────────────── */
 .banner {
   position: relative;
@@ -2067,22 +2179,20 @@ footer {
 
 
 <!-- ─── ABOUT ME ────────────────────────────────────── -->
-<section id="about" style="background:var(--bg);">
-  <div class="about-section">
-    <p class="about-eyebrow fiu">Profile</p>
-    <h2 class="about-heading fiu">About me</h2>
-    <div class="about-layout">
+<section id="about" class="about-seq-section" style="height:500vh; background:var(--bg);">
+  <div class="about-seq-sticky">
 
-      <!-- Left column -->
-      <div class="about-left">
-        <div class="about-portrait-card tilt-card shelf-enter fiu">
+    <div class="about-seq-layout">
+
+      <!-- Left column: persistent throughout scroll -->
+      <div class="about-seq-left">
+        <div class="about-seq-portrait about-portrait-card tilt-card shelf-enter">
           <div class="tilt-card-inner" style="border-radius:18px;overflow:hidden;width:100%;height:100%;">
-            <img class="tilt-parallax-img" src="Icons/309990524_490325403144967_8395168285254375454_n.png" alt="John Jurvanen" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <img class="tilt-parallax-img" src="Icons/309990524_490325403144967_8395168285254375454_n.png" alt="John Jurvanen" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
             <div class="tilt-glare"></div>
           </div>
         </div>
-        <!-- Location -->
-        <div class="about-meta-card fiu">
+        <div class="about-meta-card">
           <div class="about-meta-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
@@ -2091,8 +2201,7 @@ footer {
             <span class="about-meta-value">Melbourne, VIC, Australia</span>
           </div>
         </div>
-        <!-- Availability -->
-        <div class="about-meta-card fiu">
+        <div class="about-meta-card">
           <div class="about-meta-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
@@ -2101,8 +2210,7 @@ footer {
             <span class="about-meta-value">Open to work — immediate</span>
           </div>
         </div>
-        <!-- Email -->
-        <div class="about-meta-card fiu">
+        <div class="about-meta-card">
           <div class="about-meta-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
@@ -2111,8 +2219,7 @@ footer {
             <span class="about-meta-value">john@jurvanen.com</span>
           </div>
         </div>
-        <!-- LinkedIn -->
-        <div class="about-meta-card fiu">
+        <div class="about-meta-card">
           <div class="about-meta-icon">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           </div>
@@ -2123,12 +2230,13 @@ footer {
         </div>
       </div>
 
-      <!-- Right column -->
-      <div class="about-right">
+      <!-- Right column: scroll-driven panels -->
+      <div class="about-seq-right" id="aboutSeqRight">
 
-        <!-- About Me card -->
-        <div class="about-card fiu">
-          <div class="about-card-title">About Me</div>
+        <!-- Panel 0: About Me -->
+        <div class="about-panel is-active" id="aboutPanel0">
+          <p class="about-panel-eyebrow">Profile</p>
+          <h2 class="about-panel-heading">About me</h2>
           <div class="about-bio">
             <p>I'm a product designer and UX lead with over a decade of experience building digital products that people actually want to use. My work sits at the intersection of rigorous user research, systems thinking, and high-craft visual design — across mobile, web, and enterprise platforms in some of Australia's most recognised companies.</p>
             <p>What drives me is the space between complexity and clarity. I'm drawn to the hardest problems — onboarding flows that need to serve millions, design systems that need to scale across hundreds of components, service experiences that touch customers at their most stressed moments — and I find them satisfying precisely because solving them well takes every skill at once.</p>
@@ -2136,9 +2244,10 @@ footer {
           </div>
         </div>
 
-        <!-- Quick Facts card -->
-        <div class="about-card fiu">
-          <div class="about-card-title">Quick Facts</div>
+        <!-- Panel 1: Quick Facts -->
+        <div class="about-panel" id="aboutPanel1">
+          <p class="about-panel-eyebrow">Quick Facts</p>
+          <h2 class="about-panel-heading">What you<br>should know.</h2>
           <div class="about-facts">
             <div class="about-fact-row">
               <div class="about-fact-marker"></div>
@@ -2164,9 +2273,10 @@ footer {
           </div>
         </div>
 
-        <!-- Core Competencies card -->
-        <div class="about-card fiu">
-          <div class="about-card-title">Core Competencies</div>
+        <!-- Panel 2: Core Competencies -->
+        <div class="about-panel" id="aboutPanel2">
+          <p class="about-panel-eyebrow">Expertise</p>
+          <h2 class="about-panel-heading">Core<br>Competencies</h2>
           <div class="about-competencies">
             <div class="about-comp-item">
               <div class="about-comp-icon">
@@ -2207,9 +2317,54 @@ footer {
           </div>
         </div>
 
-      </div>
+        <!-- Panel 3: Image Gallery -->
+        <div class="about-panel" id="aboutPanel3">
+          <p class="about-panel-eyebrow">Work &amp; People</p>
+          <h2 class="about-panel-heading">In<br>Pictures</h2>
+          <div class="about-gallery">
+            <!-- Col 1, rows 1-2: featured portrait -->
+            <div class="about-gallery-item about-gallery-item--featured">
+              <img src="Images/Contacts/Teppo.jpg" alt="Teppo Aalto">
+            </div>
+            <!-- Col 2-3, row 1 -->
+            <div class="about-gallery-item">
+              <img src="Images/Company/Mapvision.jpg" alt="Mapvision">
+            </div>
+            <div class="about-gallery-item">
+              <img src="Images/Contacts/Kosti.jpg" alt="Kosti Kannas">
+            </div>
+            <!-- Col 2-3, row 2 -->
+            <div class="about-gallery-item">
+              <img src="Images/Company/Ajeco.jpg" alt="Ajeco">
+            </div>
+            <div class="about-gallery-item">
+              <img src="Images/Contacts/Tommi.jpg" alt="Tommi Martela">
+            </div>
+            <!-- Row 3: all 3 cols -->
+            <div class="about-gallery-item">
+              <img src="Images/Contacts/Ernest.jpg" alt="Ernest Arendarenko">
+            </div>
+            <div class="about-gallery-item">
+              <img src="Images/Company/Bimar.jpg" alt="Bimar">
+            </div>
+            <div class="about-gallery-item">
+              <img src="Images/Contacts/Lasse.jpg" alt="Lasse Ylinen">
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /about-seq-right -->
+    </div><!-- /about-seq-layout -->
+
+    <!-- Progress dots -->
+    <div class="about-seq-dots" id="aboutSeqDots">
+      <div class="about-seq-dot is-active" id="aboutDot0"></div>
+      <div class="about-seq-dot" id="aboutDot1"></div>
+      <div class="about-seq-dot" id="aboutDot2"></div>
+      <div class="about-seq-dot" id="aboutDot3"></div>
     </div>
-  </div>
+
+  </div><!-- /about-seq-sticky -->
 </section>
 
 <!-- ─── PERFORMANCE STRIP ──────────────────────────── -->
@@ -2353,6 +2508,12 @@ footer {
   /* ── State ── */
   let frames1   = [];
   let lastIdx1  = -1;
+
+  /* ── About sequence refs ── */
+  const aboutSeqEl   = document.getElementById('about');
+  const aboutPanels  = Array.from(document.querySelectorAll('.about-panel'));
+  const aboutDots    = Array.from(document.querySelectorAll('.about-seq-dot'));
+  const aboutDotsWrap = document.getElementById('aboutSeqDots');
 
   /* ────────────────────────────────────────────────────
      CANVAS SIZING
@@ -2498,6 +2659,7 @@ footer {
     tickBackground(sy);
     tickCallouts(sy);
     tickDots(sy);
+    tickAboutSeq(sy);
   }
 
   /* ── Nav opacity ── */
@@ -2566,6 +2728,40 @@ footer {
       const past   = p > e;
       c.classList.toggle('on',   active);
       c.classList.toggle('past', !active && past);
+    });
+  }
+
+  /* ── About section panel sequencer ── */
+  function tickAboutSeq (sy) {
+    if (!aboutSeqEl || !aboutPanels.length) return;
+    if (window.innerWidth <= 960) return; // CSS handles mobile
+
+    var p = sectionProgress(aboutSeqEl, sy);
+    var n = aboutPanels.length;
+    var BOUNDS = [0, 0.25, 0.5, 0.75, 1];
+
+    aboutPanels.forEach(function (panel, i) {
+      var s = BOUNDS[i];
+      var e = BOUNDS[i + 1];
+      var isLast = (i === n - 1);
+      var active = isLast ? (p >= s) : (p >= s && p < e);
+      var past   = !isLast && (p >= e);
+      panel.classList.toggle('is-active', active);
+      panel.classList.toggle('is-past',   past);
+    });
+
+    // Dots
+    if (aboutDotsWrap) {
+      aboutDotsWrap.classList.toggle('is-visible', p > 0 && p <= 1);
+    }
+    aboutDots.forEach(function (dot, i) {
+      var s = BOUNDS[i];
+      var e = BOUNDS[i + 1];
+      var isLast = (i === n - 1);
+      var active = isLast ? (p >= s) : (p >= s && p < e);
+      var past   = !isLast && (p >= e);
+      dot.classList.toggle('is-active', active);
+      dot.classList.toggle('is-past',   past && !active);
     });
   }
 

@@ -10,7 +10,8 @@
       "Bash(python3 -:*)",
       "Bash(python3 /tmp/update_cards.py)",
       "Bash(python update_cards.py)",
-      "Bash(python -c \":*)"
+      "Bash(python -c \":*)",
+      "Bash(grep -n \"function tick\\\\|function init\\\\|function boot\\\\|function start\\\\|function resize\\\\|function section\\\\|function extract\\\\|^  }$\\\\|^}\\(\\)\\);\" \"d:/Documents/portfolio/index.html\")"
     ]
   }
 }
