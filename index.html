@@ -2772,7 +2772,7 @@ footer {
        until its centre sits 128px above the top of the screen.           */
     const parallaxStart = seq1Bot - vh + 2048;
     const parallaxP     = Math.max(0, Math.min(1, (sy - parallaxStart) / (vh * 1)));
-    bgV2.style.transform = 'translateY(' + (-(parallaxP * (vh / 4 + 64))).toFixed(1) + 'px)';
+    bgV2.style.transform = 'translateY(' + (-(parallaxP * (vh / 4 + 128))).toFixed(1) + 'px)';
 
     if (frames1.length && canvasIn > 0.01) {
       const p   = sectionProgress(seq1El, sy);
@@ -2809,33 +2809,43 @@ footer {
     if (!sceneStackEl || !sceneDivs.length) return;
     if (window.innerWidth <= 960) return;
 
-    var p    = sectionProgress(sceneStackEl, sy);
-    var n    = sceneDivs.length;
-    var FADE = 0.05; // crossfade window as a fraction of total stack scroll
+    var p      = sectionProgress(sceneStackEl, sy);
+    var n      = sceneDivs.length;
+    var FADE   = 0.03;  // tight crossfade window — less overlap, sharper cut
+    var TRAVEL = 52;    // px: distance content travels on enter/exit
 
     sceneDivs.forEach(function (scene, i) {
       var s = i / n;
       var e = (i + 1) / n;
-      var opacity;
+      var opacity, ty;
 
       if (p < s - FADE) {
-        // before this scene's window
+        // waiting below, not yet visible
         opacity = (i === 0) ? 1 : 0;
+        ty      = (i === 0) ? 0 : TRAVEL;
       } else if (p < s + FADE) {
-        // fading in (first scene is already full before any scroll)
-        opacity = (i === 0) ? 1 : (p - (s - FADE)) / (2 * FADE);
+        // entering: rise up from below while fading in
+        var t   = (i === 0) ? 1 : (p - (s - FADE)) / (2 * FADE);
+        opacity = t;
+        ty      = (i === 0) ? 0 : TRAVEL * (1 - t);
       } else if (p < e - FADE) {
-        // fully visible
+        // fully visible, at rest
         opacity = 1;
+        ty      = 0;
       } else if (p < e + FADE) {
-        // fading out (last scene stays full until stack ends)
-        opacity = (i === n - 1) ? 1 : 1 - (p - (e - FADE)) / (2 * FADE);
+        // exiting: drift up while fading out
+        var t   = (i === n - 1) ? 0 : (p - (e - FADE)) / (2 * FADE);
+        opacity = (i === n - 1) ? 1 : 1 - t;
+        ty      = (i === n - 1) ? 0 : -(TRAVEL * t);
       } else {
+        // resting above, hidden
         opacity = (i === n - 1) ? 1 : 0;
+        ty      = (i === n - 1) ? 0 : -TRAVEL;
       }
 
       opacity = Math.max(0, Math.min(1, opacity));
       scene.style.opacity       = opacity;
+      scene.style.transform     = 'translateY(' + ty.toFixed(1) + 'px)';
       scene.style.pointerEvents = opacity > 0.05 ? 'auto' : 'none';
     });
 
