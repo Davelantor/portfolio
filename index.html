@@ -549,7 +549,8 @@ body {
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 16px;
   padding: 28px 30px;
-  width: 600px;
+  width: 60vw;
+  max-width: 1200px;
   height: auto;
 }
 .card-header {
@@ -711,7 +712,7 @@ body {
 /* Progress dots */
 .seq-dots {
   position: absolute;
-  left: calc(50% + 324px);
+  left: min(calc(50% + 30vw + 20px), calc(50% + 620px));
   top: 50%;
   transform: translateY(-50%);
   opacity: 0;
@@ -2842,19 +2843,19 @@ footer {
           c.inner.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) scale3d(1.02,1.02,1.02)';
 
           c.inner.querySelectorAll('.tilt-parallax-img').forEach(function (el) {
-            el.style.transform = 'translateZ(' + PARALLAX_IMG + 'px) translate(' + (nx * 8).toFixed(1) + 'px,' + (ny * 4).toFixed(1) + 'px) scale(1.02)';
+            el.style.transform = 'translateZ(' + PARALLAX_IMG + 'px) translate(' + (nx * 4).toFixed(1) + 'px,' + (ny * 8).toFixed(1) + 'px) scale(1.02)';
           });
           c.inner.querySelectorAll('.tilt-parallax-text-sm').forEach(function (el) {
-            el.style.transform = 'translateZ(20px) translate(' + (nx * 4).toFixed(1) + 'px,' + (ny * 2).toFixed(1) + 'px)';
+            el.style.transform = 'translateZ(20px) translate(' + (nx * 2).toFixed(1) + 'px,' + (ny * 4).toFixed(1) + 'px)';
           });
           c.inner.querySelectorAll('.tilt-parallax-text-md').forEach(function (el) {
-            el.style.transform = 'translateZ(32px) translate(' + (nx * 8).toFixed(1) + 'px,' + (ny * 4).toFixed(1) + 'px)';
+            el.style.transform = 'translateZ(32px) translate(' + (nx * 4).toFixed(1) + 'px,' + (ny * 8).toFixed(1) + 'px)';
           });
           c.inner.querySelectorAll('.tilt-parallax-text').forEach(function (el) {
-            el.style.transform = 'translateZ(' + PARALLAX_TEXT + 'px) translate(' + (nx * 12).toFixed(1) + 'px,' + (ny * 8).toFixed(1) + 'px)';
+            el.style.transform = 'translateZ(' + PARALLAX_TEXT + 'px) translate(' + (nx * 8).toFixed(1) + 'px,' + (ny * 12).toFixed(1) + 'px)';
           });
           c.inner.querySelectorAll('.tilt-parallax-badge').forEach(function (el) {
-            el.style.transform = 'translateZ(' + PARALLAX_BADGE + 'px) translate(' + (nx * 16).toFixed(1) + 'px,' + (ny * 12).toFixed(1) + 'px)';
+            el.style.transform = 'translateZ(' + PARALLAX_BADGE + 'px) translate(' + (nx * 12).toFixed(1) + 'px,' + (ny * 16).toFixed(1) + 'px)';
           });
 
           if (c.glare) {
