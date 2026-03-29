@@ -311,6 +311,39 @@ body {
   border-color: rgba(255,255,255,0.2);
 }
 
+/* ─── SCROLL TO TOP BUTTON ──────────────────────────── */
+#scroll-top {
+  position: fixed; bottom: 32px; right: 32px;
+  z-index: 8000;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0; pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease),
+              background 0.2s, border-color 0.2s;
+}
+#scroll-top.visible {
+  opacity: 1; pointer-events: auto;
+  transform: translateY(0);
+}
+#scroll-top:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.22);
+}
+#scroll-top svg {
+  width: 18px; height: 18px;
+  stroke: var(--text-2);
+  transition: stroke 0.2s;
+}
+#scroll-top:hover svg { stroke: var(--text-1); }
+@media (max-width: 640px) {
+  #scroll-top { bottom: 20px; right: 20px; }
+}
+
 /* ─── PERSISTENT BACKGROUND LAYER ───────────────────── */
 #bg {
   position: fixed; inset: 0;
@@ -2360,7 +2393,7 @@ footer {
           </div>
           <div class="about-meta-text">
             <span class="about-meta-label">Location</span>
-            <span class="about-meta-value">Melbourne, VIC, Australia</span>
+            <span class="about-meta-value">Vantaa, FINLAND</span>
           </div>
         </div>
         <div class="about-meta-card">
@@ -2369,7 +2402,7 @@ footer {
           </div>
           <div class="about-meta-text">
             <span class="about-meta-label">Availability</span>
-            <span class="about-meta-value">Open to work — immediate</span>
+            <span class="about-meta-value">Open to work — Immediate</span>
           </div>
         </div>
       </div>
@@ -3400,6 +3433,12 @@ footer {
 }());
 </script>
 
+<button id="scroll-top" aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
 <!-- ─── CUSTOM CURSOR ENGINE ────────────────────────── -->
 <script>
 (function () {
@@ -3517,6 +3556,15 @@ footer {
     }
   });
   loaderObs.observe(loaderEl, { attributes: true, attributeFilter: ['class'] });
+
+  /* ─── Scroll-to-top button ─── */
+  var scrollTopBtn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', function () {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+  scrollTopBtn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
 }());
 </script>
