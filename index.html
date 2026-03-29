@@ -1279,6 +1279,56 @@ body {
   .about-seq-dots { display: none; }
 }
 
+/* ─── SCENE STACK ───────────────────────────────────── */
+#scene-stack { position: relative; height: 500vh; }
+#scene-sticky {
+  position: sticky; top: 0;
+  height: 100vh; overflow: hidden;
+}
+.scene {
+  position: absolute; inset: 0;
+  opacity: 0; pointer-events: none;
+}
+/* Content inside scenes appears immediately — scene handles entrance */
+.scene .fiu {
+  opacity: 1 !important; transform: none !important; transition: none !important;
+}
+/* Sections fill the sticky viewport */
+#testimonials {
+  height: 100%; overflow: hidden; background: none;
+  display: flex; flex-direction: column; justify-content: center;
+}
+#testimonials .pp-header { padding-top: 36px; padding-bottom: 24px; }
+#features { height: 100%; background: none; min-height: unset; }
+#performance {
+  height: 100%;
+  padding-top: 0 !important; padding-bottom: 0 !important;
+  display: flex; align-items: center; justify-content: center;
+}
+#design-section {
+  height: 100%;
+  padding-bottom: 0 !important;
+  display: flex; align-items: center; justify-content: center;
+}
+/* About: starts invisible, JS fades it in */
+#about { opacity: 0; }
+@media (max-width: 960px) {
+  #scene-stack { height: auto; }
+  #scene-sticky { position: static; height: auto; overflow: visible; }
+  .scene { position: static; opacity: 1 !important; pointer-events: auto; }
+  .scene .fiu {
+    opacity: 0 !important; transform: translateY(28px) !important;
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out) !important;
+  }
+  .scene .fiu.on { opacity: 1 !important; transform: none !important; }
+  #testimonials, #features, #performance, #design-section { height: auto; }
+  #testimonials .pp-header { padding-top: 100px; padding-bottom: 56px; }
+  #performance { padding-top: 20px !important; padding-bottom: 20px !important; display: block; }
+  #design-section { padding-bottom: 20px !important; display: block; }
+  #features { background: linear-gradient(160deg, #050510 0%, #000 60%) !important; }
+  #about { opacity: 1; }
+}
+
 /* ─── EDITORIAL: BANNER ──────────────────────────────── */
 .banner {
   position: relative;
@@ -1983,7 +2033,12 @@ footer {
   </div>
 </section>
 
-<!-- ─── THE PRAISE PARADE ───────────────────────── -->
+<!-- ─── SCENE STACK ─────────────────────────────────── -->
+<div id="scene-stack">
+<div id="scene-sticky">
+
+<!-- Scene 0: Praise Parade -->
+<div class="scene">
 <section id="testimonials" class="pp-section">
 
   <!-- Header -->
@@ -2115,12 +2170,10 @@ footer {
   </div>
 </section>
 
-<!-- Praise Parade modal (populated by JS) -->
-<div class="pp-modal-overlay" id="ppModal" role="dialog" aria-modal="true" aria-label="Testimonial detail">
-  <div class="pp-modal" id="ppModalInner"></div>
-</div>
+</div><!-- /scene 0 -->
 
-<!-- ─── EDITORIAL: PRECISION BANNER ───────────────── -->
+<!-- Scene 1: Banner -->
+<div class="scene">
 <section class="banner" id="features">
   <div class="banner-glow"></div>
   <div class="banner-content">
@@ -2134,9 +2187,12 @@ footer {
     </div>
   </div>
 </section>
+</div><!-- /scene 1 -->
 
+<!-- Scene 2: Motor Split -->
+<div class="scene">
 <!-- ─── SPLIT · Motor ─────────────────────────────── -->
-<section style="background:var(--bg);padding-top:20px;padding-bottom:20px;" id="performance">
+<section style="padding-top:20px;padding-bottom:20px;" id="performance">
   <div class="split">
     <div class="split-media fiu">
       <div class="split-media-icon">⚙</div>
@@ -2155,9 +2211,12 @@ footer {
     </div>
   </div>
 </section>
+</div><!-- /scene 2 -->
 
+<!-- Scene 3: Camera Split -->
+<div class="scene">
 <!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
-<section style="background:var(--bg);padding-bottom:20px;" id="design-section">
+<section style="padding-bottom:20px;" id="design-section">
   <div class="split flip">
     <div class="split-media fiu">
       <div class="split-media-icon">📷</div>
@@ -2176,10 +2235,19 @@ footer {
     </div>
   </div>
 </section>
+</div><!-- /scene 3 -->
 
+  </div><!-- /scene-sticky -->
+
+  <!-- Testimonial detail modal — fixed, lives outside sticky so it's not clipped -->
+  <div class="pp-modal-overlay" id="ppModal" role="dialog" aria-modal="true" aria-label="Testimonial detail">
+    <div class="pp-modal" id="ppModalInner"></div>
+  </div>
+
+</div><!-- /scene-stack -->
 
 <!-- ─── ABOUT ME ────────────────────────────────────── -->
-<section id="about" class="about-seq-section" style="height:500vh; background:var(--bg);">
+<section id="about" class="about-seq-section" style="height:500vh;">
   <div class="about-seq-sticky">
 
     <div class="about-seq-layout">
@@ -2509,6 +2577,10 @@ footer {
   let frames1   = [];
   let lastIdx1  = -1;
 
+  /* ── Scene stack refs ── */
+  const sceneStackEl = document.getElementById('scene-stack');
+  const sceneDivs    = Array.from(document.querySelectorAll('#scene-sticky > .scene'));
+
   /* ── About sequence refs ── */
   const aboutSeqEl   = document.getElementById('about');
   const aboutPanels  = Array.from(document.querySelectorAll('.about-panel'));
@@ -2659,6 +2731,7 @@ footer {
     tickBackground(sy);
     tickCallouts(sy);
     tickDots(sy);
+    tickSceneStack(sy);
     tickAboutSeq(sy);
   }
 
@@ -2729,6 +2802,48 @@ footer {
       c.classList.toggle('on',   active);
       c.classList.toggle('past', !active && past);
     });
+  }
+
+  /* ── Scene stack crossfade ── */
+  function tickSceneStack (sy) {
+    if (!sceneStackEl || !sceneDivs.length) return;
+    if (window.innerWidth <= 960) return;
+
+    var p    = sectionProgress(sceneStackEl, sy);
+    var n    = sceneDivs.length;
+    var FADE = 0.05; // crossfade window as a fraction of total stack scroll
+
+    sceneDivs.forEach(function (scene, i) {
+      var s = i / n;
+      var e = (i + 1) / n;
+      var opacity;
+
+      if (p < s - FADE) {
+        // before this scene's window
+        opacity = (i === 0) ? 1 : 0;
+      } else if (p < s + FADE) {
+        // fading in (first scene is already full before any scroll)
+        opacity = (i === 0) ? 1 : (p - (s - FADE)) / (2 * FADE);
+      } else if (p < e - FADE) {
+        // fully visible
+        opacity = 1;
+      } else if (p < e + FADE) {
+        // fading out (last scene stays full until stack ends)
+        opacity = (i === n - 1) ? 1 : 1 - (p - (e - FADE)) / (2 * FADE);
+      } else {
+        opacity = (i === n - 1) ? 1 : 0;
+      }
+
+      opacity = Math.max(0, Math.min(1, opacity));
+      scene.style.opacity       = opacity;
+      scene.style.pointerEvents = opacity > 0.05 ? 'auto' : 'none';
+    });
+
+    // Fade #about in as the stack nears its end
+    if (aboutSeqEl) {
+      var aboutOpacity = Math.max(0, Math.min(1, (p - 0.85) / 0.15));
+      aboutSeqEl.style.opacity = aboutOpacity;
+    }
   }
 
   /* ── About section panel sequencer ── */
