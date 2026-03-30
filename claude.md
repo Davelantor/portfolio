@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-A premium portfolio website for a graphic designer / UI-UX designer.
+A premium portfolio website for a Senior Product Designer / UX Lead (John Jurvanen).
 The site feels cinematic, minimal, high-fidelity, and presentation-grade.
 
 **Actual stack:** Vanilla HTML + CSS + JavaScript — single file, no framework, no build step.
@@ -17,7 +17,7 @@ The site feels cinematic, minimal, high-fidelity, and presentation-grade.
 
 ```
 portfolio/
-├── index.html                   # The entire application (HTML + CSS + JS, ~2154 lines)
+├── index.html                   # The entire application (HTML + CSS + JS, ~2700 lines)
 ├── CLAUDE.md                    # This file
 ├── Star_Hole_Transition.mp4     # Scroll-driven canvas animation video (4 MB)
 ├── Star_Static.mp4              # Background loop video — phase 1 (812 KB)
@@ -37,25 +37,24 @@ All code lives in three embedded blocks inside `index.html`:
 
 | Block | Lines (approx) | Contents |
 |-------|----------------|----------|
-| `<style>` | 7 – 1155 | All CSS, organized with ASCII comment dividers |
-| HTML body | 1156 – 1840 | Semantic sections |
-| `<script>` | 1841 – 2154 | All JavaScript, wrapped in a single IIFE |
+| `<style>` | 7 – 1800 | All CSS, organized with ASCII comment dividers |
+| HTML body | 1800 – 2650 | Semantic sections |
+| `<script>` | 2650 – end | All JavaScript, wrapped in a single IIFE |
 
-### HTML Section Map
+### HTML Section Map (page order)
 
 | ID / Element | Purpose |
 |---|---|
 | `#loader` | Full-screen loading overlay with animated progress bar |
 | `#nav` | Fixed navigation bar — transparent until scroll |
 | `#bg` | Background layer system (3-phase: video → canvas frames → video) |
-| `#hero` | Full-viewport hero with rotating role text |
+| `#hero` | Full-viewport hero with rotating role text and CTA buttons |
 | `#seq1` | Scroll-driven sequence (520 vh) — canvas-rendered video frames |
-| `#testimonials` | Client testimonial cards |
-| `#features` | Feature highlight banner |
-| `#performance` | Animated performance metric bars |
-| `#design-section` | Case studies display |
-| `#about` | Biography, competencies, and facts |
-| `<footer>` | Footer navigation and branding |
+| `#recomendations` | Praise Parade — horizontal scrolling testimonial marquees (250 vh sticky) |
+| `#projects` | Scene stack — 3 sticky scenes: banner, motor split, camera split (375 vh) |
+| `#profile-summary` | Position summary — sticky full-screen competencies panel (250 vh) |
+| `#about` | Biography, competencies panels, facts, gallery, contact (625 vh sticky) |
+| `#contact` | Contact footer section |
 
 ---
 
@@ -83,10 +82,51 @@ All code lives in three embedded blocks inside `index.html`:
 
 ### Naming Conventions
 
-- **CSS classes**: BEM-adjacent with semantic prefixes — `.hero-*`, `.nav-*`, `.card-*`, `.seq-*`, `.perf-*`, `.feat-*`, `.split-*`, `.btn-*`
+- **CSS classes**: BEM-adjacent with semantic prefixes — `.hero-*`, `.nav-*`, `.card-*`, `.seq-*`, `.perf-*`, `.feat-*`, `.split-*`, `.btn-*`, `.ps-*`, `.about-comp-*`
 - **CSS sections**: Delimited by `/* ─── SECTION NAME ─────── */` ASCII comment banners
 - **Responsive breakpoints**: `960px` (tablet) and `640px` (mobile)
 - **No external stylesheets** — all CSS is in the `<style>` block
+
+---
+
+## Competencies Component (`about-comp-*`)
+
+Used in both `#about` Panel 2 and `#profile-summary`. Shared CSS classes:
+
+| Class | Role |
+|---|---|
+| `.about-competencies` | Flex-column container, `gap: 10px` |
+| `.about-comp-summary` | Full-width accent-tinted highlight card |
+| `.about-comp-row` | 2-column grid (collapses to 1 at 640 px) |
+| `.about-comp-group` | Dark saturated card (`rgba(8,12,26,0.72)`, blue-tinted border) |
+| `.about-comp-group-label` | Uppercase 10 px eyebrow label |
+| `.about-comp-text` | Secondary body text inside a group |
+| `.about-comp-tags` | Flex-wrap chip container |
+| `.about-comp-tag` | Individual chip pill |
+| `.about-comp-tag--code` | Monospace accent variant for tech stack chips |
+| `.about-comp-bullets` | Dot-bulleted list (accent-colored dots) |
+
+The `.ps-competencies` modifier overrides spacing for the tighter profile-summary context.
+
+---
+
+## Profile Summary Section (`#profile-summary`)
+
+A scroll-sticky section (250 vh) placed between `#projects` and `#about`. It stays on screen for ~150 vh of scroll dwell time.
+
+**Structure:**
+```
+#profile-summary
+  └─ #ps-sequence (250vh, position: relative)
+       └─ #ps-sticky (100vh, position: sticky top:0)
+            └─ .ps-inner (flex column)
+                 ├─ .ps-header (horizontal bar: eyebrow+heading left, desc right)
+                 └─ .about-competencies.ps-competencies (full-width, compact overrides)
+```
+
+**Key CSS classes:** `.ps-inner`, `.ps-header`, `.ps-header-text`, `.ps-eyebrow`, `.ps-heading`, `.ps-desc`, `.ps-competencies`
+
+**Nav integration:** `psSeqEl = getElementById('ps-sequence')` is registered in `tickNavActive`'s `sectionMap` so the "Summary" nav link highlights correctly.
 
 ---
 
@@ -113,10 +153,12 @@ boot()
        └─ startEngine()
             └─ scroll listener → onScroll()
                  ├─ tickNav(sy)
+                 ├─ tickNavActive(sy)
                  ├─ tickBackground(sy)
                  ├─ tickCallouts(sy)
                  ├─ tickDots(sy)
-                 └─ tickSeqCallouts(seqEl, sy)
+                 ├─ tickSceneStack(sy)
+                 └─ tickAboutSeq(sy)
 ```
 
 ### Key Functions
@@ -129,8 +171,26 @@ boot()
 | `tickBackground(sy)` | Swaps bg layers (video → canvas → video) based on scroll phase |
 | `tickCallouts(sy)` | Shows/hides floating callout cards during scroll sequence |
 | `tickDots(sy)` | Updates progress dot indicators |
+| `tickNavActive(sy)` | Highlights the active nav link based on scroll position; uses `sectionMap` |
+| `tickSceneStack(sy)` | Fades scenes in/out within `#projects` sticky stack |
+| `tickAboutSeq(sy)` | Drives panel transitions within `#about` sticky sequence |
 | `initReveal()` | `IntersectionObserver` fade-in-up for all `[data-reveal]` elements |
 | `initPerfBars()` | Animates performance bars using `--target` CSS custom property |
+| `initPraiseParade()` | Sets up horizontal marquee tracks and modal for testimonials |
+
+### Nav Active Highlight — `sectionMap`
+
+`tickNavActive` maps DOM elements to nav hrefs. When adding a new nav-linked section, register it here:
+
+```js
+var sectionMap = [
+  { section: seq1El,        href: '#seq1' },
+  { section: ppSeqEl,       href: '#recomendations' },
+  { section: sceneStackEl,  href: '#projects' },
+  { section: psSeqEl,       href: '#profile-summary' },   // ← Profile Summary
+  { section: aboutSeqEl,    href: '#about' },
+];
+```
 
 ### State
 
@@ -173,7 +233,8 @@ Videos require HTTP (not `file://`) due to browser security restrictions.
 
 - **Edit CSS**: Find the relevant `/* ─── SECTION ─── */` block inside `<style>`, edit in place
 - **Edit JS**: Find the relevant comment block inside `<script>`, edit in place
-- **Add HTML sections**: Insert before `<footer>`, follow existing section markup patterns
+- **Add HTML sections**: Insert before `#about`, follow existing section markup patterns
+- **Add a nav-linked section**: Add the element ref and sectionMap entry in `tickNavActive`
 - **Add assets**: Drop in root or `images/`, reference by relative path
 
 ### Linting / Testing
@@ -182,8 +243,9 @@ No automated tests or linters. Manually verify:
 1. Loading overlay completes and fades
 2. Scroll sequence plays smoothly
 3. Cards appear/disappear at correct scroll positions
-4. Layout holds at 960 px and 640 px breakpoints
-5. No console errors
+4. Nav highlights the correct section as you scroll
+5. Layout holds at 960 px and 640 px breakpoints
+6. No console errors
 
 ---
 
@@ -259,11 +321,13 @@ Each case study should show:
 3. **Use CSS variables**: Never hardcode colors, fonts, or easing values — reference `--var` tokens.
 4. **Match naming conventions**: camelCase for JS identifiers, kebab-case for CSS classes.
 5. **No frameworks**: Do not introduce npm, React, Vue, or any external library.
-6. **Self-review checklist** before marking done:
+6. **New nav sections**: Always register in both the HTML nav list (`#navLinks`) and `sectionMap` in `tickNavActive`.
+7. **Self-review checklist** before marking done:
    - [ ] Visually premium and on-brand
    - [ ] Responsive at 960 px and 640 px
    - [ ] No console errors
    - [ ] Scroll interactions work correctly
+   - [ ] Nav highlights correctly for new sections
    - [ ] Accessible (semantic HTML, sufficient contrast)
 
 ---
