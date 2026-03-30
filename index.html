@@ -68,7 +68,7 @@ body {
 #loader::before {
   content: '';
   position: absolute; inset: 0;
-  background-image: url('images/star_image.png');
+  background-image: url('images/Star_Image.png');
   background-size: cover;
   background-position: center;
   filter: blur(10px);
@@ -2118,11 +2118,11 @@ footer {
 <!-- ─── PERSISTENT BACKGROUND ────────────────────── -->
 <div id="bg">
   <video id="bg-v1" autoplay loop muted playsinline preload="auto">
-    <source src="Videos/Star_Static.mp4" type="video/mp4">
+    <source src="videos/Star_Static.mp4" type="video/mp4">
   </video>
   <canvas id="bg-canvas"></canvas>
   <video id="bg-v2" autoplay loop muted playsinline preload="auto" style="opacity:0">
-    <source src="Videos/BlackHole_Static.mp4" type="video/mp4">
+    <source src="videos/BlackHole_Static.mp4" type="video/mp4">
   </video>
   <div id="bg-vignette"></div>
 </div>
@@ -2918,7 +2918,7 @@ footer {
       <div class="about-seq-left">
         <div class="about-seq-portrait about-portrait-card tilt-card shelf-enter">
           <div class="tilt-card-inner" style="border-radius:18px;overflow:hidden;width:100%;height:100%;">
-            <img class="tilt-parallax-img" src="images/johnjurvanen.png" alt="John Jurvanen" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
+            <img class="tilt-parallax-img" src="images/JohnJurvanen.png" alt="John Jurvanen" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;">
             <div class="tilt-glare"></div>
           </div>
         </div>
@@ -3524,7 +3524,7 @@ footer {
   async function boot () {
     try {
       loaderText.textContent = 'Loading scroll sequence…';
-      frames1 = await extractFrames('Videos/Star_Hole_Transition.mp4', 'Scroll sequence', 0, 1.0);
+      frames1 = await extractFrames('videos/Star_Hole_Transition.mp4', 'Scroll sequence', 0, 1.0);
 
       loaderFill.style.width = '100%';
       loaderText.textContent = 'Ready';
