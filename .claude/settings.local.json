@@ -11,7 +11,8 @@
       "Bash(python3 /tmp/update_cards.py)",
       "Bash(python update_cards.py)",
       "Bash(python -c \":*)",
-      "Bash(grep -n \"function tick\\\\|function init\\\\|function boot\\\\|function start\\\\|function resize\\\\|function section\\\\|function extract\\\\|^  }$\\\\|^}\\(\\)\\);\" \"d:/Documents/portfolio/index.html\")"
+      "Bash(grep -n \"function tick\\\\|function init\\\\|function boot\\\\|function start\\\\|function resize\\\\|function section\\\\|function extract\\\\|^  }$\\\\|^}\\(\\)\\);\" \"d:/Documents/portfolio/index.html\")",
+      "Bash(grep -E \"\\\\.\\(mp4|png|jpg|jpeg|gif|webp|svg\\)$\")"
     ]
   }
 }
