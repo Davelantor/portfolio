@@ -1382,6 +1382,47 @@ body {
 }
 .about-gallery-item:hover img { transform: scale(1.06); filter: grayscale(0%); }
 .about-gallery-item--featured { grid-row: span 2; }
+/* About marquee */
+.about-marquee-wrap {
+  overflow: hidden;
+  margin-top: 24px;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+.about-marquee-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: about-mq-scroll 60s linear infinite;
+}
+.about-marquee-wrap:hover .about-marquee-track { animation-play-state: paused; }
+@keyframes about-mq-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.about-mq-card {
+  flex-shrink: 0;
+  width: 320px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  transition: border-color 0.3s var(--ease);
+}
+.about-mq-card:hover { border-color: rgba(0,113,227,0.3); }
+.about-mq-card-img {
+  width: 100%; height: 240px;
+  object-fit: cover; display: block;
+}
+.about-mq-card-body { padding: 12px 14px 14px; }
+.about-mq-card-title {
+  font-size: 13px; font-weight: 600;
+  color: var(--text-1); margin-bottom: 4px;
+}
+.about-mq-card-desc {
+  font-size: 11px; line-height: 1.5;
+  color: var(--text-2);
+}
 /* Contact panel */
 .about-contact-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
@@ -3072,44 +3113,146 @@ footer {
 
         </div>
 
-        <!-- Panel 3: Image Gallery -->
-        <div class="about-panel" id="aboutPanel3">
-          <p class="about-panel-eyebrow">Work &amp; People</p>
-          <h2 class="about-panel-heading">Moments</h2>
-          <div class="about-gallery">
-            <!-- Col 1, rows 1-2: featured portrait -->
-            <div class="about-gallery-item about-gallery-item--featured">
-              <img src="Images/Contacts/Teppo.jpg" alt="Teppo Aalto">
-            </div>
-            <!-- Col 2-3, row 1 -->
-            <div class="about-gallery-item">
-              <img src="Images/Company/Mapvision.jpg" alt="Mapvision">
-            </div>
-            <div class="about-gallery-item">
-              <img src="Images/Contacts/Kosti.jpg" alt="Kosti Kannas">
-            </div>
-            <!-- Col 2-3, row 2 -->
-            <div class="about-gallery-item">
-              <img src="Images/Company/Ajeco.jpg" alt="Ajeco">
-            </div>
-            <div class="about-gallery-item">
-              <img src="Images/Contacts/Tommi.jpg" alt="Tommi Martela">
-            </div>
-            <!-- Row 3: all 3 cols -->
-            <div class="about-gallery-item">
-              <img src="Images/Contacts/Ernest.jpg" alt="Ernest Arendarenko">
-            </div>
-            <div class="about-gallery-item">
-              <img src="Images/Company/Bimar.jpg" alt="Bimar">
-            </div>
-            <div class="about-gallery-item">
-              <img src="Images/Contacts/Lasse.jpg" alt="Lasse Ylinen">
+        <!-- Panel 2: Work & People -->
+        <div class="about-panel" id="aboutPanel2">
+          <p class="about-panel-eyebrow">Life &amp; Hobbies</p>
+          <h2 class="about-panel-heading">What I do<br>on my time off</h2>
+          <div class="about-marquee-wrap">
+            <div class="about-marquee-track">
+              <!-- Set 1 -->
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Learn.jpg" alt="Learn">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Learning</p>
+                  <p class="about-mq-card-desc">Learning New Tech &amp; Staying Informed</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/MakeGames.jpg" alt="MakeGames">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Make & Play</p>
+                  <p class="about-mq-card-desc">Dont just play games, make them</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Cowork.jpg" alt="Cowork">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Understand</p>
+                  <p class="about-mq-card-desc">Familiarize with the industry</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Make.jpg" alt="Make">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Design -> Build -> Enjoy</p>
+                  <p class="about-mq-card-desc">The joy of creating and enjoying those creations</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/TechArena.jpg" alt="TechArena">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Travel - Enjoy events</p>
+                  <p class="about-mq-card-desc">Travel to where the new tech is happening</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Explore.jpg" alt="Kosti Kannas">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Explore</p>
+                  <p class="about-mq-card-desc">Discover new places &amp; experiences</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Fly.jpg" alt="Kosti Kannas">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Reach new heights</p>
+                  <p class="about-mq-card-desc">New experiences keep you growing</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Camp.jpg" alt="Kosti Kannas">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Camp</p>
+                  <p class="about-mq-card-desc">Connect with nature &amp; fellow adventurers</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/protect.jpg" alt="Kosti Kannas">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Defense</p>
+                  <p class="about-mq-card-desc">Stay sharp &amp; prepared</p>
+                </div>
+              </div>
+              <!-- Set 2 -->
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Learn.jpg" alt="Learn">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Learning</p>
+                  <p class="about-mq-card-desc">Learning New Tech &amp; Staying Informed</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/MakeGames.jpg" alt="MakeGames">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Make & Play</p>
+                  <p class="about-mq-card-desc">Dont just playgames, make them</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Cowork.jpg" alt="Cowork">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Understand</p>
+                  <p class="about-mq-card-desc">Familiarize with the industry</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Make.jpg" alt="Make">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Design -> Build -> Enjoy</p>
+                  <p class="about-mq-card-desc">The joy of creating and enjoying those creations</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/TechArena.jpg" alt="TechArena">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Travel - Enjoy events</p>
+                  <p class="about-mq-card-desc">Travel to where the new tech is happening</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Explore.jpg" alt="Kosti Kannas">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Explore</p>
+                  <p class="about-mq-card-desc">Discover new places &amp; experiences</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Fly.jpg" alt="Kosti Kannas">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Reach new heights</p>
+                  <p class="about-mq-card-desc">New experiences keep you growing</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/Camp.jpg" alt="Kosti Kannas">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Camp</p>
+                  <p class="about-mq-card-desc">Connect with nature &amp; fellow adventurers</p>
+                </div>
+              </div>
+              <div class="about-mq-card">
+                <img class="about-mq-card-img" src="Images/Fun/protect.jpg" alt="Kosti Kannas">
+                <div class="about-mq-card-body">
+                  <p class="about-mq-card-title">Defense</p>
+                  <p class="about-mq-card-desc">Stay sharp &amp; prepared</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Panel 4: Contact -->
-        <div class="about-panel" id="aboutPanel4">
+        <!-- Panel 3: Contact -->
+        <div class="about-panel" id="aboutPanel3">
           <p class="about-panel-eyebrow">Get in Touch</p>
           <h2 class="about-panel-heading">Let's work<br>together.</h2>
           <div class="about-contact-grid">
@@ -3182,7 +3325,6 @@ footer {
       <div class="about-seq-dot" id="aboutDot1"></div>
       <div class="about-seq-dot" id="aboutDot2"></div>
       <div class="about-seq-dot" id="aboutDot3"></div>
-      <div class="about-seq-dot" id="aboutDot4"></div>
     </div>
 
   </div><!-- /about-seq-sticky -->
@@ -3610,7 +3752,7 @@ footer {
 
     var p = sectionProgress(aboutSeqEl, sy);
     var n = aboutPanels.length;
-    var BOUNDS = [0, 0.2, 0.4, 0.6, 0.8, 1];
+    var BOUNDS = [0, 0.25, 0.5, 0.75, 1];
 
     aboutPanels.forEach(function (panel, i) {
       var s = BOUNDS[i];
@@ -3680,7 +3822,7 @@ footer {
      inside the about sequence via data-about-panel="n"
   ──────────────────────────────────────────────────── */
   function initAboutPanelNav () {
-    var BOUNDS = [0, 0.2, 0.4, 0.6, 0.8, 1];
+    var BOUNDS = [0, 0.25, 0.5, 0.75, 1];
     document.querySelectorAll('[data-about-panel]').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
