@@ -1394,7 +1394,7 @@ body {
   display: flex;
   gap: 12px;
   width: max-content;
-  animation: about-mq-scroll 60s linear infinite;
+  animation: about-mq-scroll 30s linear infinite;
 }
 .about-marquee-wrap:hover .about-marquee-track { animation-play-state: paused; }
 @keyframes about-mq-scroll {
@@ -2103,10 +2103,10 @@ footer {
 <nav id="nav" class="transparent">
   <a href="#" class="nav-logo">John Jurvanen</a>
   <ul class="nav-links" id="navLinks">
+    <li><a href="#profile-summary" data-section="profile-summary">Summary</a></li>
     <li><a href="#seq1" data-section="seq1">History</a></li>
     <li><a href="#recomendations" data-section="recomendations">Recommendations</a></li>
     <li><a href="#projects" data-section="projects">Projects</a></li>
-    <li><a href="#profile-summary" data-section="profile-summary">Summary</a></li>
     <li><a href="#about" data-section="about">About Me</a></li>
     <li><a href="#contact" data-section="contact">Contact</a></li>
   </ul>
@@ -2158,6 +2158,126 @@ footer {
   <div class="scroll-cue">
     <span class="scroll-cue-text">Scroll</span>
     <div class="scroll-cue-chevron"></div>
+  </div>
+</section>
+
+<!-- ─── PROFILE SUMMARY ─────────────────────────────── -->
+<section id="profile-summary">
+  <div id="ps-sequence">
+    <div id="ps-sticky">
+      <div class="ps-inner">
+
+        <div class="ps-header">
+          <div class="ps-header-text">
+            <p class="ps-eyebrow">Position Summary</p>
+            <h2 class="ps-heading">What I bring to the table.</h2>
+          </div>
+        </div>
+
+        <div class="about-competencies ps-competencies">
+
+            <!-- Summary -->
+            <p class="about-comp-summary">Product design leader with developer depth, proven UX ownership, and strong fit for senior leadership roles in complex B2B, SaaS, and AI-driven products.</p>
+
+            <!-- Target Profile + Leadership Value -->
+            <div class="about-comp-row">
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Target Profile</p>
+                <p class="about-comp-text">Senior Product Designer / UX Lead with strong product thinking and software development depth.</p>
+                <div class="about-comp-tags">
+                  <span class="about-comp-tag">UX Lead</span>
+                  <span class="about-comp-tag">Staff / Principal PD</span>
+                  <span class="about-comp-tag">Head of Design</span>
+                  <span class="about-comp-tag">Product Leadership</span>
+                </div>
+              </div>
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Leadership Value</p>
+                <ul class="about-comp-bullets">
+                  <li>Built and established the UX function at Mapvision</li>
+                  <li>Created and scaled a design system across products and internal tools</li>
+                  <li>Owned end-to-end UX strategy, cross-team alignment, design reviews, and team mentorship</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Domain Strength + Execution Strengths -->
+            <div class="about-comp-row">
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Domain Strength</p>
+                <div class="about-comp-tags">
+                  <span class="about-comp-tag">AI-enabled industrial SaaS</span>
+                  <span class="about-comp-tag">Data-heavy products</span>
+                  <span class="about-comp-tag">B2B &amp; enterprise</span>
+                  <span class="about-comp-tag">Embedded &amp; telemetry</span>
+                </div>
+              </div>
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Execution Strengths</p>
+                <div class="about-comp-tags">
+                  <span class="about-comp-tag">End-to-end product design</span>
+                  <span class="about-comp-tag">Prototyping &amp; iteration</span>
+                  <span class="about-comp-tag">User research &amp; synthesis</span>
+                  <span class="about-comp-tag">Design systems</span>
+                  <span class="about-comp-tag">Accessibility</span>
+                  <span class="about-comp-tag">Dev fluency</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Technical Edge -->
+            <div class="about-comp-group">
+              <p class="about-comp-group-label">Technical Edge</p>
+              <p class="about-comp-text">Started in software development and moved into UX leadership. Brings hands-on knowledge of front-end and implementation constraints, making designs practical and easier to ship.</p>
+              <div class="about-comp-tags">
+                <span class="about-comp-tag about-comp-tag--code">C#</span>
+                <span class="about-comp-tag about-comp-tag--code">WPF</span>
+                <span class="about-comp-tag about-comp-tag--code">C/C++</span>
+                <span class="about-comp-tag about-comp-tag--code">ASP.NET</span>
+                <span class="about-comp-tag about-comp-tag--code">JavaScript</span>
+                <span class="about-comp-tag about-comp-tag--code">React</span>
+                <span class="about-comp-tag about-comp-tag--code">TypeScript</span>
+                <span class="about-comp-tag about-comp-tag--code">Miro</span>
+                <span class="about-comp-tag about-comp-tag--code">ZenHub</span>
+                <span class="about-comp-tag about-comp-tag--code">AI Tools</span>
+                <span class="about-comp-tag about-comp-tag--code">Claude Code</span>
+                <span class="about-comp-tag about-comp-tag--code">Figma Make</span>
+                <span class="about-comp-tag about-comp-tag--code">Google Stitch</span>
+              </div>
+            </div>
+
+            <!-- What Recruiters Should Notice -->
+            <div class="about-comp-group">
+              <p class="about-comp-group-label">What Recruiters Should Notice</p>
+              <ul class="about-comp-bullets">
+                <li>Turns complex, ambiguous business and user needs into clear, shippable product decisions</li>
+                <li>Strong in stakeholder alignment across product, engineering, and customers</li>
+                <li>Balances vision, usability, and implementation reality — reduces rework and improves delivery quality</li>
+              </ul>
+            </div>
+
+            <!-- Credibility + Education -->
+            <div class="about-comp-row">
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Credibility</p>
+                <ul class="about-comp-bullets">
+                  <li>Recommended by product, engineering, and technology leaders for lead UX/UI roles</li>
+                  <li>Repeatedly described as fast-iterating, collaborative, customer-focused, and strong at translating complexity into intuitive solutions</li>
+                </ul>
+              </div>
+              <div class="about-comp-group">
+                <p class="about-comp-group-label">Education</p>
+                <ul class="about-comp-bullets">
+                  <li>BS in Computer Engineering, Master's in Information Technology</li>
+                  <li>Certifications in UX, product management, scrum, AI for design, and accessibility</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2787,126 +2907,6 @@ footer {
 
 </div><!-- /scene-stack -->
 
-</section>
-
-<!-- ─── PROFILE SUMMARY ─────────────────────────────── -->
-<section id="profile-summary">
-  <div id="ps-sequence">
-    <div id="ps-sticky">
-      <div class="ps-inner">
-
-        <div class="ps-header">
-          <div class="ps-header-text">
-            <p class="ps-eyebrow">Position Summary</p>
-            <h2 class="ps-heading">What I bring to the table.</h2>
-          </div>
-        </div>
-
-        <div class="about-competencies ps-competencies">
-
-            <!-- Summary -->
-            <p class="about-comp-summary">Product design leader with developer depth, proven UX ownership, and strong fit for senior leadership roles in complex B2B, SaaS, and AI-driven products.</p>
-
-            <!-- Target Profile + Leadership Value -->
-            <div class="about-comp-row">
-              <div class="about-comp-group">
-                <p class="about-comp-group-label">Target Profile</p>
-                <p class="about-comp-text">Senior Product Designer / UX Lead with strong product thinking and software development depth.</p>
-                <div class="about-comp-tags">
-                  <span class="about-comp-tag">UX Lead</span>
-                  <span class="about-comp-tag">Staff / Principal PD</span>
-                  <span class="about-comp-tag">Head of Design</span>
-                  <span class="about-comp-tag">Product Leadership</span>
-                </div>
-              </div>
-              <div class="about-comp-group">
-                <p class="about-comp-group-label">Leadership Value</p>
-                <ul class="about-comp-bullets">
-                  <li>Built and established the UX function at Mapvision</li>
-                  <li>Created and scaled a design system across products and internal tools</li>
-                  <li>Owned end-to-end UX strategy, cross-team alignment, design reviews, and team mentorship</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Domain Strength + Execution Strengths -->
-            <div class="about-comp-row">
-              <div class="about-comp-group">
-                <p class="about-comp-group-label">Domain Strength</p>
-                <div class="about-comp-tags">
-                  <span class="about-comp-tag">AI-enabled industrial SaaS</span>
-                  <span class="about-comp-tag">Data-heavy products</span>
-                  <span class="about-comp-tag">B2B &amp; enterprise</span>
-                  <span class="about-comp-tag">Embedded &amp; telemetry</span>
-                </div>
-              </div>
-              <div class="about-comp-group">
-                <p class="about-comp-group-label">Execution Strengths</p>
-                <div class="about-comp-tags">
-                  <span class="about-comp-tag">End-to-end product design</span>
-                  <span class="about-comp-tag">Prototyping &amp; iteration</span>
-                  <span class="about-comp-tag">User research &amp; synthesis</span>
-                  <span class="about-comp-tag">Design systems</span>
-                  <span class="about-comp-tag">Accessibility</span>
-                  <span class="about-comp-tag">Dev fluency</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Technical Edge -->
-            <div class="about-comp-group">
-              <p class="about-comp-group-label">Technical Edge</p>
-              <p class="about-comp-text">Started in software development and moved into UX leadership. Brings hands-on knowledge of front-end and implementation constraints, making designs practical and easier to ship.</p>
-              <div class="about-comp-tags">
-                <span class="about-comp-tag about-comp-tag--code">C#</span>
-                <span class="about-comp-tag about-comp-tag--code">WPF</span>
-                <span class="about-comp-tag about-comp-tag--code">C/C++</span>
-                <span class="about-comp-tag about-comp-tag--code">ASP.NET</span>
-                <span class="about-comp-tag about-comp-tag--code">JavaScript</span>
-                <span class="about-comp-tag about-comp-tag--code">React</span>
-                <span class="about-comp-tag about-comp-tag--code">TypeScript</span>
-                <span class="about-comp-tag about-comp-tag--code">Miro</span>
-                <span class="about-comp-tag about-comp-tag--code">ZenHub</span>
-                <span class="about-comp-tag about-comp-tag--code">AI Tools</span>
-                <span class="about-comp-tag about-comp-tag--code">Claude Code</span>
-                <span class="about-comp-tag about-comp-tag--code">Figma Make</span>
-                <span class="about-comp-tag about-comp-tag--code">Google Stitch</span>
-              </div>
-            </div>
-
-            <!-- What Recruiters Should Notice -->
-            <div class="about-comp-group">
-              <p class="about-comp-group-label">What Recruiters Should Notice</p>
-              <ul class="about-comp-bullets">
-                <li>Turns complex, ambiguous business and user needs into clear, shippable product decisions</li>
-                <li>Strong in stakeholder alignment across product, engineering, and customers</li>
-                <li>Balances vision, usability, and implementation reality — reduces rework and improves delivery quality</li>
-              </ul>
-            </div>
-
-            <!-- Credibility + Education -->
-            <div class="about-comp-row">
-              <div class="about-comp-group">
-                <p class="about-comp-group-label">Credibility</p>
-                <ul class="about-comp-bullets">
-                  <li>Recommended by product, engineering, and technology leaders for lead UX/UI roles</li>
-                  <li>Repeatedly described as fast-iterating, collaborative, customer-focused, and strong at translating complexity into intuitive solutions</li>
-                </ul>
-              </div>
-              <div class="about-comp-group">
-                <p class="about-comp-group-label">Education</p>
-                <ul class="about-comp-bullets">
-                  <li>BS in Computer Engineering, Master's in Information Technology</li>
-                  <li>Certifications in UX, product management, scrum, AI for design, and accessibility</li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ─── ABOUT ME ────────────────────────────────────── -->
@@ -3670,10 +3670,10 @@ footer {
 
     // Map each nav link to its target section element
     var sectionMap = [
+      { section: psSeqEl,       href: '#profile-summary' },
       { section: seq1El,        href: '#seq1' },
       { section: ppSeqEl,       href: '#recomendations' },
       { section: sceneStackEl,  href: '#projects' },
-      { section: psSeqEl,       href: '#profile-summary' },
       { section: aboutSeqEl,    href: '#about' },
     ];
 
