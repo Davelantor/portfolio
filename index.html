@@ -1569,7 +1569,70 @@ body {
 .banner-content {
   position: relative; z-index: 2;
   text-align: center;
-  max-width: 720px;
+  max-width: 900px;
+}
+.banner-sub {
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--text-2);
+  margin-top: 20px;
+  max-width: 560px;
+  margin-left: auto; margin-right: auto;
+  line-height: 1.6;
+}
+.banner-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 56px;
+}
+.banner-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 32px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  min-width: 160px;
+  flex: 1 1 160px;
+  max-width: 200px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.banner-stat:hover {
+  border-color: rgba(0,113,227,0.3);
+  background: rgba(0,113,227,0.04);
+}
+.banner-stat-num {
+  font-family: var(--font-d);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-1);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+.stat-suffix {
+  font-size: 0.55em;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0;
+}
+.banner-stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+@media (max-width: 640px) {
+  .banner-stats { gap: 8px; }
+  .banner-stat { min-width: 140px; padding: 20px 16px; }
 }
 .label {
   font-size: var(--fs-xs); font-weight: 600;
@@ -1638,6 +1701,19 @@ body {
   font-size: 120px;
   opacity: 0.06;
   user-select: none;
+}
+.split-media-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
+  border-radius: inherit;
+  transition: transform 0.6s var(--ease-out);
+}
+.split-media:hover .split-media-img {
+  transform: scale(1.03);
 }
 .split-media-label {
   position: absolute; bottom: 20px; left: 20px;
@@ -2240,7 +2316,7 @@ footer {
                 <span class="card-date">2013 – 2015</span>
                 <span class="card-badge">Full-Time</span>
               </div>
-              <div class="card-title">Frontend Developer</div>
+              <div class="card-title">Frontend Developer - Project Lead</div>
               <div class="card-company">BIMAR</div>
             </div>
             <div class="card-logo"><img src="Images/Company/Bimar.jpg" alt="Bimar"></div>
@@ -2438,13 +2514,30 @@ footer {
 <section class="banner" id="features">
   <div class="banner-glow"></div>
   <div class="banner-content">
-    <p class="label fiu">Products I Drove</p>
-    <h2 class="d1 fiu">O<br>and Shaped</h2>
-    <p class="body-copy mt-med fiu" style="max-width:520px;margin-left:auto;margin-right:auto;">
-      Software platforms and enterprise tools I helped shape through product thinking, UX leadership, and close cross-functional collaboration.
-    </p>
-    <div class="mt-lg fiu">
-      <a href="#" class="btn-white">See the Technology</a>
+    <p class="label fiu">By the Numbers</p>
+    <h2 class="d1 fiu">Craft at Scale</h2>
+    <p class="banner-sub fiu">Product experience measured in decisions made, teams led, and users served.</p>
+    <div class="banner-stats">
+      <div class="banner-stat" data-target="12000" data-suffix="+" data-label="Users impacted">
+        <span class="banner-stat-num"><span class="stat-counter">0</span><span class="stat-suffix">+</span></span>
+        <span class="banner-stat-label">Users impacted</span>
+      </div>
+      <div class="banner-stat" data-target="500" data-suffix="+" data-label="Feature contributions">
+        <span class="banner-stat-num"><span class="stat-counter">0</span><span class="stat-suffix">+</span></span>
+        <span class="banner-stat-label">Feature contributions</span>
+      </div>
+      <div class="banner-stat" data-target="50" data-suffix="+" data-label="Releases shaped">
+        <span class="banner-stat-num"><span class="stat-counter">0</span><span class="stat-suffix">+</span></span>
+        <span class="banner-stat-label">Releases shaped</span>
+      </div>
+      <div class="banner-stat" data-target="12" data-suffix=" yrs" data-label="Product experience">
+        <span class="banner-stat-num"><span class="stat-counter">0</span><span class="stat-suffix"> yrs</span></span>
+        <span class="banner-stat-label">Product experience</span>
+      </div>
+      <div class="banner-stat" data-target="5" data-suffix=" yrs" data-label="Leadership experience">
+        <span class="banner-stat-num"><span class="stat-counter">0</span><span class="stat-suffix"> yrs</span></span>
+        <span class="banner-stat-label">Leadership experience</span>
+      </div>
     </div>
   </div>
 </section>
@@ -2456,8 +2549,8 @@ footer {
 <section style="padding-top:20px;padding-bottom:20px;" id="performance">
   <div class="split">
     <div class="split-media fiu">
-      <div class="split-media-icon">⚙</div>
-      <span class="split-media-label">Motor Architecture</span>
+      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
+      <span class="split-media-label">Container Tracking</span>
     </div>
     <div class="split-text fiu">
       <p class="split-sublabel">Motor Architecture</p>
@@ -2480,7 +2573,7 @@ footer {
 <section style="padding-bottom:20px;" id="design-section">
   <div class="split flip">
     <div class="split-media fiu">
-      <div class="split-media-icon">📷</div>
+      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
       <span class="split-media-label">Camera Module</span>
     </div>
     <div class="split-text fiu">
@@ -2498,9 +2591,79 @@ footer {
 </section>
 </div><!-- /scene 2 -->
 
-  </div><!-- /scene-sticky -->
+<!-- Scene 2: Camera Split -->
+<div class="scene">
+<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
+<section style="padding-bottom:20px;" id="design-section">
+  <div class="split flip">
+    <div class="split-media fiu">
+      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
+      <span class="split-media-label">Camera Module</span>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">Camera System</p>
+      <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
+      <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <ul class="feat-list">
+        <li>20 MP 1/2-inch CMOS sensor</li>
+        <li>4K 120 fps HDR video</li>
+        <li>f/1.8 – f/11 aperture range</li>
+        <li>12.8 stops dynamic range</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div><!-- /scene 2 -->
 
+<!-- Scene 2: Camera Split -->
+<div class="scene">
+<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
+<section style="padding-bottom:20px;" id="design-section">
+  <div class="split flip">
+    <div class="split-media fiu">
+      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
+      <span class="split-media-label">Camera Module</span>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">Camera System</p>
+      <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
+      <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <ul class="feat-list">
+        <li>20 MP 1/2-inch CMOS sensor</li>
+        <li>4K 120 fps HDR video</li>
+        <li>f/1.8 – f/11 aperture range</li>
+        <li>12.8 stops dynamic range</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div><!-- /scene 2 -->
 
+<!-- Scene 2: Camera Split -->
+<div class="scene">
+<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
+<section style="padding-bottom:20px;" id="design-section">
+  <div class="split flip">
+    <div class="split-media fiu">
+      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
+      <span class="split-media-label">Camera Module</span>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">Camera System</p>
+      <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
+      <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <ul class="feat-list">
+        <li>20 MP 1/2-inch CMOS sensor</li>
+        <li>4K 120 fps HDR video</li>
+        <li>f/1.8 – f/11 aperture range</li>
+        <li>12.8 stops dynamic range</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div><!-- /scene 2 -->
+
+</div><!-- /scene-sticky -->
 
 </div><!-- /scene-stack -->
 
@@ -3186,6 +3349,7 @@ footer {
     initReveal();
     initPraiseParade();
     initPerfBars();
+    initStatCounters();
     initContactNav();
     initAboutPanelNav();
   }
@@ -3632,6 +3796,38 @@ footer {
 
     document.querySelectorAll('.perf-row').forEach(function (row) {
       obs.observe(row);
+    });
+  }
+
+  /* ────────────────────────────────────────────────────
+     STAT COUNTERS — animate numbers when scrolled into view
+  ──────────────────────────────────────────────────── */
+  function initStatCounters () {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var stat   = entry.target;
+        var target = parseInt(stat.dataset.target, 10);
+        var el     = stat.querySelector('.stat-counter');
+        if (!el) return;
+        var start    = 0;
+        var duration = 1400;
+        var startTs  = null;
+        function ease (t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+        function step (ts) {
+          if (!startTs) startTs = ts;
+          var p = Math.min((ts - startTs) / duration, 1);
+          var v = Math.round(ease(p) * target);
+          el.textContent = target >= 1000 ? v.toLocaleString() : v;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        obs.unobserve(stat);
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll('.banner-stat').forEach(function (stat) {
+      obs.observe(stat);
     });
   }
 
