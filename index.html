@@ -1706,14 +1706,47 @@ body {
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: top left;
+  object-fit: contain;
+  object-position: center;
   display: block;
   border-radius: inherit;
   transition: transform 0.6s var(--ease-out);
 }
-.split-media:hover .split-media-img {
-  transform: scale(1.03);
+.split-feat-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 10px;
+  margin-top: 24px;
+}
+.split-media-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-1);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.split-media-btn:hover {
+  background: rgba(0,113,227,0.7);
+  border-color: transparent;
 }
 .split-media-label {
   position: absolute; bottom: 20px; left: 20px;
@@ -2551,11 +2584,13 @@ footer {
     <div class="split-media fiu">
       <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
       <span class="split-media-label">Container Tracking</span>
+      <a class="split-media-btn" href="#">View case study ↗</a>
     </div>
     <div class="split-text fiu">
-      <p class="split-sublabel">Motor Architecture</p>
-      <h3 class="d3 split-title">Power,<br>in all directions.</h3>
-      <p class="split-body">The Pro One's asymmetric layout generates 7.28 kg of total thrust. An active torque-balancing algorithm coordinates four titanium-shafted motors in real time, eliminating vibration at the source.</p>
+      <p class="split-sublabel">Mapvision</p>
+      <h3 class="d3 split-title">Mapvision<br>Result Suite</h3>
+      <p class="split-body">Result Suite enables you to take full control of your inspection data and conduct deep analysis both for product quality and process capability.</p>
+      <p class="split-feat-title">Key contributions</p>
       <ul class="feat-list">
         <li>1,820 g thrust per motor</li>
         <li>KV 1750 rated wind speed</li>
@@ -2575,11 +2610,13 @@ footer {
     <div class="split-media fiu">
       <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
       <span class="split-media-label">Camera Module</span>
+      <a class="split-media-btn" href="#">View case study ↗</a>
     </div>
     <div class="split-text fiu">
       <p class="split-sublabel">Camera System</p>
       <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
       <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <p class="split-feat-title">Key contributions</p>
       <ul class="feat-list">
         <li>20 MP 1/2-inch CMOS sensor</li>
         <li>4K 120 fps HDR video</li>
@@ -2599,11 +2636,13 @@ footer {
     <div class="split-media fiu">
       <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
       <span class="split-media-label">Camera Module</span>
+      <a class="split-media-btn" href="#">View case study ↗</a>
     </div>
     <div class="split-text fiu">
       <p class="split-sublabel">Camera System</p>
       <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
       <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <p class="split-feat-title">Key contributions</p>
       <ul class="feat-list">
         <li>20 MP 1/2-inch CMOS sensor</li>
         <li>4K 120 fps HDR video</li>
@@ -2623,11 +2662,13 @@ footer {
     <div class="split-media fiu">
       <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
       <span class="split-media-label">Camera Module</span>
+      <a class="split-media-btn" href="#">View case study ↗</a>
     </div>
     <div class="split-text fiu">
       <p class="split-sublabel">Camera System</p>
       <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
       <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <p class="split-feat-title">Key contributions</p>
       <ul class="feat-list">
         <li>20 MP 1/2-inch CMOS sensor</li>
         <li>4K 120 fps HDR video</li>
@@ -2647,11 +2688,13 @@ footer {
     <div class="split-media fiu">
       <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
       <span class="split-media-label">Camera Module</span>
+      <a class="split-media-btn" href="#">View case study ↗</a>
     </div>
     <div class="split-text fiu">
       <p class="split-sublabel">Camera System</p>
       <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
       <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
+      <p class="split-feat-title">Key contributions</p>
       <ul class="feat-list">
         <li>20 MP 1/2-inch CMOS sensor</li>
         <li>4K 120 fps HDR video</li>
