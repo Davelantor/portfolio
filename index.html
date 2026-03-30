@@ -1688,14 +1688,18 @@ body {
 .split.flip { direction: rtl; }
 .split.flip > * { direction: ltr; }
 
+.split-media-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 .split-media {
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid var(--card-border);
-  aspect-ratio: 4/3;
-  display: flex; align-items: center; justify-content: center;
   background: linear-gradient(140deg, #0e0e0e, #1a1a1e);
   position: relative;
+  width: 100%;
 }
 .split-media-icon {
   font-size: 120px;
@@ -1703,14 +1707,9 @@ body {
   user-select: none;
 }
 .split-media-img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: contain;
-  object-position: center;
+  width: 100%;
+  height: auto;
   display: block;
-  border-radius: inherit;
-  transition: transform 0.6s var(--ease-out);
 }
 .split-feat-title {
   font-size: 11px;
@@ -1722,11 +1721,8 @@ body {
   margin-top: 24px;
 }
 .split-media-btn {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  z-index: 3;
   display: inline-flex;
+  margin-top: 12px;
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
@@ -2576,15 +2572,17 @@ footer {
 </section>
 </div><!-- /scene 0 -->
 
-<!-- Scene 1: Motor Split -->
+<!-- Scene 1: ResultViewer -->
 <div class="scene">
 <!-- ─── SPLIT · Motor ─────────────────────────────── -->
 <section style="padding-top:20px;padding-bottom:20px;" id="performance">
-  <div class="split">
-    <div class="split-media fiu">
-      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
-      <span class="split-media-label">Container Tracking</span>
-      <a class="split-media-btn" href="#">View case study ↗</a>
+  <div class="split flip">
+    <div class="split-media-wrap fiu">
+      <div class="split-media">
+        <img class="split-media-img" src="Images/products/Result2.png" alt="ResultViewer">
+        <span class="split-media-label">Result Viewer</span>
+      </div>
+      <a class="split-media-btn" href="https://www.mapvision.fi/technology/result-suite">View Technology ↗</a>
     </div>
     <div class="split-text fiu">
       <p class="split-sublabel">Mapvision</p>
@@ -2592,10 +2590,10 @@ footer {
       <p class="split-body">Result Suite enables you to take full control of your inspection data and conduct deep analysis both for product quality and process capability.</p>
       <p class="split-feat-title">Key contributions</p>
       <ul class="feat-list">
-        <li>1,820 g thrust per motor</li>
-        <li>KV 1750 rated wind speed</li>
-        <li>Active vibration cancellation</li>
-        <li>IP67 moisture resistance</li>
+        <li>Owned UX across core products</li>
+        <li>Simplified complex industrial workflows</li>
+        <li>Significantly improved customer confidence</li>
+        <li>Reduced rework across teams</li>
       </ul>
     </div>
   </div>
@@ -2607,9 +2605,68 @@ footer {
 <!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
 <section style="padding-bottom:20px;" id="design-section">
   <div class="split flip">
-    <div class="split-media fiu">
-      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
-      <span class="split-media-label">Camera Module</span>
+    <div class="split-media-wrap fiu">
+      <div class="split-media">
+        <img class="split-media-img" src="Images/products/WSI.jpg" alt="WSI">
+        <span class="split-media-label">Weld Seam Inspection</span>
+      </div>
+      <a class="split-media-btn" href="https://www.mapvision.fi/technology/weld-seam-inspection">View Technology ↗</a>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">Mapvision</p>
+      <h3 class="d3 split-title">Weld Seam<br>Inspection</h3>
+      <p class="split-body">Mapvision Weld Seam Inspection (WSI) is a machine learning-based inspection system for weld seams. Combining our decades of camera inspection experience with modern machine learning technology we have created a fast and trainable device that learns from all parts produced. My efforts were mostly directed at user facing software products design</p>
+      <p class="split-feat-title">Key contributions</p>
+      <ul class="feat-list">
+        <li>Owned front end customer experience and product design</li>
+        <li>Interviewed OEM customers and refined product vision</li>
+        <li>Led cross-functional alignment on product priorities</li>
+        <li>Increased product usability</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div><!-- /scene 2 -->
+
+<!-- Scene 2: Camera Split -->
+<div class="scene">
+<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
+<section style="padding-bottom:20px;" id="design-section">
+  <div class="split flip">
+    <div class="split-media-wrap fiu">
+      <div class="split-media">
+        <img class="split-media-img" src="Images/products/quake.jpg" alt="Seismic Detection">
+        <span class="split-media-label">Seismic Detection</span>
+      </div>
+      <a class="split-media-btn" href="https://john-jurvanen-quake-project.figma.site/">View case study ↗</a>
+      <a class="split-media-btn" href="https://earthquakealertapp.figma.site/">Test Live ↗</a>
+    </div>
+    <div class="split-text fiu">
+      <p class="split-sublabel">NDA • 2018</p>
+      <h3 class="d3 split-title">Disaster Relief OPSEC<br>seismic activity detection</h3>
+      <p class="split-body">This project is a mobile application designed for detecting secondary seismic activities using a off grid mesh setup designed to work in conjunction with other stationary devices in proximity to create a consensus mechanism to decern between local operational vibrations and regional seismic vibrations that can be early indicators.</p>
+      <p class="split-feat-title">Key contributions</p>
+      <ul class="feat-list">
+        <li>User Research</li>
+        <li>Product Vision</li>
+        <li>Field Studies</li>
+        <li>Software Development</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div><!-- /scene 2 -->
+
+<!-- Scene 2: Camera Split -->
+<div class="scene">
+<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
+<section style="padding-bottom:20px;" id="design-section">
+  <div class="split flip">
+    <div class="split-media-wrap fiu">
+      <div class="split-media">
+        <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
+        <span class="split-media-label">Camera Module</span>
+      </div>
       <a class="split-media-btn" href="#">View case study ↗</a>
     </div>
     <div class="split-text fiu">
@@ -2633,61 +2690,11 @@ footer {
 <!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
 <section style="padding-bottom:20px;" id="design-section">
   <div class="split flip">
-    <div class="split-media fiu">
-      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
-      <span class="split-media-label">Camera Module</span>
-      <a class="split-media-btn" href="#">View case study ↗</a>
-    </div>
-    <div class="split-text fiu">
-      <p class="split-sublabel">Camera System</p>
-      <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
-      <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
-      <p class="split-feat-title">Key contributions</p>
-      <ul class="feat-list">
-        <li>20 MP 1/2-inch CMOS sensor</li>
-        <li>4K 120 fps HDR video</li>
-        <li>f/1.8 – f/11 aperture range</li>
-        <li>12.8 stops dynamic range</li>
-      </ul>
-    </div>
-  </div>
-</section>
-</div><!-- /scene 2 -->
-
-<!-- Scene 2: Camera Split -->
-<div class="scene">
-<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
-<section style="padding-bottom:20px;" id="design-section">
-  <div class="split flip">
-    <div class="split-media fiu">
-      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
-      <span class="split-media-label">Camera Module</span>
-      <a class="split-media-btn" href="#">View case study ↗</a>
-    </div>
-    <div class="split-text fiu">
-      <p class="split-sublabel">Camera System</p>
-      <h3 class="d3 split-title">Cinema.<br>From the sky.</h3>
-      <p class="split-body">The APEX imaging module pairs a 1/2-inch CMOS sensor with multi-layer nano-coated optics. Shoot RAW at 20 megapixels, or capture 4K/120fps video with a dynamic range that rivals dedicated cinema cameras.</p>
-      <p class="split-feat-title">Key contributions</p>
-      <ul class="feat-list">
-        <li>20 MP 1/2-inch CMOS sensor</li>
-        <li>4K 120 fps HDR video</li>
-        <li>f/1.8 – f/11 aperture range</li>
-        <li>12.8 stops dynamic range</li>
-      </ul>
-    </div>
-  </div>
-</section>
-</div><!-- /scene 2 -->
-
-<!-- Scene 2: Camera Split -->
-<div class="scene">
-<!-- ─── SPLIT · Camera (flipped) ─────────────────── -->
-<section style="padding-bottom:20px;" id="design-section">
-  <div class="split flip">
-    <div class="split-media fiu">
-      <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
-      <span class="split-media-label">Camera Module</span>
+    <div class="split-media-wrap fiu">
+      <div class="split-media">
+        <img class="split-media-img" src="Images/products/ContainerTracking.jpg" alt="Container Tracking dashboard">
+        <span class="split-media-label">Camera Module</span>
+      </div>
       <a class="split-media-btn" href="#">View case study ↗</a>
     </div>
     <div class="split-text fiu">
