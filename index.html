@@ -3623,7 +3623,7 @@ footer {
     /* Parallax: shift bgV2 upward 32px after it becomes fully visible,
        until its centre sits 128px above the top of the screen.           */
     const parallaxStart = seq1Bot - vh + 2048;
-    const parallaxP     = Math.max(0, Math.min(1, (sy - parallaxStart) / (vh * 1)));
+    const parallaxP     = Math.max(0, Math.min(1, (sy - parallaxStart) / (vh * 8)));
     bgV2.style.transform = 'translateY(' + (-(parallaxP * (vh / 4 + 128))).toFixed(1) + 'px)';
 
     if (frames1.length && canvasIn > 0.01) {
@@ -3694,43 +3694,58 @@ footer {
     });
   }
 
-  /* ── Scene stack crossfade ── */
+  /* ── Scene stack sequential fade (no overlap) ── */
   function tickSceneStack (sy) {
     if (!sceneStackEl || !sceneDivs.length) return;
     if (window.innerWidth <= 960) return;
 
     var p      = sectionProgress(sceneStackEl, sy);
     var n      = sceneDivs.length;
-    var FADE   = 0.03;  // tight crossfade window — less overlap, sharper cut
-    var TRAVEL = 72;    // px: distance content travels on enter/exit
+    var FADE   = 0.04;  // fraction of total progress each fade-in or fade-out takes
+    var TRAVEL = 40;    // px: subtle drift on enter/exit
 
     sceneDivs.forEach(function (scene, i) {
-      var s = i / n;
-      var e = (i + 1) / n;
+      var s       = i / n;
+      var e       = (i + 1) / n;
+      var isFirst = (i === 0);
+      var isLast  = (i === n - 1);
       var opacity, ty;
 
-      if (p < s - FADE) {
-        // waiting below, not yet visible
-        opacity = (i === 0) ? 1 : 0;
-        ty      = (i === 0) ? 0 : TRAVEL;
-      } else if (p < s + FADE) {
-        // entering: rise up from below while fading in
-        var t   = (i === 0) ? 1 : (p - (s - FADE)) / (2 * FADE);
-        opacity = t;
-        ty      = (i === 0) ? 0 : TRAVEL * (1 - t);
-      } else if (p < e - FADE) {
-        // fully visible, at rest
-        opacity = 1;
-        ty      = 0;
-      } else if (p < e + FADE) {
-        // exiting: drift up while fading out
-        var t   = (i === n - 1) ? 0 : (p - (e - FADE)) / (2 * FADE);
-        opacity = (i === n - 1) ? 1 : 1 - t;
-        ty      = (i === n - 1) ? 0 : -(TRAVEL * t);
+      if (isFirst) {
+        // Scene 0: starts fully visible, fades out at end of its slot
+        if (p < e - FADE) {
+          opacity = 1; ty = 0;
+        } else if (p < e) {
+          var t = (p - (e - FADE)) / FADE;
+          opacity = 1 - t; ty = -(TRAVEL * t);
+        } else {
+          opacity = 0; ty = -TRAVEL;
+        }
+      } else if (isLast) {
+        // Last scene: fades in, then stays fully visible
+        if (p < s) {
+          opacity = 0; ty = TRAVEL;
+        } else if (p < s + FADE) {
+          var t = (p - s) / FADE;
+          opacity = t; ty = TRAVEL * (1 - t);
+        } else {
+          opacity = 1; ty = 0;
+        }
       } else {
-        // resting above, hidden
-        opacity = (i === n - 1) ? 1 : 0;
-        ty      = (i === n - 1) ? 0 : -TRAVEL;
+        // Middle scenes: fade in, dwell, fade out — never overlapping neighbours
+        if (p < s) {
+          opacity = 0; ty = TRAVEL;
+        } else if (p < s + FADE) {
+          var t = (p - s) / FADE;
+          opacity = t; ty = TRAVEL * (1 - t);
+        } else if (p < e - FADE) {
+          opacity = 1; ty = 0;
+        } else if (p < e) {
+          var t = (p - (e - FADE)) / FADE;
+          opacity = 1 - t; ty = -(TRAVEL * t);
+        } else {
+          opacity = 0; ty = -TRAVEL;
+        }
       }
 
       opacity = Math.max(0, Math.min(1, opacity));
