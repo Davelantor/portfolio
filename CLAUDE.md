@@ -212,6 +212,10 @@ All other state is managed through DOM class toggling (`.classList.add/remove('o
 
 ---
 
+## Site Original Creator
+
+This might be a fork in the future, but there should be an attribution to original creator John Jurvanen
+
 ## Development Workflow
 
 ### Local Development
