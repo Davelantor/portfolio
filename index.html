@@ -35,8 +35,8 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>John Jurvanen - End to End Product Designer - Leader</title>
-<meta property="og:title" content="John Jurvanen - End to End Product Designer - Leader">
+<title>John Jurvanen - End to End Product Builder - Leader</title>
+<meta property="og:title" content="John Jurvanen - End to End Product Builder - Leader">
 <meta property="og:image" content="https://davelantor.github.io/portfolio/images/banner.png">
 <meta property="og:url" content="https://davelantor.github.io/portfolio/">
 <meta property="og:type" content="website">
@@ -3558,12 +3558,27 @@ footer {
   async function boot () {
     try {
       loaderText.textContent = 'Loading scroll sequence…';
-      frames1 = await extractFrames('videos/Star_Hole_Transition.mp4', 'Scroll sequence', 0, 1.0);
 
-      loaderFill.style.width = '100%';
-      loaderText.textContent = 'Ready';
+      var LOADER_TIMEOUT_MS = 8000;
+      var timedOut = false;
 
-      await new Promise(r => setTimeout(r, 380));
+      /* Start extraction — populates frames1 whenever it finishes */
+      var extractionPromise = extractFrames('videos/Star_Hole_Transition.mp4', 'Scroll sequence', 0, 1.0)
+        .then(function (f) { frames1 = f; });
+
+      var timeoutPromise = new Promise(function (r) {
+        setTimeout(function () { timedOut = true; r(); }, LOADER_TIMEOUT_MS);
+      });
+
+      await Promise.race([extractionPromise, timeoutPromise]);
+
+      if (!timedOut) {
+        /* Extraction finished within the budget — normal ready state */
+        loaderFill.style.width = '100%';
+        loaderText.textContent = 'Ready';
+        await new Promise(r => setTimeout(r, 380));
+      }
+      /* else: loader dismissed immediately; extraction continues in background */
     } catch (err) {
       console.warn('[APEX] Frame extraction error:', err);
       /* Graceful fallback — continue without frame sequences */
