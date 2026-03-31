@@ -3622,8 +3622,8 @@ footer {
 
     /* Parallax: shift bgV2 upward 32px after it becomes fully visible,
        until its centre sits 128px above the top of the screen.           */
-    const parallaxStart = seq1Bot - vh + 2048;
-    const parallaxP     = Math.max(0, Math.min(1, (sy - parallaxStart) / (vh * 8)));
+    const parallaxStart = seq1Bot - vh + 1024;
+    const parallaxP     = Math.max(0, Math.min(1, (sy - parallaxStart) / (vh * 10)));
     bgV2.style.transform = 'translateY(' + (-(parallaxP * (vh / 4 + 128))).toFixed(1) + 'px)';
 
     if (frames1.length && canvasIn > 0.01) {
