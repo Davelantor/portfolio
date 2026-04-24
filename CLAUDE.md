@@ -46,7 +46,7 @@ All code lives in three embedded blocks inside `index.html`:
 | ID / Element | Purpose |
 |---|---|
 | `#loader` | Full-screen loading overlay with animated progress bar |
-| `#nav` | Fixed navigation bar — transparent until scroll |
+| `#nav` | Fixed navigation bar — transparent until scroll. Structure: logo · nav-links · `.nav-actions` (CV buttons) |
 | `#bg` | Background layer system (3-phase: video → canvas frames → video) |
 | `#hero` | Full-viewport hero with rotating role text and CTA buttons |
 | `#seq1` | Scroll-driven sequence (520 vh) — canvas-rendered video frames |
@@ -83,6 +83,7 @@ All code lives in three embedded blocks inside `index.html`:
 ### Naming Conventions
 
 - **CSS classes**: BEM-adjacent with semantic prefixes — `.hero-*`, `.nav-*`, `.card-*`, `.seq-*`, `.perf-*`, `.feat-*`, `.split-*`, `.btn-*`, `.ps-*`, `.about-comp-*`
+- **`.nav-actions`**: Flex wrapper grouping the two CV download buttons at the far right of `#nav`. Add new nav action buttons inside this element, not as direct children of `#nav`.
 - **CSS sections**: Delimited by `/* ─── SECTION NAME ─────── */` ASCII comment banners
 - **Responsive breakpoints**: `960px` (tablet) and `640px` (mobile)
 - **No external stylesheets** — all CSS is in the `<style>` block
