@@ -327,6 +327,9 @@ body {
   height: 1px; background: var(--text-1);
   border-radius: 1px;
 }
+.nav-actions {
+  display: flex; align-items: center; gap: 8px;
+}
 .nav-order {
   display: flex; align-items: center; gap: 6px;
   font-size: var(--fs-sm); font-weight: 500; font-family: inherit;
@@ -2030,6 +2033,14 @@ footer {
   background-size: 128px 128px;
   mix-blend-mode: overlay;
 }
+/* 
+░░░░░██╗░█████╗░██╗░░██╗███╗░░██╗  ░░░░░██╗██╗░░░██╗██████╗░██╗░░░██╗░█████╗░███╗░░██╗███████╗███╗░░██╗
+░░░░░██║██╔══██╗██║░░██║████╗░██║  ░░░░░██║██║░░░██║██╔══██╗██║░░░██║██╔══██╗████╗░██║██╔════╝████╗░██║
+░░░░░██║██║░░██║███████║██╔██╗██║  ░░░░░██║██║░░░██║██████╔╝╚██╗░██╔╝███████║██╔██╗██║█████╗░░██╔██╗██║
+██╗░░██║██║░░██║██╔══██║██║╚████║  ██╗░░██║██║░░░██║██╔══██╗░╚████╔╝░██╔══██║██║╚████║██╔══╝░░██║╚████║
+╚█████╔╝╚█████╔╝██║░░██║██║░╚███║  ╚█████╔╝╚██████╔╝██║░░██║░░╚██╔╝░░██║░░██║██║░╚███║███████╗██║░╚███║
+░╚════╝░░╚════╝░╚═╝░░╚═╝╚═╝░░╚══╝  ░╚════╝░░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝╚═╝░░╚══╝
+*/
 /* Parallax image layer inside tilt card */
 .tilt-card-inner .tilt-parallax-img {
   transform: translateZ(24px) scale(1.02);
@@ -2129,6 +2140,7 @@ footer {
   </div>
   <div class="loader-text" id="loader-text">Initialising experience…</div>
   <div class="loader-wordmark-Secondary">Turning complexity into products leaders trust and users love</div>
+  <div class="loader-wordmark-Secondary">Bringing UX Maturity that does not get stuck on UI design, but can span Hardware, Software, Marketing, and Sales</div>
 </div>
 
 <!-- ─── NAV ───────────────────────────────────────── -->
@@ -2142,10 +2154,16 @@ footer {
     <li><a href="#about" data-section="about">About Me</a></li>
     <li><a href="#contact" data-section="contact">Contact</a></li>
   </ul>
-  <a href="https://drive.google.com/uc?export=download&id=1gLzaUfkcYUOxjBPUCKI6m0RPrDkCwNDd" class="nav-order" download target="_blank" rel="noopener">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-    Download CV
-  </a>
+  <div class="nav-actions">
+    <a href="https://drive.google.com/uc?export=download&id=1gLzaUfkcYUOxjBPUCKI6m0RPrDkCwNDd" class="nav-order" download target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      General CV
+    </a>
+    <a href="https://drive.google.com/uc?export=download&id=15L90FEAxS5Rp5S9RTBscmItZ1-io8Yzy" class="nav-order" download target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Defense CV
+    </a>
+  </div>
 </nav>
 
 <!-- ─── PERSISTENT BACKGROUND ────────────────────── -->
@@ -2170,6 +2188,7 @@ footer {
     <h1 class="hero-title fiu">Product strategy at the Core</h1>
     <p class="hero-subtitle fiu">Building systems that scale</p>
     <p class="hero-info fiu">Head of UX&nbsp;&nbsp;|&nbsp;&nbsp;Senior Product Designer&nbsp;&nbsp;|&nbsp;&nbsp;End-to-End Product Leadership</p>
+    <p class="hero-info fiu">Bringing UX Maturity that does not get stuck on UI design, but can span Hardware, Software, Marketing, and Sales</p>
     <p class="hero-career fiu">Over a decade of expertise across <span class="hero-rotate" id="heroRotate">UX/UI Design</span></p>
     <div class="hero-actions fiu">
       <a href="#profile-summary" class="btn-ghost btn-icon">
@@ -3117,13 +3136,13 @@ footer {
               <div class="about-fact-marker"></div>
               <div class="about-fact-body">
                 <div class="about-fact-lead">Hybrid UX + Engineer — ships, not just designs</div>
-                <div class="about-fact-desc">Delivered as both Full-Stack Developer and Lead UX/UI Designer at Mapvision, building production-ready solutions for complex, data-heavy systems — including AI-assisted telemetry interfaces.</div>
+                <div class="about-fact-desc">Delivered as both Full-Stack Developer and Head of UX at Mapvision, building production-ready solutions for complex, data-heavy systems, proven design speeds compressable into a single meeting when needed - including delivering AI-assisted telemetry interfaces.</div>
               </div>
             </div>
             <div class="about-fact-row">
               <div class="about-fact-marker"></div>
               <div class="about-fact-body">
-                <div class="about-fact-lead">Cross-functional force multiplier — PM, Engineering, and customer alignment</div>
+                <div class="about-fact-lead">Cross-functional force multiplier - building close effective relations with PM, Engineering, and customers</div>
                 <div class="about-fact-desc">Proven track record of collaborating with engineers and product managers, translating user feedback into requirements, mentoring teams, and iterating with customers — backed by endorsements noting strong, consistent delivery in sprints.</div>
               </div>
             </div>
@@ -3131,7 +3150,7 @@ footer {
               <div class="about-fact-marker"></div>
               <div class="about-fact-body">
                 <div class="about-fact-lead">Product & execution fluency — PM language and Agile practice</div>
-                <div class="about-fact-desc">Invested heavily in structured product and Agile capability, with multiple UX and project management credentials through Google — signalling the ability to communicate in roadmaps, priorities, and tradeoffs without losing UX rigor.</div>
+                <div class="about-fact-desc">Invested heavily in structured product and Agile capability, with ability to communicate in roadmaps, priorities, and tradeoffs without losing UX rigor. Proven ability to consider hardware in UX discussions and lead discussions that balance user needs with technical constraints.</div>
               </div>
             </div>
           </div>
