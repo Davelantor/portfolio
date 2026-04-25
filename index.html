@@ -1491,6 +1491,56 @@ body {
   transition: color 0.25s var(--ease), transform 0.25s var(--ease);
 }
 .about-cta-card:hover .about-cta-arrow { color: var(--accent); transform: translateX(3px); }
+/* CV download cards – vertical A4-preview layout */
+.about-cv-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.about-cta-card--cv {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+.about-cta-cv-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+}
+.about-cta-cv-preview {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.025);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.about-cta-cv-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.about-cta-cv-preview-placeholder {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  user-select: none;
+}
+@media (max-width: 960px) {
+  .about-cv-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .about-cv-row { grid-template-columns: 1fr; }
+}
 /* Progress dots */
 .about-seq-dots {
   position: absolute;
@@ -3422,8 +3472,8 @@ footer {
 
         <!-- Panel 3: Contact -->
         <div class="about-panel" id="aboutPanel3">
-          <p class="about-panel-eyebrow">Get in Touch</p>
-          <h2 class="about-panel-heading">Let's work<br>together.</h2>
+          <p class="about-panel-eyebrow">Let's work together</p>
+          <h2 class="about-panel-heading">Contact</h2>
           <div class="about-contact-grid">
 
             <div class="about-cta-group">
@@ -3455,36 +3505,6 @@ footer {
             </div>
 
             <div class="about-cta-group">
-              <p class="about-cta-label">Want to get something to remember ?</p>
-              <a href="https://drive.google.com/uc?export=download&id=1gLzaUfkcYUOxjBPUCKI6m0RPrDkCwNDd" class="about-cta-card" download>
-                <div class="about-meta-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                </div>
-                <div class="about-meta-text">
-                  <span class="about-meta-label">Download CV</span>
-                  <span class="about-meta-value">John Jurvanen cv pdf</span>
-                </div>
-                <span class="about-cta-arrow">↓</span>
-              </a>
-            </div>
-
-            <div class="about-cta-group">
-              <p class="about-cta-label">Part of the Defense industry ?</p>
-              <a href="https://drive.google.com/uc?export=download&id=15L90FEAxS5Rp5S9RTBscmItZ1-io8Yzy" class="about-cta-card" download>
-                <div class="about-meta-icon">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                </div>
-                <div class="about-meta-text">
-                  <span class="about-meta-label">Download Defense focused CV</span>
-                  <span class="about-meta-value">John Jurvanen Sot. cv pdf
-                  </span>
-                </div>
-                <span class="about-cta-arrow">↓</span>
-              </a>
-            </div>
-
-            <div class="about-cta-group">
-              <p class="about-cta-label">Reach out to me</p>
               <a href="mailto:john.jurvanen@gmail.com" class="about-cta-card">
                 <div class="about-meta-icon">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -3495,6 +3515,70 @@ footer {
                 </div>
                 <span class="about-cta-arrow">↗</span>
               </a>
+            </div>
+
+            <div class="about-cta-group">
+              <a href="tel:+358406540303" class="about-cta-card">
+                <div class="about-meta-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.09 6.09l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="about-meta-text">
+                  <span class="about-meta-label">Phone</span>
+                  <span class="about-meta-value">+358 40 654 0303</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="about-cv-row">
+
+              <div class="about-cta-group">
+                <a href="https://drive.google.com/uc?export=download&id=1gLzaUfkcYUOxjBPUCKI6m0RPrDkCwNDd" class="about-cta-card about-cta-card--cv" target="_blank" rel="noopener" download>
+                  <div class="about-cta-cv-top">
+                    <div class="about-meta-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </div>
+                    <div class="about-meta-text">
+                      <span class="about-meta-label">General CV</span>
+                    </div>
+                  </div>
+                  <div class="about-cta-cv-preview">
+                    <img src="images/CV.png" alt="John Jurvanen CV">
+                  </div>
+                </a>
+              </div>
+
+              <div class="about-cta-group">
+                <a href="https://drive.google.com/uc?export=download&id=15L90FEAxS5Rp5S9RTBscmItZ1-io8Yzy" class="about-cta-card about-cta-card--cv" target="_blank" rel="noopener" download>
+                  <div class="about-cta-cv-top">
+                    <div class="about-meta-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </div>
+                    <div class="about-meta-text">
+                      <span class="about-meta-label">Defense focused CV</span>
+                    </div>
+                  </div>
+                <div class="about-cta-cv-preview">
+                    <img src="images/CV_Sot.png" alt="John Jurvanen Sot CV">
+                  </div>
+                </a>
+              </div>
+
+              <div class="about-cta-group">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfqg9R94zhb6P483jkOoTOQiIxu2z40FwBruah9KHbluQPJ0Q/viewform?usp=dialog" class="about-cta-card about-cta-card--cv" target="_blank" rel="noopener" download>
+                  <div class="about-cta-cv-top">
+                    <div class="about-meta-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    </div>
+                    <div class="about-meta-text">
+                      <span class="about-meta-label">MPK Henkilökortti</span>
+                    </div>
+                  </div>
+                  <div class="about-cta-cv-preview">
+                    <img src="images/MPKHK.jpg" alt="John Jurvanen MPK HK">
+                  </div>
+                </a>
+              </div>
+
             </div>
 
           </div>
