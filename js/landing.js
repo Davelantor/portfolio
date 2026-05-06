@@ -37,12 +37,15 @@
 
   // Scene color palettes: [low, mid, high]
   var SCENE_PALETTES = [
-    [0x000000, 0x091840, 0x0066aa],
-    [0x000000, 0x091840, 0x0066aa],
-    [0x000000, 0x091840, 0x0066aa],
-    [0x000000, 0x1e0c04, 0x993320],
-    [0x000000, 0x091a0e, 0x007744],
-    [0x060310, 0x11091e, 0x6644aa],
+    [0x000000, 0x091840, 0x0066aa],  // 0 hero
+    [0x000000, 0x091840, 0x0066aa],  // 1 stats
+    [0x000000, 0x091840, 0x0066aa],  // 2 Mapvision AI
+    [0x000000, 0x1e0c04, 0x993320],  // 3 seismic
+    [0x000000, 0x071a0e, 0x007744],  // 4 Ajeco (green)
+    [0x000000, 0x062018, 0x009988],  // 5 design system (teal)
+    [0x060010, 0x100820, 0x6633bb],  // 6 logistics (purple)
+    [0x000000, 0x091a0e, 0x007744],  // 7 timeline
+    [0x060310, 0x11091e, 0x6644aa],  // 8 CTA
   ];
 
   var bgPalette    = SCENE_PALETTES[0].slice();
@@ -158,9 +161,12 @@
   }
   initProjCanvas('lnd-proj-canvas-0', 0x0d2060, 0x00c8ff);
   initProjCanvas('lnd-proj-canvas-1', 0x2d1206, 0xff6b2b);
+  initProjCanvas('lnd-proj-canvas-2', 0x041a0a, 0x00e87a);
+  initProjCanvas('lnd-proj-canvas-3', 0x041818, 0x00d4cc);
+  initProjCanvas('lnd-proj-canvas-4', 0x0e0620, 0x9966ff);
 
   // ── SCROLL-JACKING ENGINE ────────────────────────────────────────────────
-  var TOTAL_SCENES   = 6;
+  var TOTAL_SCENES   = 9;
   var currentScene   = 0;
   var isTransitioning = false;
   var throttleTimer  = null;
@@ -173,8 +179,11 @@
     { el: 'lnd-scene-1', blocks: ['s1-tag','s1-head','s1-stats','s1-sub'] },
     { el: 'lnd-scene-2', blocks: ['s2-content'] },
     { el: 'lnd-scene-3', blocks: ['s3-content'] },
-    { el: 'lnd-scene-4', blocks: ['s4-tag','s4-head','s4-timeline'] },
-    { el: 'lnd-scene-5', blocks: ['s5-tag','s5-head','s5-cta'] },
+    { el: 'lnd-scene-4', blocks: ['s4-content'] },
+    { el: 'lnd-scene-5', blocks: ['s5-content'] },
+    { el: 'lnd-scene-6', blocks: ['s6-content'] },
+    { el: 'lnd-scene-7', blocks: ['s7-tag','s7-head','s7-timeline'] },
+    { el: 'lnd-scene-8', blocks: ['s8-tag','s8-head','s8-cta'] },
   ];
 
   function setBlocks(sceneIdx, state) {
@@ -216,12 +225,12 @@
     var nextEl = document.getElementById(SCENES[next].el);
     setBlocks(next, preClass);
     nextEl.style.opacity      = '1';
-    nextEl.style.pointerEvents = next === 5 ? 'auto' : 'none';
+    nextEl.style.pointerEvents = next === 8 ? 'auto' : 'none';
     setTimeout(function () { setBlocks(next, 'in'); }, 120);
 
     targetPalette = SCENE_PALETTES[next].slice();
 
-    if (next === 4) {
+    if (next === 7) {
       setTimeout(function () {
         ['lnd-tl0','lnd-tl1','lnd-tl2','lnd-tl3'].forEach(function (id, i) {
           setTimeout(function () {
