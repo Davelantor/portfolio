@@ -159,11 +159,73 @@
     }
     loop();
   }
-  initProjCanvas('lnd-proj-canvas-0', 0x0d2060, 0x00c8ff);
-  initProjCanvas('lnd-proj-canvas-1', 0x2d1206, 0xff6b2b);
-  initProjCanvas('lnd-proj-canvas-2', 0x041a0a, 0x00e87a);
-  initProjCanvas('lnd-proj-canvas-3', 0x041818, 0x00d4cc);
-  initProjCanvas('lnd-proj-canvas-4', 0x0e0620, 0x9966ff);
+  // ── PROJECT VIDEO SCREEN ─────────────────────────────────────────────────
+  var PROJ_SCENE_IDS = [2, 3, 4, 5, 6];
+
+  // Replace these paths once you have the video files
+  var PROJ_VIDEO_TRANS_FWD  = 'videos/proj-trans-fwd.mp4';
+  var PROJ_VIDEO_TRANS_BWD  = 'videos/proj-trans-bwd.mp4';
+  var PROJ_VIDEO_IDLE = {
+    2: 'videos/proj-2-idle.mp4',
+    3: 'videos/proj-3-idle.mp4',
+    4: 'videos/proj-4-idle.mp4',
+    5: 'videos/proj-5-idle.mp4',
+    6: 'videos/proj-6-idle.mp4',
+  };
+  var PROJ_BADGE = {
+    2: { text: 'INDUSTRIAL SaaS &middot; AI &middot; HEAD OF UX',    color: 'var(--accent)',  border: 'rgba(0,200,255,0.2)'   },
+    3: { text: 'MOBILE &middot; NDA &middot; DISASTER RELIEF',        color: 'var(--accent2)', border: 'rgba(255,107,43,0.2)'  },
+    4: { text: 'MARITIME &middot; TELEMETRY &middot; SECURITY',       color: 'var(--green)',   border: 'rgba(0,232,122,0.2)'   },
+    5: { text: 'DESIGN SYSTEM &middot; FULL-STACK &middot; LEAD UX',  color: 'var(--teal)',    border: 'rgba(0,212,204,0.2)'   },
+    6: { text: 'ENTERPRISE &middot; B2B &middot; LOGISTICS',          color: 'var(--purple)',  border: 'rgba(153,102,255,0.2)' },
+  };
+
+  var projScreen    = document.getElementById('lnd-proj-screen');
+  var projVid       = document.getElementById('lnd-proj-screen-video');
+  var projBadge     = document.getElementById('lnd-proj-screen-badge');
+  var projWrap      = projBadge ? projBadge.parentElement : null;
+  var activeIdle    = -1;
+
+  function isProjectScene(n) { return PROJ_SCENE_IDS.indexOf(n) !== -1; }
+
+  function projPlay(src, loop, onEnded) {
+    projVid.loop    = !!loop;
+    projVid.onended = onEnded || null;
+    projVid.src     = src;
+    projVid.load();
+    projVid.play().catch(function () {});
+  }
+
+  function projSetBadge(sceneIdx) {
+    var b = PROJ_BADGE[sceneIdx];
+    if (!b || !projBadge) return;
+    projBadge.innerHTML         = b.text;
+    projBadge.style.color       = b.color;
+    projBadge.style.borderColor = b.color;
+    if (projWrap) projWrap.style.borderColor = b.border;
+  }
+
+  function projEnterScene(next, prev, direction) {
+    projScreen.style.opacity = '1';
+    projSetBadge(next);
+    var prevIsProj = isProjectScene(prev);
+    var transVideo = direction > 0 ? PROJ_VIDEO_TRANS_FWD : PROJ_VIDEO_TRANS_BWD;
+    if (prevIsProj) {
+      projPlay(transVideo, false, function () {
+        activeIdle = next;
+        projPlay(PROJ_VIDEO_IDLE[next], true, null);
+      });
+    } else {
+      activeIdle = next;
+      projPlay(PROJ_VIDEO_IDLE[next], true, null);
+    }
+  }
+
+  function projExitScene() {
+    projScreen.style.opacity = '0';
+    activeIdle = -1;
+    projVid.pause();
+  }
 
   // ── SCROLL-JACKING ENGINE ────────────────────────────────────────────────
   var TOTAL_SCENES   = 9;
@@ -177,11 +239,11 @@
   var SCENES = [
     { el: 'lnd-scene-0', blocks: ['s0-tag','s0-name','s0-sub','s0-hint'] },
     { el: 'lnd-scene-1', blocks: ['s1-tag','s1-head','s1-stats','s1-sub'] },
-    { el: 'lnd-scene-2', blocks: ['s2-content'] },
-    { el: 'lnd-scene-3', blocks: ['s3-content'] },
-    { el: 'lnd-scene-4', blocks: ['s4-content'] },
-    { el: 'lnd-scene-5', blocks: ['s5-content'] },
-    { el: 'lnd-scene-6', blocks: ['s6-content'] },
+    { el: 'lnd-scene-2', blocks: ['s2-right'] },
+    { el: 'lnd-scene-3', blocks: ['s3-right'] },
+    { el: 'lnd-scene-4', blocks: ['s4-right'] },
+    { el: 'lnd-scene-5', blocks: ['s5-right'] },
+    { el: 'lnd-scene-6', blocks: ['s6-right'] },
     { el: 'lnd-scene-7', blocks: ['s7-tag','s7-head','s7-timeline'] },
     { el: 'lnd-scene-8', blocks: ['s8-tag','s8-head','s8-cta'] },
   ];
@@ -244,6 +306,12 @@
         var el = document.getElementById(id);
         if (el) el.classList.remove('lit');
       });
+    }
+
+    if (isProjectScene(next)) {
+      projEnterScene(next, prev, direction);
+    } else if (isProjectScene(prev)) {
+      projExitScene();
     }
 
     updateProgress();
