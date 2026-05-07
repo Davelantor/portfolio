@@ -44,8 +44,9 @@
     [0x000000, 0x071a0e, 0x007744],  // 4 Ajeco (green)
     [0x000000, 0x062018, 0x009988],  // 5 design system (teal)
     [0x060010, 0x100820, 0x6633bb],  // 6 logistics (purple)
-    [0x000000, 0x091a0e, 0x007744],  // 7 timeline
-    [0x060310, 0x11091e, 0x6644aa],  // 8 CTA
+    [0x08001a, 0x140830, 0x7722cc],  // 7 lab tracking (purple)
+    [0x000000, 0x091a0e, 0x007744],  // 8 timeline
+    [0x060310, 0x11091e, 0x6644aa],  // 9 CTA
   ];
 
   var bgPalette    = SCENE_PALETTES[0].slice();
@@ -216,7 +217,7 @@
   }
 
   // ── SCROLL-JACKING ENGINE ────────────────────────────────────────────────
-  var TOTAL_SCENES   = 9;
+  var TOTAL_SCENES   = 10;
   var currentScene   = 0;
   var isTransitioning = false;
   var throttleTimer  = null;
@@ -232,8 +233,9 @@
     { el: 'lnd-scene-4', blocks: ['s4-img', 's4-right'] },
     { el: 'lnd-scene-5', blocks: ['s5-img', 's5-right'] },
     { el: 'lnd-scene-6', blocks: ['s6-img', 's6-right'] },
-    { el: 'lnd-scene-7', blocks: ['s7-tag','s7-head','s7-timeline'] },
-    { el: 'lnd-scene-8', blocks: ['s8-tag','s8-head','s8-cta'] },
+    { el: 'lnd-scene-7', blocks: ['s7-img', 's7-right'] },
+    { el: 'lnd-scene-8', blocks: ['s8-tag','s8-head','s8-timeline'] },
+    { el: 'lnd-scene-9', blocks: ['s9-tag','s9-head','s9-cta'] },
   ];
 
   function setBlocks(sceneIdx, state) {
@@ -275,14 +277,14 @@
     var nextEl = document.getElementById(SCENES[next].el);
     setBlocks(next, preClass);
     nextEl.style.opacity      = '1';
-    nextEl.style.pointerEvents = next === 8 ? 'auto' : 'none';
+    nextEl.style.pointerEvents = next === 9 ? 'auto' : 'none';
     setTimeout(function () { setBlocks(next, 'in'); }, 120);
 
     targetPalette = SCENE_PALETTES[next].slice();
 
-    if (next === 7) {
+    if (next === 8) {
       setTimeout(function () {
-        ['lnd-tl0','lnd-tl1','lnd-tl2','lnd-tl3'].forEach(function (id, i) {
+        ['lnd-tl0','lnd-tl1','lnd-tl2','lnd-tl3','lnd-tl4'].forEach(function (id, i) {
           setTimeout(function () {
             var el = document.getElementById(id);
             if (el) el.classList.add('lit');
@@ -290,7 +292,7 @@
         });
       }, 400);
     } else {
-      ['lnd-tl0','lnd-tl1','lnd-tl2','lnd-tl3'].forEach(function (id) {
+      ['lnd-tl0','lnd-tl1','lnd-tl2','lnd-tl3','lnd-tl4'].forEach(function (id) {
         var el = document.getElementById(id);
         if (el) el.classList.remove('lit');
       });

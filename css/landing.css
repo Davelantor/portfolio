@@ -255,6 +255,14 @@ body.landing-active { overflow: hidden; }
   object-fit: cover;
   display: block;
 }
+/* Project video inside canvas-wrap — absolute fill so aspect-ratio parent works */
+.lnd-proj-canvas-wrap video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 /* Generic full-width scene content wrapper (used by non-project scenes) */
 .lnd-scene-content {
@@ -335,11 +343,11 @@ body.landing-active { overflow: hidden; }
 /* Timeline */
 .lnd-timeline-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1px;
   background: var(--border);
   width: 100%;
-  max-width: 1100px;
+  max-width: 1500px;
   border: 1px solid var(--border);
 }
 .lnd-tl-cell {
