@@ -114,117 +114,105 @@
     bgRenderer.setSize(innerWidth, innerHeight);
   });
 
-  // ── PROJECT MINI CANVASES ────────────────────────────────────────────────
-  function initProjCanvas(id, color1, color2) {
-    var canvas = document.getElementById(id);
-    if (!canvas) return;
-    var scene  = new THREE.Scene();
-    var cam    = new THREE.PerspectiveCamera(50, 16 / 9, 0.1, 100);
-    cam.position.set(0, 3.5, 6);
-    cam.lookAt(0, 0, 0);
-    var r  = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-    r.setSize(640, 360);
-    r.setPixelRatio(1);
-    var W = 50, H = 50;
-    var g  = new THREE.PlaneGeometry(12, 12, W, H);
-    g.rotateX(-Math.PI / 2);
-    var ca = new Float32Array(g.attributes.position.count * 3);
-    g.setAttribute('color', new THREE.BufferAttribute(ca, 3));
-    var m    = new THREE.MeshBasicMaterial({ wireframe: true, vertexColors: true, transparent: true, opacity: 0.65 });
-    var mesh = new THREE.Mesh(g, m);
-    scene.add(mesh);
-    var c0  = new THREE.Color(0x04070e);
-    var c1  = new THREE.Color(color1);
-    var c2  = new THREE.Color(color2);
-    var pos = g.attributes.position;
-    var col = g.attributes.color;
-    var t   = Math.random() * 10;
-    function loop() {
-      requestAnimationFrame(loop);
-      t += 0.009;
-      for (var i = 0; i <= W; i++) for (var j = 0; j <= H; j++) {
-        var idx = j * (W + 1) + i;
-        var x = pos.getX(idx), z = pos.getZ(idx);
-        var y = Math.sin(x * 0.6 + t) * 0.5
-              + Math.cos(z * 0.5 + t * 0.9) * 0.4
-              + Math.sin((x - z) * 0.3 + t * 1.3) * 0.2;
-        pos.setY(idx, y);
-        var n = Math.max(0, Math.min(1, (y + 1.1) / 2.2));
-        var cv = n < 0.5 ? c0.clone().lerp(c1, n * 2) : c1.clone().lerp(c2, (n - 0.5) * 2);
-        col.setXYZ(idx, cv.r, cv.g, cv.b);
+  // ── BACKGROUND VIDEO ────────────────────────────────────────────────────
+  var lndBgVid   = document.getElementById('lnd-bg-video');
+  var lndBgVidRAF = null;
+  var lndBgReverseT = null;
+
+  // Idle loops — play while user dwells on a scene
+  var BG_IDLE = {
+    2: 'videos/0025-1025.mp4',
+    3: 'videos/1075-2075.mp4',
+    4: 'videos/2125-3125.mp4',
+    5: 'videos/3175-4175.mp4',
+    6: 'videos/4225-5225.mp4',
+    7: 'videos/5275-6275.mp4',
+  };
+
+  // Transition clips keyed by 'lo-hi' (lower scene first)
+  var BG_TRANS = {
+    '1-2': 'videos/0000-0025.mp4',
+    '2-3': 'videos/1025-1075.mp4',
+    '3-4': 'videos/2075-2125.mp4',
+    '4-5': 'videos/3125-3175.mp4',
+    '5-6': 'videos/4175-4225.mp4',
+    '6-7': 'videos/5225-5275.mp4',
+    '7-8': 'videos/6275-6300.mp4',
+  };
+
+  function bgCancelReverse() {
+    if (lndBgVidRAF) { cancelAnimationFrame(lndBgVidRAF); lndBgVidRAF = null; }
+    lndBgReverseT = null;
+  }
+
+  function bgPlayForward(src, loop, onDone) {
+    bgCancelReverse();
+    lndBgVid.loop    = !!loop;
+    lndBgVid.onended = loop ? null : (onDone || null);
+    lndBgVid.src     = src;
+    lndBgVid.load();
+    lndBgVid.play().catch(function () {});
+  }
+
+  function bgPlayReverse(src, onDone) {
+    bgCancelReverse();
+    lndBgVid.pause();
+    lndBgVid.loop    = false;
+    lndBgVid.onended = null;
+    lndBgVid.src     = src;
+    lndBgVid.load();
+    function onMeta() {
+      lndBgVid.removeEventListener('loadedmetadata', onMeta);
+      lndBgVid.currentTime = lndBgVid.duration;
+      lndBgReverseT = performance.now();
+      function tick(now) {
+        var elapsed = (now - lndBgReverseT) / 1000;
+        lndBgReverseT = now;
+        var next = Math.max(0, lndBgVid.currentTime - elapsed);
+        lndBgVid.currentTime = next;
+        if (next <= 0.04) {
+          lndBgVidRAF = null;
+          if (onDone) onDone();
+        } else {
+          lndBgVidRAF = requestAnimationFrame(tick);
+        }
       }
-      pos.needsUpdate = true;
-      col.needsUpdate = true;
-      r.render(scene, cam);
+      lndBgVidRAF = requestAnimationFrame(tick);
     }
-    loop();
-  }
-  // ── PROJECT VIDEO SCREEN ─────────────────────────────────────────────────
-  var PROJ_SCENE_IDS = [2, 3, 4, 5, 6];
-
-  // Replace these paths once you have the video files
-  var PROJ_VIDEO_TRANS = {
-    2: { fwd: 'videos/proj-2-trans-fwd.mp4', bwd: 'videos/proj-2-trans-bwd.mp4' },
-    3: { fwd: 'videos/proj-3-trans-fwd.mp4', bwd: 'videos/proj-3-trans-bwd.mp4' },
-    4: { fwd: 'videos/proj-4-trans-fwd.mp4', bwd: 'videos/proj-4-trans-bwd.mp4' },
-    5: { fwd: 'videos/proj-5-trans-fwd.mp4', bwd: 'videos/proj-5-trans-bwd.mp4' },
-    6: { fwd: 'videos/proj-6-trans-fwd.mp4', bwd: 'videos/proj-6-trans-bwd.mp4' },
-  };
-  var PROJ_VIDEO_IDLE = {
-    2: 'videos/proj-2-idle.mp4',
-    3: 'videos/proj-3-idle.mp4',
-    4: 'videos/proj-4-idle.mp4',
-    5: 'videos/proj-5-idle.mp4',
-    6: 'videos/proj-6-idle.mp4',
-  };
-  var PROJ_BADGE = {
-    2: { text: 'INDUSTRIAL SaaS &middot; AI &middot; HEAD OF UX',    color: 'var(--accent)',  border: 'rgba(0,200,255,0.2)'   },
-    3: { text: 'MOBILE &middot; NDA &middot; DISASTER RELIEF',        color: 'var(--accent2)', border: 'rgba(255,107,43,0.2)'  },
-    4: { text: 'MARITIME &middot; TELEMETRY &middot; SECURITY',       color: 'var(--green)',   border: 'rgba(0,232,122,0.2)'   },
-    5: { text: 'DESIGN SYSTEM &middot; FULL-STACK &middot; LEAD UX',  color: 'var(--teal)',    border: 'rgba(0,212,204,0.2)'   },
-    6: { text: 'ENTERPRISE &middot; B2B &middot; LOGISTICS',          color: 'var(--purple)',  border: 'rgba(153,102,255,0.2)' },
-  };
-
-  var projScreen    = document.getElementById('lnd-proj-screen');
-  var projVid       = document.getElementById('lnd-proj-screen-video');
-  var projBadge     = document.getElementById('lnd-proj-screen-badge');
-  var projWrap      = projBadge ? projBadge.parentElement : null;
-  var activeIdle    = -1;
-
-  function isProjectScene(n) { return PROJ_SCENE_IDS.indexOf(n) !== -1; }
-
-  function projPlay(src, loop, onEnded) {
-    projVid.loop    = !!loop;
-    projVid.onended = onEnded || null;
-    projVid.src     = src;
-    projVid.load();
-    projVid.play().catch(function () {});
+    lndBgVid.addEventListener('loadedmetadata', onMeta);
   }
 
-  function projSetBadge(sceneIdx) {
-    var b = PROJ_BADGE[sceneIdx];
-    if (!b || !projBadge) return;
-    projBadge.innerHTML         = b.text;
-    projBadge.style.color       = b.color;
-    projBadge.style.borderColor = b.color;
-    if (projWrap) projWrap.style.borderColor = b.border;
-  }
+  function bgEnterScene(next, prev, direction) {
+    var lo       = Math.min(prev, next);
+    var hi       = Math.max(prev, next);
+    var transUrl = BG_TRANS[lo + '-' + hi];
+    var idleUrl  = BG_IDLE[next];
 
-  function projEnterScene(next, prev, direction) {
-    projScreen.style.opacity = '1';
-    projSetBadge(next);
-    var trans = PROJ_VIDEO_TRANS[next];
-    var transVideo = direction > 0 ? trans.fwd : trans.bwd;
-    projPlay(transVideo, false, function () {
-      activeIdle = next;
-      projPlay(PROJ_VIDEO_IDLE[next], true, null);
-    });
-  }
+    if (transUrl || idleUrl) {
+      lndBgVid.classList.add('active');
+      bgCanvas.style.opacity = '0.18';
+    }
 
-  function projExitScene() {
-    projScreen.style.opacity = '0';
-    activeIdle = -1;
-    projVid.pause();
+    if (transUrl) {
+      var afterTrans = idleUrl
+        ? function () { bgPlayForward(idleUrl, true, null); }
+        : function () {
+            lndBgVid.classList.remove('active');
+            bgCanvas.style.opacity = '1';
+          };
+      if (direction > 0) {
+        bgPlayForward(transUrl, false, afterTrans);
+      } else {
+        bgPlayReverse(transUrl, afterTrans);
+      }
+    } else if (idleUrl) {
+      bgPlayForward(idleUrl, true, null);
+    } else {
+      bgCancelReverse();
+      lndBgVid.pause();
+      lndBgVid.classList.remove('active');
+      bgCanvas.style.opacity = '1';
+    }
   }
 
   // ── SCROLL-JACKING ENGINE ────────────────────────────────────────────────
@@ -239,11 +227,11 @@
   var SCENES = [
     { el: 'lnd-scene-0', blocks: ['s0-tag','s0-name','s0-sub','s0-hint'] },
     { el: 'lnd-scene-1', blocks: ['s1-tag','s1-head','s1-stats','s1-sub'] },
-    { el: 'lnd-scene-2', blocks: ['s2-right'] },
-    { el: 'lnd-scene-3', blocks: ['s3-right'] },
-    { el: 'lnd-scene-4', blocks: ['s4-right'] },
-    { el: 'lnd-scene-5', blocks: ['s5-right'] },
-    { el: 'lnd-scene-6', blocks: ['s6-right'] },
+    { el: 'lnd-scene-2', blocks: ['s2-img', 's2-right'] },
+    { el: 'lnd-scene-3', blocks: ['s3-img', 's3-right'] },
+    { el: 'lnd-scene-4', blocks: ['s4-img', 's4-right'] },
+    { el: 'lnd-scene-5', blocks: ['s5-img', 's5-right'] },
+    { el: 'lnd-scene-6', blocks: ['s6-img', 's6-right'] },
     { el: 'lnd-scene-7', blocks: ['s7-tag','s7-head','s7-timeline'] },
     { el: 'lnd-scene-8', blocks: ['s8-tag','s8-head','s8-cta'] },
   ];
@@ -308,11 +296,7 @@
       });
     }
 
-    if (isProjectScene(next)) {
-      projEnterScene(next, prev, direction);
-    } else if (isProjectScene(prev)) {
-      projExitScene();
-    }
+    bgEnterScene(next, prev, direction);
 
     updateProgress();
     isTransitioning = false;

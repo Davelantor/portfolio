@@ -42,6 +42,7 @@
 
   <section id="lnd-stage">
     <canvas id="lnd-bg-canvas"></canvas>
+    <video id="lnd-bg-video" muted playsinline preload="none"></video>
     <div id="lnd-scanlines"></div>
 
     <!-- SCENE 0: HERO -->
@@ -70,7 +71,12 @@
     <!-- SCENE 2: Mapvision project -->
     <div class="lnd-scene-layer" id="lnd-scene-2" style="opacity:0;pointer-events:none;justify-content:center;padding:0 6vw;">
       <div class="lnd-project-display">
-        <div class="lnd-proj-screen-spacer"></div>
+        <div class="lnd-text-block pre-up" id="s2-img">
+          <div class="lnd-proj-canvas-wrap">
+            <img src="images/proj-2-screen.jpg" alt="Result Suite &amp; Weld Seam AI interface" class="lnd-proj-img" onerror="this.style.display='none'">
+            <div class="lnd-proj-badge" style="color:var(--accent);border-color:rgba(0,200,255,0.2);">INDUSTRIAL SaaS &middot; AI &middot; HEAD OF UX</div>
+          </div>
+        </div>
         <div class="lnd-text-block pre-up" id="s2-right">
           <div class="lnd-proj-right">
             <p class="lnd-tag-line">Mapvision &middot; 2023&#8211;2026</p>
@@ -89,7 +95,12 @@
     <!-- SCENE 3: Seismic project -->
     <div class="lnd-scene-layer" id="lnd-scene-3" style="opacity:0;pointer-events:none;justify-content:center;padding:0 6vw;">
       <div class="lnd-project-display">
-        <div class="lnd-proj-screen-spacer"></div>
+        <div class="lnd-text-block pre-up" id="s3-img">
+          <div class="lnd-proj-canvas-wrap">
+            <img src="images/proj-3-screen.jpg" alt="Seismic Activity Detection interface" class="lnd-proj-img" onerror="this.style.display='none'">
+            <div class="lnd-proj-badge" style="color:var(--accent2);border-color:rgba(255,107,43,0.2);">MOBILE &middot; NDA &middot; DISASTER RELIEF</div>
+          </div>
+        </div>
         <div class="lnd-text-block pre-up" id="s3-right">
           <div class="lnd-proj-right">
             <p class="lnd-tag-line" style="color:var(--accent2);">NDA Project &middot; 2018</p>
@@ -108,7 +119,12 @@
     <!-- SCENE 4: Ajeco project -->
     <div class="lnd-scene-layer" id="lnd-scene-4" style="opacity:0;pointer-events:none;justify-content:center;padding:0 6vw;">
       <div class="lnd-project-display">
-        <div class="lnd-proj-screen-spacer"></div>
+        <div class="lnd-text-block pre-up" id="s4-img">
+          <div class="lnd-proj-canvas-wrap">
+            <img src="images/proj-4-screen.jpg" alt="Fleet Telemetry &amp; Security Dashboard interface" class="lnd-proj-img" onerror="this.style.display='none'">
+            <div class="lnd-proj-badge" style="color:var(--green);border-color:rgba(0,255,136,0.2);">MARITIME &middot; TELEMETRY &middot; SECURITY</div>
+          </div>
+        </div>
         <div class="lnd-text-block pre-up" id="s4-right">
           <div class="lnd-proj-right">
             <p class="lnd-tag-line" style="color:var(--green);">Ajeco Oy &middot; 2017&#8211;2019</p>
@@ -127,7 +143,12 @@
     <!-- SCENE 5: Mapvision Design System -->
     <div class="lnd-scene-layer" id="lnd-scene-5" style="opacity:0;pointer-events:none;justify-content:center;padding:0 6vw;">
       <div class="lnd-project-display">
-        <div class="lnd-proj-screen-spacer"></div>
+        <div class="lnd-text-block pre-up" id="s5-img">
+          <div class="lnd-proj-canvas-wrap">
+            <img src="images/proj-5-screen.jpg" alt="Mapvision Design System" class="lnd-proj-img" onerror="this.style.display='none'">
+            <div class="lnd-proj-badge" style="color:var(--teal);border-color:rgba(0,212,204,0.2);">DESIGN SYSTEM &middot; FULL-STACK &middot; LEAD UX</div>
+          </div>
+        </div>
         <div class="lnd-text-block pre-up" id="s5-right">
           <div class="lnd-proj-right">
             <p class="lnd-tag-line" style="color:var(--teal);">Mapvision &middot; 2019&#8211;2023</p>
@@ -146,7 +167,12 @@
     <!-- SCENE 6: Bimar / Arkas Logistics -->
     <div class="lnd-scene-layer" id="lnd-scene-6" style="opacity:0;pointer-events:none;justify-content:center;padding:0 6vw;">
       <div class="lnd-project-display">
-        <div class="lnd-proj-screen-spacer"></div>
+        <div class="lnd-text-block pre-up" id="s6-img">
+          <div class="lnd-proj-canvas-wrap">
+            <img src="images/proj-6-screen.jpg" alt="Enterprise Logistics Platform interface" class="lnd-proj-img" onerror="this.style.display='none'">
+            <div class="lnd-proj-badge" style="color:var(--purple);border-color:rgba(153,102,255,0.2);">ENTERPRISE &middot; B2B &middot; LOGISTICS</div>
+          </div>
+        </div>
         <div class="lnd-text-block pre-up" id="s6-right">
           <div class="lnd-proj-right">
             <p class="lnd-tag-line" style="color:var(--purple);">Bimar &middot; Arkas &middot; 2013&#8211;2015</p>
@@ -189,17 +215,6 @@
           <div class="lnd-cta-cell"><h4>// Portfolio</h4><p>Full project case studies, design system samples, and scroll-driven prototypes. Explore everything below.</p><button id="view-portfolio-btn">View full portfolio &#8594;</button></div>
           <div class="lnd-cta-cell"><h4>// CV Downloads</h4><p>General CV and Defence-focused CV &#8212; tailored for different hiring contexts.</p><a href="https://drive.google.com/uc?export=download&amp;id=1gLzaUfkcYUOxjBPUCKI6m0RPrDkCwNDd" download>Download CV &#8594;</a></div>
         </div>
-      </div>
-    </div>
-
-    <!-- Shared project video screen — outside scene layers, never transitions -->
-    <div id="lnd-proj-screen">
-      <div class="lnd-project-display">
-        <div class="lnd-proj-canvas-wrap">
-          <video id="lnd-proj-screen-video" muted playsinline preload="auto"></video>
-          <div id="lnd-proj-screen-badge" class="lnd-proj-badge"></div>
-        </div>
-        <div></div>
       </div>
     </div>
 

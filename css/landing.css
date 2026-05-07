@@ -73,7 +73,21 @@ body.landing-active { overflow: hidden; }
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
+  transition: opacity 0.8s cubic-bezier(0.25,0.1,0.25,1);
 }
+
+/* ── BACKGROUND VIDEO ── */
+#lnd-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(0.25,0.1,0.25,1);
+}
+#lnd-bg-video.active { opacity: 0.8; }
 
 /* ── SCANLINES ── */
 #lnd-scanlines {
@@ -235,29 +249,11 @@ body.landing-active { overflow: hidden; }
 .lnd-stat-val { font-size: 2.5rem; font-weight: 800; color: var(--accent); line-height: 1; }
 .lnd-stat-key { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
 
-/* Shared project video screen */
-#lnd-proj-screen {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0 6vw;
-  z-index: 9;
-  opacity: 0;
-  transition: opacity 0.6s cubic-bezier(0.25,0.1,0.25,1);
-  pointer-events: none;
-}
-#lnd-proj-screen-video {
+/* Project image inside canvas-wrap */
+.lnd-proj-canvas-wrap img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-}
-.lnd-proj-screen-spacer {
-  width: 100%;
-  height: fit-content;
-  aspect-ratio: 16/9;
 }
 
 /* Generic full-width scene content wrapper (used by non-project scenes) */
@@ -277,6 +273,12 @@ body.landing-active { overflow: hidden; }
   gap: 3rem;
   width: 100%;
   max-width: 1100px;
+}
+@media (max-width: 768px) {
+  .lnd-project-display {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }
 .lnd-proj-canvas-wrap {
   width: 100%;
