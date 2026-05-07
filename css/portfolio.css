@@ -31,7 +31,7 @@
   --fs-4xl:  34px;   /* display accents */
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 body {
   background: var(--bg);
   color: var(--text-1);
@@ -1421,7 +1421,7 @@ body {
 }
 
 /* ─── PRAISE PARADE SEQUENCE ────────────────────────── */
-#pp-sequence { position: relative; height: 250vh; }
+#pp-sequence { position: relative; height: 80vh; }
 #pp-sticky {
   position: sticky; top: 0;
   height: 100vh; overflow: hidden;
@@ -1481,7 +1481,7 @@ body {
 }
 
 /* ─── PROFILE SUMMARY ───────────────────────────────── */
-#ps-sequence { position: relative; height: 250vh; }
+#ps-sequence { position: relative; height: 80vh; }
 #ps-sticky {
   position: sticky; top: 0;
   height: 100vh; overflow: hidden;
