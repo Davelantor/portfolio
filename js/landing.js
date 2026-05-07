@@ -163,8 +163,13 @@
   var PROJ_SCENE_IDS = [2, 3, 4, 5, 6];
 
   // Replace these paths once you have the video files
-  var PROJ_VIDEO_TRANS_FWD  = 'videos/proj-trans-fwd.mp4';
-  var PROJ_VIDEO_TRANS_BWD  = 'videos/proj-trans-bwd.mp4';
+  var PROJ_VIDEO_TRANS = {
+    2: { fwd: 'videos/proj-2-trans-fwd.mp4', bwd: 'videos/proj-2-trans-bwd.mp4' },
+    3: { fwd: 'videos/proj-3-trans-fwd.mp4', bwd: 'videos/proj-3-trans-bwd.mp4' },
+    4: { fwd: 'videos/proj-4-trans-fwd.mp4', bwd: 'videos/proj-4-trans-bwd.mp4' },
+    5: { fwd: 'videos/proj-5-trans-fwd.mp4', bwd: 'videos/proj-5-trans-bwd.mp4' },
+    6: { fwd: 'videos/proj-6-trans-fwd.mp4', bwd: 'videos/proj-6-trans-bwd.mp4' },
+  };
   var PROJ_VIDEO_IDLE = {
     2: 'videos/proj-2-idle.mp4',
     3: 'videos/proj-3-idle.mp4',
@@ -208,17 +213,12 @@
   function projEnterScene(next, prev, direction) {
     projScreen.style.opacity = '1';
     projSetBadge(next);
-    var prevIsProj = isProjectScene(prev);
-    var transVideo = direction > 0 ? PROJ_VIDEO_TRANS_FWD : PROJ_VIDEO_TRANS_BWD;
-    if (prevIsProj) {
-      projPlay(transVideo, false, function () {
-        activeIdle = next;
-        projPlay(PROJ_VIDEO_IDLE[next], true, null);
-      });
-    } else {
+    var trans = PROJ_VIDEO_TRANS[next];
+    var transVideo = direction > 0 ? trans.fwd : trans.bwd;
+    projPlay(transVideo, false, function () {
       activeIdle = next;
       projPlay(PROJ_VIDEO_IDLE[next], true, null);
-    }
+    });
   }
 
   function projExitScene() {

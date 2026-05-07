@@ -256,13 +256,24 @@ body.landing-active { overflow: hidden; }
 }
 .lnd-proj-screen-spacer {
   width: 100%;
+  height: fit-content;
   aspect-ratio: 16/9;
+}
+
+/* Generic full-width scene content wrapper (used by non-project scenes) */
+.lnd-scene-content {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 /* Project card */
 .lnd-project-display {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  width: fill-available;
   gap: 3rem;
   width: 100%;
   max-width: 1100px;
@@ -286,14 +297,19 @@ body.landing-active { overflow: hidden; }
   padding: 0.3rem 0.7rem;
   border: 1px solid;
 }
+.lnd-project-display > .lnd-text-block {
+  height: 100%;
+}
 .lnd-proj-right {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 100%;
 }
 .lnd-proj-title {
   font-size: clamp(1.8rem, 3vw, 2.8rem);
   font-weight: 800;
+  width: fit-content;
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
