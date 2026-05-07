@@ -226,9 +226,12 @@
   }
 
   function tickSeqCallouts (seqEl, sy) {
-    const p        = sectionProgress(seqEl, sy);
     const callouts = seqEl.querySelectorAll('.callout');
-
+    if (sy < seqEl.offsetTop) {
+      callouts.forEach(function (c) { c.classList.remove('on', 'past'); });
+      return;
+    }
+    const p = sectionProgress(seqEl, sy);
     callouts.forEach(function (c) {
       const s      = parseFloat(c.dataset.s);
       const e      = parseFloat(c.dataset.e);
@@ -442,6 +445,13 @@
       var href = a.getAttribute('href');
       if (!href || href === '#') return;
       a.addEventListener('click', function (e) {
+        // #contact is an empty anchor — route to the contact panel inside #about instead
+        if (href === '#contact' && aboutSeqEl) {
+          e.preventDefault();
+          var aboutH = aboutSeqEl.offsetHeight - window.innerHeight;
+          window.scrollTo({ top: Math.round(aboutSeqEl.offsetTop + 0.75 * aboutH), behavior: 'smooth' });
+          return;
+        }
         var target = document.querySelector(href);
         if (!target) return;
         e.preventDefault();
@@ -656,29 +666,6 @@
     var PARALLAX_TEXT = 40;
     var PARALLAX_BADGE = 56;
 
-    /* ── Enhance experience cards dynamically ── */
-    document.querySelectorAll('.callout .card').forEach(function (card) {
-      card.classList.add('tilt-card-inner');
-      card.style.transformStyle = 'preserve-3d';
-
-      var wrapper = document.createElement('div');
-      wrapper.className = 'tilt-card';
-      card.parentNode.insertBefore(wrapper, card);
-      wrapper.appendChild(card);
-
-      var glare = document.createElement('div');
-      glare.className = 'tilt-glare';
-      card.appendChild(glare);
-
-      var logo = card.querySelector('.card-logo');
-      if (logo) logo.classList.add('tilt-parallax-img');
-      var title = card.querySelector('.card-title');
-      if (title) title.classList.add('tilt-parallax-text');           // nx * 8
-      var company = card.querySelector('.card-company');
-      if (company) company.classList.add('tilt-parallax-text-md');    // nx * 4
-      card.querySelectorAll('.card-section-label').forEach(function (el) { el.classList.add('tilt-parallax-text-sm'); }); // nx * 2
-      card.querySelectorAll('.card-badge, .card-chip').forEach(function (b) { b.classList.add('tilt-parallax-badge'); });
-    });
 
     /* ── Enhance split-media panels ── */
     document.querySelectorAll('.split-media').forEach(function (media) {
@@ -855,11 +842,12 @@
       // Profile Summary — one snap at entry
       if (psSeqEl) pts.push(psSeqEl.offsetTop);
 
-      // Seq1 — one snap per callout (use data-s values as reference points)
+      // Seq1 — snap to midpoint of each callout so only one card is ever active per stop
       if (seq1El) {
         var seq1H = seq1El.offsetHeight - vh;
         seq1El.querySelectorAll('.callout[data-s]').forEach(function (c) {
-          pts.push(Math.round(seq1El.offsetTop + parseFloat(c.dataset.s) * seq1H));
+          var mid = (parseFloat(c.dataset.s) + parseFloat(c.dataset.e)) / 2;
+          pts.push(Math.round(seq1El.offsetTop + mid * seq1H));
         });
       }
 
@@ -876,10 +864,10 @@
         }
       }
 
-      // About — one snap per panel (BOUNDS match tickAboutSeq)
+      // About — one snap per panel, plus one at the end to fully reach the contact panel
       if (aboutSeqEl) {
         var aboutH = aboutSeqEl.offsetHeight - vh;
-        [0, 0.25, 0.5, 0.75].forEach(function (b) {
+        [0, 0.25, 0.5, 0.75, 1.0].forEach(function (b) {
           pts.push(Math.round(aboutSeqEl.offsetTop + b * aboutH));
         });
       }
@@ -929,6 +917,7 @@
     window.addEventListener('wheel', function (e) {
       if (landingActive()) return;
       e.preventDefault();
+      if (animRAF !== null) return; // block while previous snap is still animating
       wheelAccum += Math.abs(e.deltaY);
       clearTimeout(wheelTimer);
       wheelTimer = setTimeout(function () { wheelAccum = 0; }, 300);
@@ -945,6 +934,7 @@
     }, { passive: true });
     window.addEventListener('touchend', function (e) {
       if (landingActive()) return;
+      if (animRAF !== null) return;
       var diff = tStartY - e.changedTouches[0].clientY;
       if (Math.abs(diff) > 50) snapTo(currentIdx + (diff > 0 ? 1 : -1));
     }, { passive: true });
@@ -952,6 +942,7 @@
     // Keyboard
     window.addEventListener('keydown', function (e) {
       if (landingActive()) return;
+      if (animRAF !== null) return;
       if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); snapTo(currentIdx + 1); }
       if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); snapTo(currentIdx - 1); }
     });
