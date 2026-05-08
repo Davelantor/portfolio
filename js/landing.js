@@ -415,4 +415,133 @@
     });
   }
 
+  // ── SATELLITE HUD ────────────────────────────────────────────────────────
+  // Ghost data particles follow the cursor only while lnd-bg-video is active
+  // (scenes 2-7). Phase is read from lndBgVid.classList each frame.
+  (function initSatHud () {
+    var hud = document.getElementById('lnd-sat-hud');
+    if (!hud) return;
+    var hCtx = hud.getContext('2d');
+    var hudW = 0, hudH = 0;
+    var mx = -999, my = -999, prevMx = -999, prevMy = -999;
+    var particles = [], rings = [];
+    var hudAlpha = 0, lastTs = 0, spawnBucket = 0;
+    var MAX_P = 55, SPAWN_IVTL = 0.072;
+
+    function rI(a, b) { return (Math.random() * (b - a + 1) | 0) + a; }
+    function rF(a, b, d) { return (a + Math.random() * (b - a)).toFixed(d); }
+    function rPick(a) { return a[Math.random() * a.length | 0]; }
+    function rBin(n) { var s = ''; for (var i = 0; i < n; i++) s += Math.random() > 0.5 ? '1' : '0'; return s; }
+
+    var gens = [
+      function () { return rI(10,89) + '°' + rI(10,59) + '\'' + rI(0,9) + rI(0,9) + '"' + rPick(['N','S']); },
+      function () { return rI(10,179) + '°' + rI(10,59) + '\'' + rPick(['E','W']); },
+      function () { return 'ALT ' + rF(470, 492, 1) + ' km'; },
+      function () { return 'VEL ' + rF(7.60, 7.72, 2) + ' km/s'; },
+      function () { return '0x' + ((Math.random() * 0xFFFF | 0).toString(16).toUpperCase().padStart(4,'0')); },
+      function () { return 'SIG ' + rF(92, 99.8, 1) + ' dB'; },
+      function () { return 'ΔV ' + rF(0, 0.009, 4); },
+      function () { return 'T+' + String(rI(0,23)).padStart(2,'0') + ':' + String(rI(0,59)).padStart(2,'0') + ':' + String(rI(0,59)).padStart(2,'0'); },
+      function () { return rBin(8); },
+      function () { return rBin(4) + ' ' + rBin(4); },
+      function () { return '[TRK ' + rI(100, 999) + ']'; },
+      function () { return 'LOCK ' + rI(91, 99) + '%'; },
+      function () { return 'ΔΘ ' + rF(0, 0.09, 3) + '°'; },
+      function () { return String(rI(1000, 9999)); },
+      function () { return 'RES ' + rPick(['0.5m','1.0m','2.5m']); },
+      function () { return rF(8, 22, 1) + ' GHz'; },
+      function () { return 'CH ' + rI(1,32) + '▸'; },
+    ];
+
+    function spawnParticle(x, y) {
+      if (particles.length >= MAX_P) return;
+      var angle  = Math.random() * Math.PI * 2;
+      var r      = 16 + Math.random() * 38;
+      var dAngle = -Math.PI * 0.5 + (Math.random() - 0.5) * Math.PI * 0.85;
+      var spd    = 12 + Math.random() * 20;
+      var life   = 0.85 + Math.random() * 1.3;
+      particles.push({
+        x: x + Math.cos(angle) * r,  y: y + Math.sin(angle) * r,
+        vx: Math.cos(dAngle) * spd,  vy: Math.sin(dAngle) * spd,
+        text: gens[Math.random() * gens.length | 0](),
+        maxLife: life, life: life,
+        alpha: 0.14 + Math.random() * 0.22,
+      });
+    }
+
+    function spawnRing(x, y) {
+      rings.push({ x: x, y: y, r: 5, maxR: 54, life: 0.6, maxLife: 0.6 });
+    }
+
+    function resize() {
+      hudW = hud.width  = window.innerWidth;
+      hudH = hud.height = window.innerHeight;
+    }
+
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      var dt = Math.min((ts - lastTs) * 0.001, 0.05);
+      lastTs = ts;
+
+      // Active when the landing bg video has the .active class
+      var videoOn = lndBgVid.classList.contains('active') ? 1 : 0;
+      hudAlpha += (videoOn - hudAlpha) * Math.min(1, dt * 2.5);
+
+      hCtx.clearRect(0, 0, hudW, hudH);
+      if (hudAlpha < 0.015) return;
+
+      var moved = mx !== prevMx || my !== prevMy;
+      prevMx = mx; prevMy = my;
+
+      if (moved && mx > 0) {
+        spawnBucket += dt;
+        while (spawnBucket >= SPAWN_IVTL) {
+          spawnBucket -= SPAWN_IVTL;
+          spawnParticle(mx, my);
+          if (Math.random() < 0.28) spawnRing(mx, my);
+        }
+      } else {
+        spawnBucket = 0;
+      }
+
+      var i, rg, p, a, lifeP, fade;
+
+      for (i = rings.length - 1; i >= 0; i--) {
+        rg = rings[i];
+        rg.life -= dt;
+        if (rg.life <= 0) { rings.splice(i, 1); continue; }
+        p = 1 - rg.life / rg.maxLife;
+        rg.r = 5 + p * (rg.maxR - 5);
+        a = (rg.life / rg.maxLife) * 0.20 * hudAlpha;
+        hCtx.beginPath();
+        hCtx.arc(rg.x, rg.y, rg.r, 0, Math.PI * 2);
+        hCtx.strokeStyle = 'rgba(0,200,255,' + a.toFixed(3) + ')';
+        hCtx.lineWidth = 0.75;
+        hCtx.stroke();
+      }
+
+      hCtx.font = '9.5px "Space Mono","Courier New",monospace';
+      hCtx.textBaseline = 'top';
+      for (i = particles.length - 1; i >= 0; i--) {
+        p = particles[i];
+        p.life -= dt;
+        if (p.life <= 0) { particles.splice(i, 1); continue; }
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        lifeP = p.life / p.maxLife;
+        if      (lifeP > 0.82) fade = (1 - lifeP) / 0.18;
+        else if (lifeP < 0.28) fade = lifeP / 0.28;
+        else                   fade = 1;
+        a = fade * p.alpha * hudAlpha;
+        hCtx.fillStyle = 'rgba(0,200,255,' + a.toFixed(3) + ')';
+        hCtx.fillText(p.text, p.x, p.y);
+      }
+    }
+
+    window.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; });
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    requestAnimationFrame(function (ts) { lastTs = ts; requestAnimationFrame(frame); });
+  }());
+
 }());
