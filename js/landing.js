@@ -542,4 +542,16 @@
     requestAnimationFrame(function (ts) { lastTs = ts; requestAnimationFrame(frame); });
   }());
 
+  // ── TESTIMONIAL PARADE HOVER-PAUSE ──────────────────────────────────────
+  (function initParadeHover() {
+    var track = document.querySelector('.lnd-tc-track');
+    if (!track) return;
+    window.addEventListener('mousemove', function (e) {
+      var r = track.getBoundingClientRect();
+      var over = e.clientX >= r.left && e.clientX <= r.right &&
+                 e.clientY >= r.top  && e.clientY <= r.bottom;
+      track.style.animationPlayState = over ? 'paused' : 'running';
+    }, { passive: true });
+  }());
+
 }());

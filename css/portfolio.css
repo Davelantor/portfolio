@@ -44,7 +44,7 @@ body {
 
 /* ─── CUSTOM CURSOR ─────────────────────────────────── */
 /* Main cursor: dot + non-ring state indicators */
-#cur-main, #cur-ring-wrap {
+#cur-main {
   position: fixed; top: 0; left: 0;
   pointer-events: none;
   z-index: 99999;
@@ -58,14 +58,6 @@ body {
   background: #fff;
   transform: translate(-50%, -50%);
   transition: opacity 0.15s;
-}
-.cur-ring {
-  position: absolute; top: 0; left: 0;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.55);
-  transform: translate(-50%, -50%);
-  transition: opacity 0.2s, width 0.2s var(--ease), height 0.2s var(--ease);
 }
 
 /* Rocket */
@@ -118,10 +110,6 @@ body {
 #cur-main[data-state="expand"] .cur-link { display: none; }
 #cur-main[data-state="expand"] .cur-expand { display: block; }
 
-/* Ring hidden in non-default states */
-#cur-ring-wrap[data-state="scroll"],
-#cur-ring-wrap[data-state="external"],
-#cur-ring-wrap[data-state="expand"] { opacity: 0; }
 
 /* ─── NAV ────────────────────────────────────────────── */
 #nav {

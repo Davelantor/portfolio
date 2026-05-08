@@ -245,29 +245,41 @@ body.landing-active { overflow: hidden; }
   max-width: 520px;
 }
 
-/* Testimonial carousel */
+/* Testimonial parade */
 .lnd-tc {
-  max-width: 680px;
+  width: 100vw;
   margin-top: 1.5rem;
+  margin-left: -8vw;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
-.lnd-tc-cards {
-  flex: 1;
-  min-width: 0;
+.lnd-tc-track {
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+  width: max-content;
+  animation: lndTcScroll 40s linear infinite;
+}
+@keyframes lndTcScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 .lnd-tc-card {
-  display: none;
-  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
   gap: 1.25rem;
+  width: 480px;
   background: rgba(0,200,255,0.04);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1.25rem 1.5rem;
 }
-.lnd-tc-card.active { display: flex; }
 .lnd-tc-photo {
   flex-shrink: 0;
-  width: 82px;
-  height: 82px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid var(--accent);
@@ -281,11 +293,11 @@ body.landing-active { overflow: hidden; }
 }
 .lnd-tc-body { flex: 1; min-width: 0; }
 .lnd-tc-quote {
-  font-size: var(--lnd-body);
+  font-size: 13px;
   font-family: 'Inter', sans-serif;
   color: var(--muted);
-  line-height: 1.8;
-  margin: 0 0 0.65rem;
+  line-height: 1.7;
+  margin: 0 0 0.5rem;
 }
 .lnd-tc-author {
   font-size: var(--lnd-body-sm);

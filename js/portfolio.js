@@ -990,15 +990,11 @@
   'use strict';
 
   var curMain   = document.getElementById('cur-main');
-  var curRing   = document.getElementById('cur-ring-wrap');
 
-  var mx = -400, my = -400;  /* mouse position   */
-  var rx = -400, ry = -400;  /* ring lerp target */
+  var mx = -400, my = -400;
 
-  /* ── Sync both state wrappers ── */
   function setState(state, dir) {
     curMain.dataset.state = state;
-    curRing.dataset.state = state;
     if (dir !== undefined) curMain.dataset.dir = dir;
   }
 
@@ -1009,15 +1005,7 @@
     curMain.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
   });
 
-  /* ── Ring lerp loop ── */
-  (function animRing() {
-    rx += (mx - rx) * 0.14;
-    ry += (my - ry) * 0.14;
-    curRing.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
-    requestAnimationFrame(animRing);
-  }());
-
-  /* ── Classify an anchor element ── */
+/* ── Classify an anchor element ── */
   function classifyLink(a) {
     var href = a.getAttribute('href') || '';
     if (!href || href === '#') return 'default';
@@ -1074,11 +1062,9 @@
   /* ── Hide when cursor leaves window ── */
   document.addEventListener('mouseleave', function () {
     curMain.style.opacity = '0';
-    curRing.style.opacity = '0';
   });
   document.addEventListener('mouseenter', function () {
     curMain.style.opacity = '';
-    curRing.style.opacity = '';
   });
 
   /* ─── Scroll-to-top button ─── */
