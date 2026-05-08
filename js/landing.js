@@ -226,7 +226,7 @@
   var THRESHOLD      = 80;
 
   var SCENES = [
-    { el: 'lnd-scene-0', blocks: ['s0-tag','s0-name','s0-sub','s0-hint'] },
+    { el: 'lnd-scene-0', blocks: ['s0-tag','s0-name','s0-sub','s0-hint','s0-photo'] },
     { el: 'lnd-scene-1', blocks: ['s1-tag','s1-head','s1-stats','s1-sub'] },
     { el: 'lnd-scene-2', blocks: ['s2-img', 's2-right'] },
     { el: 'lnd-scene-3', blocks: ['s3-img', 's3-right'] },
