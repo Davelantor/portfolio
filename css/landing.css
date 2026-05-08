@@ -317,11 +317,11 @@ body.landing-active { overflow: hidden; }
 /* Project card */
 .lnd-project-display {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
   width: fill-available;
   gap: 3rem;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
 }
 @media (max-width: 768px) {
   .lnd-project-display {
@@ -445,7 +445,7 @@ body.landing-active { overflow: hidden; }
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
 }
 .lnd-cta-cell p {
   font-family: 'Space Mono', monospace;
