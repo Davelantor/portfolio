@@ -134,15 +134,6 @@ body.landing-active { overflow: hidden; }
 .lnd-prog-dot.visited {
   background: rgba(0,200,255,0.35);
 }
-#lnd-progress-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.55rem;
-  color: var(--muted);
-  letter-spacing: 0.2em;
-  writing-mode: vertical-rl;
-  text-transform: uppercase;
-  margin-top: 0.5rem;
-}
 
 /* ── SCROLL HINT ── */
 #lnd-scroll-hint {
@@ -269,8 +260,6 @@ body.landing-active { overflow: hidden; }
   height: auto;
   border-radius: 8%;
   display: block;
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 40px rgba(0,200,255,0.15), 0 0 80px rgba(0,200,255,0.06);
 }
 @media (max-width: 768px) {
   .lnd-hero-layout { flex-direction: column-reverse; gap: 2rem; }

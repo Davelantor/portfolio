@@ -310,8 +310,6 @@
       d.classList.toggle('active',  i === currentScene);
       d.classList.toggle('visited', i < currentScene);
     });
-    var label = document.getElementById('lnd-progress-label');
-    if (label) label.textContent = currentScene + ' / ' + (TOTAL_SCENES - 1);
     var num = document.getElementById('lnd-stage-num');
     if (num) num.textContent = String(currentScene + 1).padStart(2, '0');
     var hint = document.getElementById('lnd-scroll-hint');
