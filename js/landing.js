@@ -122,23 +122,23 @@
 
   // Idle loops — play while user dwells on a scene
   var BG_IDLE = {
-    2: 'videos/0025-1025.mp4',
-    3: 'videos/1075-2075.mp4',
-    4: 'videos/2125-3125.mp4',
-    5: 'videos/3175-4175.mp4',
-    6: 'videos/4225-5225.mp4',
-    7: 'videos/5275-6275.mp4',
+    2: 'videos/0050-1050.mp4',
+    3: 'videos/1100-2100.mp4',
+    4: 'videos/2150-3150.mp4',
+    5: 'videos/3200-4200.mp4',
+    6: 'videos/4250-5250.mp4',
+    7: 'videos/5300-6300.mp4',
   };
 
   // Transition clips keyed by 'lo-hi' (lower scene first)
   var BG_TRANS = {
-    '1-2': 'videos/0000-0025.mp4',
-    '2-3': 'videos/1025-1075.mp4',
-    '3-4': 'videos/2075-2125.mp4',
-    '4-5': 'videos/3125-3175.mp4',
-    '5-6': 'videos/4175-4225.mp4',
-    '6-7': 'videos/5225-5275.mp4',
-    '7-8': 'videos/6275-6300.mp4',
+    '1-2': 'videos/0000-0050.mp4',
+    '2-3': 'videos/1050-1100.mp4',
+    '3-4': 'videos/2100-2150.mp4',
+    '4-5': 'videos/3150-3200.mp4',
+    '5-6': 'videos/4200-4250.mp4',
+    '6-7': 'videos/5250-5300.mp4',
+    '7-8': 'videos/6300-6350.mp4',
   };
 
   function bgCancelReverse() {
