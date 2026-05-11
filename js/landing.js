@@ -116,9 +116,19 @@
   });
 
   // ── BACKGROUND VIDEO ────────────────────────────────────────────────────
-  var lndBgVid   = document.getElementById('lnd-bg-video');
-  var lndBgVidRAF = null;
-  var lndBgReverseT = null;
+  // Dedicated buffers:
+  //   idleBuf  (z-index 1) — scene idle loops; preloads silently during transitions
+  //   transBuf (z-index 2) — transition clips; overlays idleBuf, fades out when done
+  // The idle is already playing when the transition ends → no loading gap, no flash.
+  var idleBuf  = document.getElementById('lnd-bg-video');
+  var transBuf = document.getElementById('lnd-bg-video-b');
+
+  var lndBgVidRAF        = null;
+  var lndBgReverseT      = null;
+  var pendingTrans       = null;
+  var idleReady          = false;
+  var idleShowCb         = null;
+  var idlePendingCanPlay = null;
 
   // Idle loops — play while user dwells on a scene
   var BG_IDLE = {
@@ -146,41 +156,94 @@
     lndBgReverseT = null;
   }
 
-  function bgPlayForward(src, loop, onDone) {
+  function bgCancelTrans() {
     bgCancelReverse();
-    lndBgVid.loop    = !!loop;
-    lndBgVid.onended = loop ? null : (onDone || null);
-    lndBgVid.src     = src;
-    lndBgVid.load();
-    lndBgVid.play().catch(function () {});
+    if (pendingTrans) {
+      transBuf.removeEventListener('canplay',        pendingTrans.canPlay);
+      transBuf.removeEventListener('loadedmetadata', pendingTrans.meta);
+      transBuf.removeEventListener('seeked',         pendingTrans.seeked);
+      pendingTrans = null;
+    }
+    transBuf.pause();
+    transBuf.onended = null;
+    transBuf.classList.remove('active');
   }
 
-  function bgPlayReverse(src, onDone) {
-    bgCancelReverse();
-    lndBgVid.pause();
-    lndBgVid.loop    = false;
-    lndBgVid.onended = null;
-    lndBgVid.src     = src;
-    lndBgVid.load();
-    function onMeta() {
-      lndBgVid.removeEventListener('loadedmetadata', onMeta);
-      lndBgVid.currentTime = lndBgVid.duration;
-      lndBgReverseT = performance.now();
-      function tick(now) {
-        var elapsed = (now - lndBgReverseT) / 1000;
-        lndBgReverseT = now;
-        var next = Math.max(0, lndBgVid.currentTime - elapsed);
-        lndBgVid.currentTime = next;
-        if (next <= 0.04) {
-          lndBgVidRAF = null;
-          if (onDone) onDone();
-        } else {
-          lndBgVidRAF = requestAnimationFrame(tick);
-        }
-      }
-      lndBgVidRAF = requestAnimationFrame(tick);
+  // Start loading idle src silently into idleBuf.  Fires idleShowCb (or sets
+  // idleReady) the moment the first frame is available via canplay.
+  function bgLoadIdle(src) {
+    if (idlePendingCanPlay) {
+      idleBuf.removeEventListener('canplay', idlePendingCanPlay);
+      idlePendingCanPlay = null;
     }
-    lndBgVid.addEventListener('loadedmetadata', onMeta);
+    idleReady  = false;
+    idleShowCb = null;
+    idleBuf.classList.remove('active');
+    idleBuf.pause();
+    idleBuf.loop    = true;
+    idleBuf.onended = null;
+
+    function onCanPlay() {
+      idleBuf.removeEventListener('canplay', onCanPlay);
+      idlePendingCanPlay = null;
+      idleReady = true;
+      if (idleShowCb) { idleShowCb(); idleShowCb = null; }
+    }
+    idlePendingCanPlay = onCanPlay;
+    idleBuf.addEventListener('canplay', onCanPlay);
+    idleBuf.src = src;
+    idleBuf.load();
+  }
+
+  function bgPlayTransForward(src, onDone) {
+    bgCancelTrans();
+    var h = { canPlay: null, meta: null, seeked: null };
+    h.canPlay = function () {
+      transBuf.removeEventListener('canplay', h.canPlay);
+      pendingTrans = null;
+      transBuf.play().catch(function () {});
+      transBuf.classList.add('active');
+      transBuf.onended = onDone || null;
+    };
+    pendingTrans = h;
+    transBuf.loop = false;
+    transBuf.addEventListener('canplay', h.canPlay);
+    transBuf.src = src;
+    transBuf.load();
+  }
+
+  function bgPlayTransReverse(src, onDone) {
+    bgCancelTrans();
+    var h = { canPlay: null, meta: null, seeked: null };
+    h.meta = function () {
+      transBuf.removeEventListener('loadedmetadata', h.meta);
+      transBuf.currentTime = transBuf.duration;
+      h.seeked = function () {
+        transBuf.removeEventListener('seeked', h.seeked);
+        pendingTrans = null;
+        transBuf.classList.add('active');
+        lndBgReverseT = performance.now();
+        function tick(now) {
+          var elapsed = (now - lndBgReverseT) / 1000;
+          lndBgReverseT = now;
+          var next = Math.max(0, transBuf.currentTime - elapsed);
+          transBuf.currentTime = next;
+          if (next <= 0.04) {
+            lndBgVidRAF = null;
+            if (onDone) onDone();
+          } else {
+            lndBgVidRAF = requestAnimationFrame(tick);
+          }
+        }
+        lndBgVidRAF = requestAnimationFrame(tick);
+      };
+      transBuf.addEventListener('seeked', h.seeked);
+    };
+    pendingTrans = h;
+    transBuf.loop = false;
+    transBuf.addEventListener('loadedmetadata', h.meta);
+    transBuf.src = src;
+    transBuf.load();
   }
 
   function bgEnterScene(next, prev, direction) {
@@ -189,30 +252,53 @@
     var transUrl = BG_TRANS[lo + '-' + hi];
     var idleUrl  = BG_IDLE[next];
 
-    if (transUrl || idleUrl) {
-      lndBgVid.classList.add('active');
-      bgCanvas.style.opacity = '0.18';
+    if (!transUrl && !idleUrl) {
+      bgCancelTrans();
+      idleBuf.classList.remove('active');
+      idleBuf.pause(); idleBuf.src = ''; idleBuf.load();
+      bgCanvas.style.opacity = '1';
+      return;
     }
 
-    if (transUrl) {
-      var afterTrans = idleUrl
-        ? function () { bgPlayForward(idleUrl, true, null); }
-        : function () {
-            lndBgVid.classList.remove('active');
-            bgCanvas.style.opacity = '1';
-          };
-      if (direction > 0) {
-        bgPlayForward(transUrl, false, afterTrans);
+    bgCanvas.style.opacity = '0.18';
+
+    // Preload idle immediately — it buffers silently so it's ready when transition ends
+    if (idleUrl) bgLoadIdle(idleUrl);
+
+    // If destination has no idle (e.g. scene 8), fade out any lingering idle now
+    if (!idleUrl) idleBuf.classList.remove('active');
+
+    var afterTrans = function () {
+      if (idleUrl) {
+        // Crossfade only once the idle has decoded its first frame.
+        // If already ready, fires immediately; otherwise holds transBuf's last
+        // frame visible until canplay resolves — zero gap guaranteed.
+        var crossfade = function () {
+          transBuf.classList.remove('active');
+          idleBuf.play().catch(function () {});
+          idleBuf.classList.add('active');
+        };
+        if (idleReady) {
+          crossfade();
+        } else {
+          idleShowCb = crossfade;
+        }
       } else {
-        bgPlayReverse(transUrl, afterTrans);
+        transBuf.classList.remove('active');
+        bgCanvas.style.opacity = '1';
       }
-    } else if (idleUrl) {
-      bgPlayForward(idleUrl, true, null);
+    };
+
+    if (transUrl) {
+      if (direction > 0) {
+        bgPlayTransForward(transUrl, afterTrans);
+      } else {
+        bgPlayTransReverse(transUrl, afterTrans);
+      }
     } else {
-      bgCancelReverse();
-      lndBgVid.pause();
-      lndBgVid.classList.remove('active');
-      bgCanvas.style.opacity = '1';
+      // Idle-only scene — no transition clip, reveal idle once first frame ready
+      var showIdle = function () { idleBuf.play().catch(function () {}); idleBuf.classList.add('active'); };
+      if (idleReady) { showIdle(); } else { idleShowCb = showIdle; }
     }
   }
 
@@ -482,7 +568,7 @@
       lastTs = ts;
 
       // Active when the landing bg video has the .active class
-      var videoOn = lndBgVid.classList.contains('active') ? 1 : 0;
+      var videoOn = (idleBuf.classList.contains('active') || transBuf.classList.contains('active')) ? 1 : 0;
       hudAlpha += (videoOn - hudAlpha) * Math.min(1, dt * 2.5);
 
       hCtx.clearRect(0, 0, hudW, hudH);
