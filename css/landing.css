@@ -582,3 +582,36 @@ body.landing-active { overflow: hidden; }
   transition: width 0.1s, opacity 0.3s;
   opacity: 0;
 }
+
+/* ── PROJECT IMAGE LINK ── */
+.lnd-proj-link {
+  display: inline-block;
+  align-items: center;
+  width: fit-content;
+  position: relative;
+  z-index: 20;
+  margin-top: 1rem;
+  font-size: var(--lnd-body-sm);
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 0.12em;
+  color: var(--accent2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent2);
+  padding: 0.25rem 0 0.15rem;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: color 0.25s, border-color 0.25s, text-shadow 0.25s;
+}
+.lnd-proj-link.is-manual-hover {
+  color: #ff9055;
+  text-shadow: 0 0 12px rgba(255,107,43,0.5);
+}
+
+.lnd-proj-link.is-manual-hover::after {
+  background: #ff9055;
+}
+.lnd-proj-link:hover {
+  color: #ff9055;
+  border-color: #ff9055;
+  text-shadow: 0 0 12px rgba(255,107,43,0.5);
+}

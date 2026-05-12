@@ -356,14 +356,14 @@
     var preClass = direction > 0 ? 'pre-up'  : 'pre-down';
     setBlocks(prev, outClass);
     setTimeout(function () {
-      prevEl.style.opacity      = '0';
-      prevEl.style.pointerEvents = 'none';
+      prevEl.style.opacity = '0';
+      prevEl.classList.remove('active');
     }, 200);
 
     var nextEl = document.getElementById(SCENES[next].el);
     setBlocks(next, preClass);
-    nextEl.style.opacity      = '1';
-    nextEl.style.pointerEvents = next === 9 ? 'auto' : 'none';
+    nextEl.style.opacity = '1';
+    nextEl.classList.add('active');
     setTimeout(function () { setBlocks(next, 'in'); }, 120);
 
     targetPalette = SCENE_PALETTES[next].slice();
@@ -634,5 +634,53 @@
       track.style.animationPlayState = over ? 'paused' : 'running';
     }, { passive: true });
   }());
+
+  // ── PROJECT LINK HOVER ──────────────────────────────────────
+  (function initProjectLinkHover() {
+  var links = document.querySelectorAll('.lnd-proj-link');
+  if (!links.length) return;
+
+  function isPointerInside(el, e) {
+    var r = el.getBoundingClientRect();
+
+    return (
+      e.clientX >= r.left &&
+      e.clientX <= r.right &&
+      e.clientY >= r.top &&
+      e.clientY <= r.bottom
+    );
+  }
+
+  window.addEventListener('mousemove', function (e) {
+    links.forEach(function (link) {
+      var over = isPointerInside(link, e);
+      link.classList.toggle('is-manual-hover', over);
+    });
+  }, { passive: true });
+
+  window.addEventListener('click', function (e) {
+    for (var i = 0; i < links.length; i++) {
+      var link = links[i];
+
+      if (isPointerInside(link, e)) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var href = link.getAttribute('href');
+        var target = link.getAttribute('target');
+
+        if (!href) return;
+
+        if (target === '_blank') {
+          window.open(href, '_blank', 'noopener,noreferrer');
+        } else {
+          window.location.href = href;
+        }
+
+        return;
+      }
+    }
+  }, true);
+}());
 
 }());
