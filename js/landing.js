@@ -454,15 +454,10 @@
   }, { passive: true });
 
   // ── CURSOR ──
-  var cursorDot  = document.getElementById('lnd-cursor');
-  var cursorRing = document.getElementById('lnd-cursor-ring');
+  var cursorDot = document.getElementById('lnd-cursor');
   lndWrapper.addEventListener('mousemove', function (e) {
-    cursorDot.style.left  = e.clientX + 'px';
-    cursorDot.style.top   = e.clientY + 'px';
-    setTimeout(function () {
-      cursorRing.style.left = e.clientX + 'px';
-      cursorRing.style.top  = e.clientY + 'px';
-    }, 60);
+    cursorDot.style.left = e.clientX + 'px';
+    cursorDot.style.top  = e.clientY + 'px';
   });
 
   // ── VIEW PORTFOLIO REVEAL ────────────────────────────────────────────────

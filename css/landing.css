@@ -52,16 +52,6 @@ body.landing-active { overflow: hidden; }
   transition: width 0.2s, height 0.2s, background 0.2s;
   mix-blend-mode: screen;
 }
-#lnd-cursor-ring {
-  position: fixed;
-  width: 32px; height: 32px;
-  border: 1px solid rgba(0,200,255,0.4);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 200000;
-  transform: translate(-50%, -50%);
-  transition: all 0.12s ease;
-}
 
 /* Suppress portfolio cursor while landing is active */
 #landing-wrapper:not(.hiding) ~ #cur-main,
