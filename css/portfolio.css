@@ -1415,58 +1415,13 @@ body {
   height: 100vh; overflow: hidden;
 }
 
-/* ─── SCENE STACK ───────────────────────────────────── */
-#scene-stack { position: relative; height: 550vh; }
-#scene-sticky {
-  position: sticky; top: 0;
-  height: 100vh; overflow: hidden;
-}
-.scene {
-  position: absolute; inset: 0;
-  opacity: 0; pointer-events: none;
-}
-/* Content inside scenes appears immediately — scene handles entrance */
-.scene .fiu {
-  opacity: 1 !important; transform: none !important; transition: none !important;
-}
-/* Sections fill the sticky viewport */
-#testimonials {
-  height: 100%; overflow: hidden; background: none;
-  display: flex; flex-direction: column; justify-content: center;
-}
-#testimonials .pp-header { padding-top: 36px; padding-bottom: 24px; }
-#features { height: 100%; background: none; min-height: unset; }
-#performance {
-  height: 100%;
-  padding-top: 0 !important; padding-bottom: 0 !important;
-  display: flex; align-items: center; justify-content: center;
-}
-#design-section {
-  height: 100%;
-  padding-bottom: 0 !important;
-  display: flex; align-items: center; justify-content: center;
-}
-/* About: starts invisible, JS fades it in */
-#about { opacity: 0; }
 @media (max-width: 960px) {
   #pp-sequence { height: auto; }
   #pp-sticky { position: static; height: auto; overflow: visible; }
   #testimonials { height: auto; }
   #testimonials .pp-header { padding-top: 100px; padding-bottom: 56px; }
-  #scene-stack { height: auto; }
-  #scene-sticky { position: static; height: auto; overflow: visible; }
-  .scene { position: static; opacity: 1 !important; transform: none !important; pointer-events: auto; }
-  .scene .fiu {
-    opacity: 0 !important; transform: translateY(28px) !important;
-    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out) !important;
-  }
-  .scene .fiu.on { opacity: 1 !important; transform: none !important; }
-  #features, #performance, #design-section { height: auto; }
-  #performance { padding-top: 20px !important; padding-bottom: 20px !important; display: block; }
-  #design-section { padding-bottom: 20px !important; display: block; }
-  #features { background: linear-gradient(160deg, #050510 0%, #000 60%) !important; }
-  #about { opacity: 1; }
 }
+
 
 /* ─── PROFILE SUMMARY ───────────────────────────────── */
 #ps-sequence { position: relative; height: 80vh; }

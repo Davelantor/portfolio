@@ -17,10 +17,7 @@
   /* ── Praise Parade sequence ref ── */
   const ppSeqEl = document.getElementById('pp-sequence');
 
-  /* ── Scene stack refs ── */
-  const sceneStackEl  = document.getElementById('scene-stack');
   const psSeqEl       = document.getElementById('ps-sequence');
-  const sceneDivs    = Array.from(document.querySelectorAll('#scene-sticky > .scene'));
 
   /* ── Nav active refs ── */
   const navLinkEls = Array.from(document.querySelectorAll('#navLinks a'));
@@ -166,7 +163,6 @@
     tickBackground(sy);
     tickCallouts(sy);
     tickDots(sy);
-    tickSceneStack(sy);
     tickAboutSeq(sy);
   }
 
@@ -259,7 +255,6 @@
       { section: psSeqEl,       href: '#profile-summary' },
       { section: seq1El,        href: '#seq1' },
       { section: ppSeqEl,       href: '#recomendations' },
-      { section: sceneStackEl,  href: '#projects' },
       { section: aboutSeqEl,    href: '#about' },
     ];
 
@@ -278,73 +273,6 @@
       var href = a.getAttribute('href');
       a.classList.toggle('is-active', href === activeHref);
     });
-  }
-
-  /* ── Scene stack sequential fade (no overlap) ── */
-  function tickSceneStack (sy) {
-    if (!sceneStackEl || !sceneDivs.length) return;
-    if (window.innerWidth <= 960) return;
-
-    var p      = sectionProgress(sceneStackEl, sy);
-    var n      = sceneDivs.length;
-    var FADE   = 0.04;  // fraction of total progress each fade-in or fade-out takes
-    var TRAVEL = 40;    // px: subtle drift on enter/exit
-
-    sceneDivs.forEach(function (scene, i) {
-      var s       = i / n;
-      var e       = (i + 1) / n;
-      var isFirst = (i === 0);
-      var isLast  = (i === n - 1);
-      var opacity, ty;
-
-      if (isFirst) {
-        // Scene 0: starts fully visible, fades out at end of its slot
-        if (p < e - FADE) {
-          opacity = 1; ty = 0;
-        } else if (p < e) {
-          var t = (p - (e - FADE)) / FADE;
-          opacity = 1 - t; ty = -(TRAVEL * t);
-        } else {
-          opacity = 0; ty = -TRAVEL;
-        }
-      } else if (isLast) {
-        // Last scene: fades in, then stays fully visible
-        if (p < s) {
-          opacity = 0; ty = TRAVEL;
-        } else if (p < s + FADE) {
-          var t = (p - s) / FADE;
-          opacity = t; ty = TRAVEL * (1 - t);
-        } else {
-          opacity = 1; ty = 0;
-        }
-      } else {
-        // Middle scenes: fade in, dwell, fade out — never overlapping neighbours
-        if (p < s) {
-          opacity = 0; ty = TRAVEL;
-        } else if (p < s + FADE) {
-          var t = (p - s) / FADE;
-          opacity = t; ty = TRAVEL * (1 - t);
-        } else if (p < e - FADE) {
-          opacity = 1; ty = 0;
-        } else if (p < e) {
-          var t = (p - (e - FADE)) / FADE;
-          opacity = 1 - t; ty = -(TRAVEL * t);
-        } else {
-          opacity = 0; ty = -TRAVEL;
-        }
-      }
-
-      opacity = Math.max(0, Math.min(1, opacity));
-      scene.style.opacity       = opacity;
-      scene.style.transform     = 'translateY(' + ty.toFixed(1) + 'px)';
-      scene.style.pointerEvents = opacity > 0.05 ? 'auto' : 'none';
-    });
-
-    // Fade #about in as the stack nears its end
-    if (aboutSeqEl) {
-      var aboutOpacity = Math.max(0, Math.min(1, (p - 0.85) / 0.15));
-      aboutSeqEl.style.opacity = aboutOpacity;
-    }
   }
 
   /* ── About section panel sequencer ── */
@@ -804,7 +732,6 @@
     var THRESHOLD   = 80;       // wheel delta units before advancing
     var wheelTimer  = null;
     var syncTimer   = null;
-    var SCENE_FADE  = 0.04;     // matches tickSceneStack FADE constant
     var animRAF     = null;
     var animStart   = null;
     var animFrom    = 0;
@@ -853,16 +780,6 @@
 
       // Praise Parade — single snap at entry
       if (ppSeqEl) pts.push(ppSeqEl.offsetTop);
-
-      // Scene Stack — one snap per scene, landing after its fade-in completes
-      if (sceneStackEl && sceneDivs.length) {
-        var stackH = sceneStackEl.offsetHeight - vh;
-        var n      = sceneDivs.length;
-        for (var i = 0; i < n; i++) {
-          var p = i === 0 ? 0 : (i / n + SCENE_FADE);
-          pts.push(Math.round(sceneStackEl.offsetTop + p * stackH));
-        }
-      }
 
       // About — one snap per panel, plus one at the end to fully reach the contact panel
       if (aboutSeqEl) {
