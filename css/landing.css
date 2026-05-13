@@ -610,8 +610,3 @@ body.landing-active { overflow: hidden; }
 .lnd-proj-link.is-manual-hover::after {
   background: #ff9055;
 }
-.lnd-proj-link:hover {
-  color: #ff9055;
-  border-color: #ff9055;
-  text-shadow: 0 0 12px rgba(255,107,43,0.5);
-}
