@@ -1409,7 +1409,7 @@ body {
 }
 
 /* ─── PRAISE PARADE SEQUENCE ────────────────────────── */
-#pp-sequence { position: relative; height: 80vh; }
+#pp-sequence { position: relative; height: 150vh; }
 #pp-sticky {
   position: sticky; top: 0;
   height: 100vh; overflow: hidden;

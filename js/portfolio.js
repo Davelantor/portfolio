@@ -282,7 +282,7 @@
 
     var p = sectionProgress(aboutSeqEl, sy);
     var n = aboutPanels.length;
-    var BOUNDS = [0, 0.333, 0.667, 1];
+    var BOUNDS = [0, 0.5, 1];
 
     aboutPanels.forEach(function (panel, i) {
       var s = BOUNDS[i];
@@ -352,7 +352,7 @@
      inside the about sequence via data-about-panel="n"
   ──────────────────────────────────────────────────── */
   function initAboutPanelNav () {
-    var BOUNDS = [0, 0.333, 0.667, 1];
+    var BOUNDS = [0, 0.5, 1];
     document.querySelectorAll('[data-about-panel]').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
@@ -784,7 +784,7 @@
       // About — one snap per panel, plus one at the end to fully reach the contact panel
       if (aboutSeqEl) {
         var aboutH = aboutSeqEl.offsetHeight - vh;
-        [0, 0.25, 0.5, 0.75, 1.0].forEach(function (b) {
+        [0, 0.5, 1.0].forEach(function (b) {
           pts.push(Math.round(aboutSeqEl.offsetTop + b * aboutH));
         });
       }
