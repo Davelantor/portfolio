@@ -517,6 +517,55 @@ body.landing-active { overflow: hidden; }
   cursor: pointer;
 }
 
+/* About Me scene */
+.lnd-about-bio {
+  font-size: var(--lnd-body);
+  font-family: 'Inter', sans-serif;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 620px;
+  margin-bottom: 2.5rem;
+}
+.lnd-about-mq-wrap {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.lnd-about-mq-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: lnd-about-scroll 36s linear infinite;
+}
+.lnd-about-mq-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.lnd-about-mq-img {
+  width: 220px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  opacity: 0.82;
+  border: 1px solid var(--border);
+  display: block;
+}
+.lnd-about-mq-label {
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+@keyframes lnd-about-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* View Portfolio button — prominent CTA */
 #view-portfolio-btn {
   display: inline-flex;

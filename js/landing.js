@@ -46,7 +46,8 @@
     [0x060010, 0x100820, 0x6633bb],  // 6 logistics (purple)
     [0x08001a, 0x140830, 0x7722cc],  // 7 lab tracking (purple)
     [0x000000, 0x091a0e, 0x007744],  // 8 timeline
-    [0x060310, 0x11091e, 0x6644aa],  // 9 CTA
+    [0x04040c, 0x0c0818, 0x3322aa],  // 9 about me (deep indigo)
+    [0x060310, 0x11091e, 0x6644aa],  // 10 CTA
   ];
 
   var bgPalette    = SCENE_PALETTES[0].slice();
@@ -303,7 +304,7 @@
   }
 
   // ── SCROLL-JACKING ENGINE ────────────────────────────────────────────────
-  var TOTAL_SCENES   = 10;
+  var TOTAL_SCENES   = 11;
   var currentScene   = 0;
   var isTransitioning = false;
   var throttleTimer  = null;
@@ -321,7 +322,8 @@
     { el: 'lnd-scene-6', blocks: ['s6-img', 's6-right'] },
     { el: 'lnd-scene-7', blocks: ['s7-img', 's7-right'] },
     { el: 'lnd-scene-8', blocks: ['s8-tag','s8-head','s8-timeline'] },
-    { el: 'lnd-scene-9', blocks: ['s9-tag','s9-head','s9-cta'] },
+    { el: 'lnd-scene-9', blocks: ['s9a-tag','s9a-head','s9a-desc','s9a-mq'] },
+    { el: 'lnd-scene-10', blocks: ['s10-tag','s10-head','s10-cta'] },
   ];
 
   function setBlocks(sceneIdx, state) {
