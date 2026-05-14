@@ -125,7 +125,7 @@
 
     /* Rotating hero text */
     (function () {
-      var terms = ['UX/UI Design', 'Head of UX', 'Product Design', 'Fullstack Developer', 'Frontend Developer', 'Game Developer', 'Tech Enthusiast', 'UX LEAD'];
+      var terms = ['Head of UX', 'Senior UX Lead', 'Product Design Lead', 'Staff Product Designer', 'UX Manager', 'Principal Product Designer'];
       var el = document.getElementById('heroRotate');
       var idx = 0;
       setInterval(function () {
