@@ -652,10 +652,10 @@ body.landing-active { overflow: hidden; }
   transition: color 0.25s, border-color 0.25s, text-shadow 0.25s;
 }
 .lnd-proj-link.is-manual-hover {
-  color: #ff9055;
+  color: #ffa16f;
   text-shadow: 0 0 12px rgba(255,107,43,0.5);
 }
 
 .lnd-proj-link.is-manual-hover::after {
-  background: #ff9055;
+  background: #ffa16f;
 }
