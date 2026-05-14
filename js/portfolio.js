@@ -28,6 +28,17 @@
   const aboutDots    = Array.from(document.querySelectorAll('.about-seq-dot'));
   const aboutDotsWrap = document.getElementById('aboutSeqDots');
 
+  /* ── About panel bounds — evenly spaced from panel count ─
+     Each entry is the scroll-progress (0→1) at which that
+     panel becomes active.  Computed once so tickAboutSeq,
+     initAboutPanelNav, and buildSnaps always agree.        */
+  function getAboutBounds () {
+    var n = aboutPanels.length;
+    var b = [];
+    for (var i = 0; i < n; i++) b.push(i / n);
+    return b;
+  }
+
   /* ────────────────────────────────────────────────────
      CANVAS SIZING
      https://github.com/Davelantor
@@ -145,7 +156,6 @@
     initStatCounters();
     initContactNav();
     initAboutPanelNav();
-    initScrollSnap();
   }
 
   /* ────────────────────────────────────────────────────
@@ -243,11 +253,11 @@
     var vh  = window.innerHeight;
     var mid = sy + vh * 0.45; // slightly above center gives earlier highlight feel
 
-    // Check if contact panel is active (about section, p >= 0.8)
+    // Contact panel becomes active when panel 2 (2/3 through) is visible
     var contactActive = false;
     if (aboutSeqEl) {
       var ap = sectionProgress(aboutSeqEl, sy);
-      contactActive = ap >= 0.8;
+      contactActive = ap >= 0.667;
     }
 
     // Map each nav link to its target section element
@@ -280,9 +290,9 @@
     if (!aboutSeqEl || !aboutPanels.length) return;
     if (window.innerWidth <= 960) return; // CSS handles mobile
 
-    var p = sectionProgress(aboutSeqEl, sy);
-    var n = aboutPanels.length;
-    var BOUNDS = [0, 0.5, 1];
+    var p      = sectionProgress(aboutSeqEl, sy);
+    var n      = aboutPanels.length;
+    var BOUNDS = getAboutBounds();
 
     aboutPanels.forEach(function (panel, i) {
       var s = BOUNDS[i];
@@ -352,7 +362,7 @@
      inside the about sequence via data-about-panel="n"
   ──────────────────────────────────────────────────── */
   function initAboutPanelNav () {
-    var BOUNDS = [0, 0.5, 1];
+    var BOUNDS = getAboutBounds();
     document.querySelectorAll('[data-about-panel]').forEach(function (el) {
       el.addEventListener('click', function (e) {
         e.preventDefault();
@@ -713,186 +723,23 @@
   }
 
   /* ────────────────────────────────────────────────────
-     SCROLL SNAP ENGINE
-     Intercepts wheel / touch / keyboard and animates the
-     scroll position to the nearest defined snap point so
-     that each user gesture steps exactly one "scene" at a
-     time — matching the landing-page feel.
-
-     Snap points are computed from live offsetTop values so
-     they remain accurate after resize.  The animation uses
-     a custom easing rAF loop (not browser smooth-scroll) so
-     the video canvas advances visibly during each transition
-     without locking up for multi-second durations.
+     HERO ANCHOR CLICKS — plain smooth scroll
   ──────────────────────────────────────────────────── */
-  function initScrollSnap () {
-    var snapPoints  = [];
-    var currentIdx  = 0;
-    var wheelAccum  = 0;
-    var THRESHOLD   = 80;       // wheel delta units before advancing
-    var wheelTimer  = null;
-    var syncTimer   = null;
-    var animRAF     = null;
-    var animStart   = null;
-    var animFrom    = 0;
-    var animTo      = 0;
-    var ANIM_SPEED  = 22000;    // px / second — controls how fast video plays
-    var ANIM_MIN    = 160;      // ms minimum (short hops still feel snappy)
-    var ANIM_MAX    = 380;      // ms maximum (prevents multi-second crawls)
-
-    function easeInOut (t) {
-      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    }
-
-    function animateTo (target) {
-      animFrom  = window.scrollY;
-      animTo    = Math.max(0, target);
-      var dist  = Math.abs(animTo - animFrom);
-      var dur   = Math.max(ANIM_MIN, Math.min(ANIM_MAX, (dist / ANIM_SPEED) * 1000));
-      animStart = null;
-      if (animRAF) cancelAnimationFrame(animRAF);
-
-      function tick (ts) {
-        if (!animStart) animStart = ts;
-        var t   = Math.min(1, (ts - animStart) / dur);
-        var pos = animFrom + (animTo - animFrom) * easeInOut(t);
-        window.scrollTo({ top: pos, behavior: 'instant' });
-        animRAF = t < 1 ? requestAnimationFrame(tick) : null;
-      }
-      animRAF = requestAnimationFrame(tick);
-    }
-
-    function buildSnaps () {
-      var vh  = window.innerHeight;
-      var pts = [0]; // hero top
-
-      // Profile Summary — one snap at entry
-      if (psSeqEl) pts.push(psSeqEl.offsetTop);
-
-      // Seq1 — snap to midpoint of each callout so only one card is ever active per stop
-      if (seq1El) {
-        var seq1H = seq1El.offsetHeight - vh;
-        seq1El.querySelectorAll('.callout[data-s]').forEach(function (c) {
-          var mid = (parseFloat(c.dataset.s) + parseFloat(c.dataset.e)) / 2;
-          pts.push(Math.round(seq1El.offsetTop + mid * seq1H));
-        });
-      }
-
-      // Praise Parade — single snap at entry
-      if (ppSeqEl) pts.push(ppSeqEl.offsetTop);
-
-      // About — one snap per panel, plus one at the end to fully reach the contact panel
-      if (aboutSeqEl) {
-        var aboutH = aboutSeqEl.offsetHeight - vh;
-        [0, 0.5, 1.0].forEach(function (b) {
-          pts.push(Math.round(aboutSeqEl.offsetTop + b * aboutH));
-        });
-      }
-
-      pts.sort(function (a, b) { return a - b; });
-      snapPoints = pts.filter(function (v, i, arr) {
-        return i === 0 || v - arr[i - 1] > 5;
-      });
-    }
-
-    function findIdx (sy) {
-      var best = 0, bestDist = Infinity;
-      snapPoints.forEach(function (p, i) {
-        var d = Math.abs(p - sy);
-        if (d < bestDist) { bestDist = d; best = i; }
-      });
-      return best;
-    }
-
-    function snapTo (idx) {
-      idx = Math.max(0, Math.min(snapPoints.length - 1, idx));
-      currentIdx = idx;
-      animateTo(snapPoints[idx]);
-    }
-
-    function landingActive () {
-      var lnd = document.getElementById('landing-wrapper');
-      return lnd && lnd.style.display !== 'none';
-    }
-
-    // Sync currentIdx to closest snap after non-animated scroll settles
-    window.addEventListener('scroll', function () {
-      if (animRAF) return;
-      clearTimeout(syncTimer);
-      syncTimer = setTimeout(function () {
-        currentIdx = findIdx(window.scrollY);
-      }, 250);
-    }, { passive: true });
-
-    buildSnaps();
-    window.addEventListener('resize', function () {
-      buildSnaps();
-      currentIdx = findIdx(window.scrollY);
-    });
-
-    // Wheel — accumulate delta, advance one step per threshold crossed
-    window.addEventListener('wheel', function (e) {
-      if (landingActive()) return;
+  document.querySelectorAll('#hero a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
       e.preventDefault();
-      if (animRAF !== null) return; // block while previous snap is still animating
-      wheelAccum += Math.abs(e.deltaY);
-      clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(function () { wheelAccum = 0; }, 300);
-      if (wheelAccum >= THRESHOLD) {
-        snapTo(currentIdx + (e.deltaY > 0 ? 1 : -1));
-        wheelAccum = 0;
-      }
-    }, { passive: false });
-
-    // Touch
-    var tStartY = 0;
-    window.addEventListener('touchstart', function (e) {
-      tStartY = e.touches[0].clientY;
-    }, { passive: true });
-    window.addEventListener('touchend', function (e) {
-      if (landingActive()) return;
-      if (animRAF !== null) return;
-      var diff = tStartY - e.changedTouches[0].clientY;
-      if (Math.abs(diff) > 50) snapTo(currentIdx + (diff > 0 ? 1 : -1));
-    }, { passive: true });
-
-    // Keyboard
-    window.addEventListener('keydown', function (e) {
-      if (landingActive()) return;
-      if (animRAF !== null) return;
-      if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); snapTo(currentIdx + 1); }
-      if (e.key === 'ArrowUp'   || e.key === 'PageUp')   { e.preventDefault(); snapTo(currentIdx - 1); }
+      window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
     });
+  });
 
-    // Hero anchor clicks — route through snap engine instead of native jump
-    function snapToEl (el) {
-      if (!el || !snapPoints.length) return;
-      var target  = el.offsetTop;
-      var bestIdx = 0, bestDist = Infinity;
-      snapPoints.forEach(function (p, i) {
-        var d = Math.abs(p - target);
-        if (d < bestDist) { bestDist = d; bestIdx = i; }
-      });
-      currentIdx = bestIdx;
-      animateTo(snapPoints[bestIdx]);
-    }
-
-    document.querySelectorAll('#hero a[href^="#"]').forEach(function (a) {
-      a.addEventListener('click', function (e) {
-        var target = document.querySelector(a.getAttribute('href'));
-        if (!target) return;
-        e.preventDefault();
-        snapToEl(target);
-      });
+  var scrollCueEl = document.querySelector('#hero .scroll-cue');
+  if (scrollCueEl) {
+    scrollCueEl.style.cursor = 'pointer';
+    scrollCueEl.addEventListener('click', function () {
+      if (psSeqEl) window.scrollTo({ top: psSeqEl.offsetTop, behavior: 'smooth' });
     });
-
-    var scrollCueEl = document.querySelector('#hero .scroll-cue');
-    if (scrollCueEl) {
-      scrollCueEl.style.cursor = 'pointer';
-      scrollCueEl.addEventListener('click', function () {
-        snapToEl(psSeqEl);
-      });
-    }
   }
 
   /* ── GO ── */
