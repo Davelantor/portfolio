@@ -124,41 +124,50 @@
   var idleBuf  = document.getElementById('lnd-bg-video');
   var transBuf = document.getElementById('lnd-bg-video-b');
 
-  var lndBgVidRAF        = null;
-  var lndBgReverseT      = null;
-  var pendingTrans       = null;
+  var pendingTrans        = null;
   var idleReady          = false;
   var idleShowCb         = null;
   var idlePendingCanPlay = null;
 
   // Idle loops — play while user dwells on a scene
   var BG_IDLE = {
-    2: 'videos/0050-1050.mp4',
-    3: 'videos/1100-2100.mp4',
-    4: 'videos/2150-3150.mp4',
-    5: 'videos/3200-4200.mp4',
-    6: 'videos/4250-5250.mp4',
-    7: 'videos/5300-6300.mp4',
+    2:  'videos/0050-1050.mp4',
+    3:  'videos/1100-2100.mp4',
+    4:  'videos/2150-3150.mp4',
+    5:  'videos/3200-4200.mp4',
+    6:  'videos/4250-5250.mp4',
+    7:  'videos/5300-6300.mp4',
+    8:  'videos/6350-7350.mp4',
+    9:  'videos/7400-8400.mp4',
   };
 
   // Transition clips keyed by 'lo-hi' (lower scene first)
   var BG_TRANS = {
-    '1-2': 'videos/0000-0050.mp4',
-    '2-3': 'videos/1050-1100.mp4',
-    '3-4': 'videos/2100-2150.mp4',
-    '4-5': 'videos/3150-3200.mp4',
-    '5-6': 'videos/4200-4250.mp4',
-    '6-7': 'videos/5250-5300.mp4',
-    '7-8': 'videos/6300-6350.mp4',
+    '1-2':  'videos/0000-0050.mp4',
+    '2-3':  'videos/1050-1100.mp4',
+    '3-4':  'videos/2100-2150.mp4',
+    '4-5':  'videos/3150-3200.mp4',
+    '5-6':  'videos/4200-4250.mp4',
+    '6-7':  'videos/5250-5300.mp4',
+    '7-8':  'videos/6300-6350.mp4',
+    '8-9':  'videos/7350-7400.mp4',
+    '9-10': 'videos/8400-8450.mp4',
   };
 
-  function bgCancelReverse() {
-    if (lndBgVidRAF) { cancelAnimationFrame(lndBgVidRAF); lndBgVidRAF = null; }
-    lndBgReverseT = null;
-  }
+  // Dedicated reverse clips — played forward when navigating backwards
+  var BG_TRANS_REV = {
+    '1-2':  'videos/0000-0050R.mp4',
+    '2-3':  'videos/1050-1100R.mp4',
+    '3-4':  'videos/2100-2150R.mp4',
+    '4-5':  'videos/3150-3200R.mp4',
+    '5-6':  'videos/4200-4250R.mp4',
+    '6-7':  'videos/5250-5300R.mp4',
+    '7-8':  'videos/6300-6350R.mp4',
+    '8-9':  'videos/7350-7400R.mp4',
+    '9-10': 'videos/8400-8450R.mp4',
+  };
 
   function bgCancelTrans() {
-    bgCancelReverse();
     if (pendingTrans) {
       transBuf.removeEventListener('canplay',        pendingTrans.canPlay);
       transBuf.removeEventListener('loadedmetadata', pendingTrans.meta);
@@ -213,44 +222,11 @@
     transBuf.load();
   }
 
-  function bgPlayTransReverse(src, onDone) {
-    bgCancelTrans();
-    var h = { canPlay: null, meta: null, seeked: null };
-    h.meta = function () {
-      transBuf.removeEventListener('loadedmetadata', h.meta);
-      transBuf.currentTime = transBuf.duration;
-      h.seeked = function () {
-        transBuf.removeEventListener('seeked', h.seeked);
-        pendingTrans = null;
-        transBuf.classList.add('active');
-        lndBgReverseT = performance.now();
-        function tick(now) {
-          var elapsed = (now - lndBgReverseT) / 1000;
-          lndBgReverseT = now;
-          var next = Math.max(0, transBuf.currentTime - elapsed);
-          transBuf.currentTime = next;
-          if (next <= 0.04) {
-            lndBgVidRAF = null;
-            if (onDone) onDone();
-          } else {
-            lndBgVidRAF = requestAnimationFrame(tick);
-          }
-        }
-        lndBgVidRAF = requestAnimationFrame(tick);
-      };
-      transBuf.addEventListener('seeked', h.seeked);
-    };
-    pendingTrans = h;
-    transBuf.loop = false;
-    transBuf.addEventListener('loadedmetadata', h.meta);
-    transBuf.src = src;
-    transBuf.load();
-  }
-
   function bgEnterScene(next, prev, direction) {
     var lo       = Math.min(prev, next);
     var hi       = Math.max(prev, next);
-    var transUrl = BG_TRANS[lo + '-' + hi];
+    var key      = lo + '-' + hi;
+    var transUrl = direction > 0 ? BG_TRANS[key] : BG_TRANS_REV[key];
     var idleUrl  = BG_IDLE[next];
 
     if (!transUrl && !idleUrl) {
@@ -291,11 +267,7 @@
     };
 
     if (transUrl) {
-      if (direction > 0) {
-        bgPlayTransForward(transUrl, afterTrans);
-      } else {
-        bgPlayTransReverse(transUrl, afterTrans);
-      }
+      bgPlayTransForward(transUrl, afterTrans);
     } else {
       // Idle-only scene — no transition clip, reveal idle once first frame ready
       var showIdle = function () { idleBuf.play().catch(function () {}); idleBuf.classList.add('active'); };
