@@ -706,6 +706,7 @@ body.landing-active { overflow: hidden; }
   .lnd-tc-photo { width: 44px; height: 44px; }
 
   /* ─ Project scenes (2–7) ─ */
+  .lnd-proj-canvas-wrap { aspect-ratio: 16/9;width: auto ; max-height: 120px; }
   .lnd-proj-right { height: auto; gap: 0; }
   .lnd-proj-right .lnd-tag-line   { margin-bottom: 0.2rem; }
   .lnd-proj-title                 { margin-bottom: 0.3rem; }
