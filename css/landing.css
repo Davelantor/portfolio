@@ -431,6 +431,8 @@ body.landing-active { overflow: hidden; }
   line-height: 1.9;
   margin-bottom: 1.5rem;
 }
+.lnd-proj-desc p { margin: 0; }
+.lnd-proj-desc p + p { margin-top: 1em; }
 .lnd-proj-metrics {
   display: flex;
   gap: 2rem;
@@ -704,12 +706,15 @@ body.landing-active { overflow: hidden; }
   .lnd-tc-photo { width: 44px; height: 44px; }
 
   /* ─ Project scenes (2–7) ─ */
-  .lnd-proj-right  { height: auto; }
-  .lnd-proj-title  { margin-bottom: 0.5rem; }
+  .lnd-proj-right { height: auto; gap: 0; }
+  .lnd-proj-right .lnd-tag-line   { margin-bottom: 0.2rem; }
+  .lnd-proj-title                 { margin-bottom: 0.3rem; }
+  .lnd-proj-right .lnd-proj-link  { margin-top: 0.4rem; }
   .lnd-proj-desc {
     line-height: 1.65;
     margin-bottom: 0.75rem;
   }
+  .lnd-proj-desc p:first-child { display: none; }
 
   /* ─ Timeline (Scene 8) ─ */
   .lnd-timeline-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
