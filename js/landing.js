@@ -331,12 +331,14 @@
     setBlocks(prev, outClass);
     setTimeout(function () {
       prevEl.style.opacity = '0';
+      prevEl.style.pointerEvents = 'none';
       prevEl.classList.remove('active');
     }, 200);
 
     var nextEl = document.getElementById(SCENES[next].el);
     setBlocks(next, preClass);
     nextEl.style.opacity = '1';
+    nextEl.style.pointerEvents = '';
     nextEl.classList.add('active');
     setTimeout(function () { setBlocks(next, 'in'); }, 120);
 
