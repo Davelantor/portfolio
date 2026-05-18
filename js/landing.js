@@ -616,13 +616,13 @@
 
   function isPointerInside(el, e) {
     var r = el.getBoundingClientRect();
+    return e.clientX >= r.left && e.clientX <= r.right &&
+           e.clientY >= r.top  && e.clientY <= r.bottom;
+  }
 
-    return (
-      e.clientX >= r.left &&
-      e.clientX <= r.right &&
-      e.clientY >= r.top &&
-      e.clientY <= r.bottom
-    );
+  function isInActiveScene(el) {
+    var scene = el.closest('.lnd-scene-layer');
+    return scene && scene.classList.contains('active');
   }
 
   window.addEventListener('mousemove', function (e) {
@@ -636,7 +636,7 @@
     for (var i = 0; i < links.length; i++) {
       var link = links[i];
 
-      if (isPointerInside(link, e)) {
+      if (isPointerInside(link, e) && isInActiveScene(link)) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -659,7 +659,7 @@
   window.addEventListener('auxclick', function (e) {
     if (e.button !== 1) return;
     for (var i = 0; i < links.length; i++) {
-      if (isPointerInside(links[i], e)) {
+      if (isPointerInside(links[i], e) && isInActiveScene(links[i])) {
         e.preventDefault();
         var href = links[i].getAttribute('href');
         if (href) window.open(href, '_blank', 'noopener,noreferrer');

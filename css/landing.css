@@ -295,6 +295,11 @@ body.landing-active { overflow: hidden; }
   color: var(--muted);
   line-height: 1.7;
   margin: 0 0 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .lnd-tc-author {
   font-size: var(--lnd-body-sm);
