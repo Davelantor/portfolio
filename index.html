@@ -316,6 +316,18 @@
 </script>
 <!-- Three.js CDN (required by landing scroll-jack engine) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<meta name="keywords" content="UX Design, Product Designer, Head of UX, UX Leadership, Industrial UX, B2B SaaS Design, Design Systems, Figma, Helsinki, Finland, AI UX, Automotive UX, Full-Stack Developer, Senior Product Designer, John Jurvanen, Mapvision, UX Consultant">
+<link rel="canonical" href="https://davelantor.github.io/portfolio/">
+<noscript>
+  <style>#landing-wrapper,#lnd-progress-track,#lnd-scroll-hint,#lnd-stage-counter{display:none!important}</style>
+  <div style="position:fixed;inset:0;background:#000;color:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;text-align:center">
+    <h1 style="font-size:2rem;font-weight:700;margin:0">John Jurvanen</h1>
+    <p style="color:#86868b;margin:0">Head of UX &amp; Senior Product Designer &mdash; Vantaa, Finland</p>
+    <p style="margin:0">This portfolio requires JavaScript. Contact directly:</p>
+    <a href="mailto:john.jurvanen@gmail.com" style="color:#0071e3">john.jurvanen@gmail.com</a>
+    <a href="https://www.linkedin.com/in/davelantor" style="color:#0071e3">linkedin.com/in/davelantor</a>
+  </div>
+</noscript>
 <link rel="stylesheet" href="css/landing.css">
 <link rel="stylesheet" href="css/portfolio.css">
 </head>
@@ -326,18 +338,18 @@
      Dismissed when user clicks "View full portfolio"
      ════════════════════════════════════════════════════ -->
 <div id="landing-wrapper">
-  <div id="lnd-cursor"></div>
-  <div id="lnd-bg-wash"></div>
-  <div id="lnd-flash"></div>
-  <div id="lnd-wipe"></div>
-  <div id="lnd-throttle-bar"></div>
+  <div id="lnd-cursor" aria-hidden="true"></div>
+  <div id="lnd-bg-wash" aria-hidden="true"></div>
+  <div id="lnd-flash" aria-hidden="true"></div>
+  <div id="lnd-wipe" aria-hidden="true"></div>
+  <div id="lnd-throttle-bar" aria-hidden="true"></div>
 
-  <section id="lnd-stage">
-    <canvas id="lnd-bg-canvas"></canvas>
-    <video id="lnd-bg-video"   muted playsinline preload="none"></video>
-    <video id="lnd-bg-video-b" muted playsinline preload="none"></video>
-    <canvas id="lnd-sat-hud"></canvas>
-    <div id="lnd-scanlines"></div>
+  <section id="lnd-stage" aria-label="Portfolio presentation">
+    <canvas id="lnd-bg-canvas" aria-hidden="true"></canvas>
+    <video id="lnd-bg-video"   muted playsinline preload="none" aria-hidden="true"></video>
+    <video id="lnd-bg-video-b" muted playsinline preload="none" aria-hidden="true"></video>
+    <canvas id="lnd-sat-hud" aria-hidden="true"></canvas>
+    <div id="lnd-scanlines" aria-hidden="true"></div>
 
     <!-- SCENE 0: HERO -->
     <div class="lnd-scene-layer active" id="lnd-scene-0">
@@ -356,7 +368,7 @@
     <!-- SCENE 1: STATS -->
     <div class="lnd-scene-layer" id="lnd-scene-1" style="opacity:0;pointer-events:none;">
       <div class="lnd-text-block pre-up" id="s1-tag"><p class="lnd-tag-line">What I bring to the table</p></div>
-      <div class="lnd-text-block pre-up" id="s1-head" style="transition-delay:0.08s"><h1 class="lnd-hero-h1" style="font-size:var(--lnd-title-sm);">The Work<br><span class="accent">Measured</span></h1></div>
+      <div class="lnd-text-block pre-up" id="s1-head" style="transition-delay:0.08s"><h2 class="lnd-hero-h1" style="font-size:var(--lnd-title-sm);">The Work<br><span class="accent">Measured</span></h2></div>
       <div class="lnd-text-block pre-up" id="s1-stats" style="transition-delay:0.16s">
         <div class="lnd-stats-row">
           <div class="lnd-stat-item"><span class="lnd-stat-val">12,000+</span><span class="lnd-stat-key">Users Impacted</span></div>
@@ -377,43 +389,7 @@
               </div>
             </div>
             <div class="lnd-tc-card">
-              <div class="lnd-tc-photo"><img src="images/contacts/Kosti.jpg" alt="Kosti Kallio"></div>
-              <div class="lnd-tc-body">
-                <p class="lnd-tc-quote">"John is truly a great asset to any software team as a full stack developer or in a designer role. During his time at Mapvision, he took our UI/UX design and the processes behind it to a new level.<br>He is also very customer oriented and always interested to learn how the customers are using his designs."</p>
-                <span class="lnd-tc-author">Kosti Kannas<br>CTO at Mapvision</span>
-              </div>
-            </div>
-            <div class="lnd-tc-card">
-              <div class="lnd-tc-photo"><img src="images/contacts/Tommi.jpg" alt="Tommi Martela"></div>
-              <div class="lnd-tc-body">
-                <p class="lnd-tc-quote">"John has truly been an amazing multi-disciplinary team player in our development team. We were convinced from the first programming assignment, and from there on John first delivered excellent software development skills, and later on started leading our UX efforts, creating amazing Figma prototypes that leave both product owners and customers begging for more."</p>
-                <span class="lnd-tc-author">Tommi Martela<br>Director of Product Development</span>
-              </div>
-            </div>
-            <div class="lnd-tc-card">
-              <div class="lnd-tc-photo"><img src="images/contacts/Ernest.jpg" alt="Ernest Arendarenko"></div>
-              <div class="lnd-tc-body">
-                <p class="lnd-tc-quote">"He is dependable, consistently delivered in sprints and contributes to technical discussions while always keeping long-term user impact in mind through clear use cases and flows. He balances user needs with practical implementation and saves teams significant time by clarifying flows early, reducing rework."</p>
-                <span class="lnd-tc-author">Ernest Arendarenko<br>Tech Lead / Team Lead at Mapvision</span>
-              </div>
-            </div>
-            <div class="lnd-tc-card">
-              <div class="lnd-tc-photo"><img src="images/contacts/Lasse.jpg" alt="Lasse"></div>
-              <div class="lnd-tc-body">
-                <p class="lnd-tc-quote">"He collected early feedback from customers via prototyping and questionnaires, leading to multiple succsesfull product launches. His insights into designs include his knowledge of implementation limitations, and have provided easy to implement UX to features whether completely new or improvements to existing ones."</p>
-                <span class="lnd-tc-author">Lasse Ylinen<br>Software Engineering Manager</span>
-              </div>
-            </div>
-            <!-- Cloned set for seamless loop -->
-            <div class="lnd-tc-card">
-              <div class="lnd-tc-photo"><img src="images/contacts/Teppo.jpg" alt="Teppo Aalto"></div>
-              <div class="lnd-tc-body">
-                <p class="lnd-tc-quote">"John combines strong design thinking with a deep understanding of product and implementation realities. He is highly collaborative, customer-focused, and a pleasure to work with. I would confidently recommend him for lead UX/UI roles, especially in complex, industrial or B2B product environments."</p>
-                <span class="lnd-tc-author">Teppo Aalto<br>CPO at Mapvision</span>
-              </div>
-            </div>
-            <div class="lnd-tc-card">
-              <div class="lnd-tc-photo"><img src="images/contacts/Kosti.jpg" alt="Kosti Kallio"></div>
+              <div class="lnd-tc-photo"><img src="images/contacts/Kosti.jpg" alt="Kosti Kannas"></div>
               <div class="lnd-tc-body">
                 <p class="lnd-tc-quote">"John is truly a great asset to any software team as a full stack developer or in a designer role. During his time at Mapvision, he took our UI/UX design and the processes behind it to a new level.<br>He is also very customer oriented and always interested to learn how the customers are using his designs."</p>
                 <span class="lnd-tc-author">Kosti Kannas<br>CTO at Mapvision</span>
@@ -436,7 +412,43 @@
             <div class="lnd-tc-card">
               <div class="lnd-tc-photo"><img src="images/contacts/Lasse.jpg" alt="Lasse Ylinen"></div>
               <div class="lnd-tc-body">
-                <p class="lnd-tc-quote">"He collected early feedback from customers via prototyping and questionnaires, leading to multiple succsesfull product launches. His insights into designs include his knowledge of implementation limitations, and have provided easy to implement UX to features whether completely new or improvements to existing ones."</p>
+                <p class="lnd-tc-quote">"He collected early feedback from customers via prototyping and questionnaires, leading to multiple successful product launches. His insights into designs include his knowledge of implementation limitations, and have provided easy to implement UX to features whether completely new or improvements to existing ones."</p>
+                <span class="lnd-tc-author">Lasse Ylinen<br>Software Engineering Manager</span>
+              </div>
+            </div>
+            <!-- Cloned set for seamless loop -->
+            <div class="lnd-tc-card" aria-hidden="true">
+              <div class="lnd-tc-photo"><img src="images/contacts/Teppo.jpg" alt=""></div>
+              <div class="lnd-tc-body">
+                <p class="lnd-tc-quote">"John combines strong design thinking with a deep understanding of product and implementation realities. He is highly collaborative, customer-focused, and a pleasure to work with. I would confidently recommend him for lead UX/UI roles, especially in complex, industrial or B2B product environments."</p>
+                <span class="lnd-tc-author">Teppo Aalto<br>CPO at Mapvision</span>
+              </div>
+            </div>
+            <div class="lnd-tc-card" aria-hidden="true">
+              <div class="lnd-tc-photo"><img src="images/contacts/Kosti.jpg" alt=""></div>
+              <div class="lnd-tc-body">
+                <p class="lnd-tc-quote">"John is truly a great asset to any software team as a full stack developer or in a designer role. During his time at Mapvision, he took our UI/UX design and the processes behind it to a new level.<br>He is also very customer oriented and always interested to learn how the customers are using his designs."</p>
+                <span class="lnd-tc-author">Kosti Kannas<br>CTO at Mapvision</span>
+              </div>
+            </div>
+            <div class="lnd-tc-card" aria-hidden="true">
+              <div class="lnd-tc-photo"><img src="images/contacts/Tommi.jpg" alt=""></div>
+              <div class="lnd-tc-body">
+                <p class="lnd-tc-quote">"John has truly been an amazing multi-disciplinary team player in our development team. We were convinced from the first programming assignment, and from there on John first delivered excellent software development skills, and later on started leading our UX efforts, creating amazing Figma prototypes that leave both product owners and customers begging for more."</p>
+                <span class="lnd-tc-author">Tommi Martela<br>Director of Product Development</span>
+              </div>
+            </div>
+            <div class="lnd-tc-card" aria-hidden="true">
+              <div class="lnd-tc-photo"><img src="images/contacts/Ernest.jpg" alt=""></div>
+              <div class="lnd-tc-body">
+                <p class="lnd-tc-quote">"He is dependable, consistently delivered in sprints and contributes to technical discussions while always keeping long-term user impact in mind through clear use cases and flows. He balances user needs with practical implementation and saves teams significant time by clarifying flows early, reducing rework."</p>
+                <span class="lnd-tc-author">Ernest Arendarenko<br>Tech Lead / Team Lead at Mapvision</span>
+              </div>
+            </div>
+            <div class="lnd-tc-card" aria-hidden="true">
+              <div class="lnd-tc-photo"><img src="images/contacts/Lasse.jpg" alt=""></div>
+              <div class="lnd-tc-body">
+                <p class="lnd-tc-quote">"He collected early feedback from customers via prototyping and questionnaires, leading to multiple successful product launches. His insights into designs include his knowledge of implementation limitations, and have provided easy to implement UX to features whether completely new or improvements to existing ones."</p>
                 <span class="lnd-tc-author">Lasse Ylinen<br>Software Engineering Manager</span>
               </div>
             </div>
@@ -497,7 +509,7 @@
       <div class="lnd-project-display">
         <div class="lnd-text-block pre-up" id="s4-img">
           <div class="lnd-proj-canvas-wrap">
-            <img src="images/products/LabSetup.jpg" alt="Mapvision Design System" class="lnd-proj-img">
+            <img src="images/products/LabSetup.jpg" alt="Laboratory sample tracking dashboard interface" class="lnd-proj-img">
           </div>
           <a href="https://johnjurvanenprojectlabrouter.figma.site/" target="_blank" rel="noopener noreferrer" class="lnd-proj-link">View Case Study &#8594;</a>
         </div>
@@ -651,21 +663,21 @@
 
   </section><!-- #lnd-stage -->
 
-  <div id="lnd-progress-track">
-    <div class="lnd-prog-dot active" data-scene="0"></div>
-    <div class="lnd-prog-dot" data-scene="1"></div>
-    <div class="lnd-prog-dot" data-scene="2"></div>
-    <div class="lnd-prog-dot" data-scene="3"></div>
-    <div class="lnd-prog-dot" data-scene="4"></div>
-    <div class="lnd-prog-dot" data-scene="5"></div>
-    <div class="lnd-prog-dot" data-scene="6"></div>
-    <div class="lnd-prog-dot" data-scene="7"></div>
-    <div class="lnd-prog-dot" data-scene="8"></div>
-    <div class="lnd-prog-dot" data-scene="9"></div>
-    <div class="lnd-prog-dot" data-scene="10"></div>
+  <div id="lnd-progress-track" role="navigation" aria-label="Scene navigation">
+    <div class="lnd-prog-dot active" data-scene="0" role="button" tabindex="0" aria-label="Scene 1: Introduction"></div>
+    <div class="lnd-prog-dot" data-scene="1" role="button" tabindex="0" aria-label="Scene 2: The Work Measured"></div>
+    <div class="lnd-prog-dot" data-scene="2" role="button" tabindex="0" aria-label="Scene 3: Weld Seam Inspection"></div>
+    <div class="lnd-prog-dot" data-scene="3" role="button" tabindex="0" aria-label="Scene 4: Result Suite"></div>
+    <div class="lnd-prog-dot" data-scene="4" role="button" tabindex="0" aria-label="Scene 5: Laboratory Sample Tracking"></div>
+    <div class="lnd-prog-dot" data-scene="5" role="button" tabindex="0" aria-label="Scene 6: Seismic Detection"></div>
+    <div class="lnd-prog-dot" data-scene="6" role="button" tabindex="0" aria-label="Scene 7: Container Storage Tracking"></div>
+    <div class="lnd-prog-dot" data-scene="7" role="button" tabindex="0" aria-label="Scene 8: New Age Agency"></div>
+    <div class="lnd-prog-dot" data-scene="8" role="button" tabindex="0" aria-label="Scene 9: Career Arc"></div>
+    <div class="lnd-prog-dot" data-scene="9" role="button" tabindex="0" aria-label="Scene 10: About Me"></div>
+    <div class="lnd-prog-dot" data-scene="10" role="button" tabindex="0" aria-label="Scene 11: Contact"></div>
   </div>
-  <div id="lnd-scroll-hint"><span>Scroll or Arrow Keys</span><div class="lnd-hint-arrow"></div></div>
-  <div id="lnd-stage-counter">STAGE <span id="lnd-stage-num">01</span> / 11</div>
+  <div id="lnd-scroll-hint" aria-hidden="true"><span>Scroll or Arrow Keys</span><div class="lnd-hint-arrow"></div></div>
+  <div id="lnd-stage-counter" aria-live="polite" aria-label="Current stage">STAGE <span id="lnd-stage-num">01</span> / 11</div>
 </div><!-- #landing-wrapper -->
 
 <!-- ── Scripts ───────────────────────────────────────── -->
