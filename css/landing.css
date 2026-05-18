@@ -660,3 +660,51 @@ body.landing-active { overflow: hidden; }
 .lnd-proj-link.is-manual-hover::after {
   background: #ffa16f;
 }
+
+/* ── MOBILE ≤ 640px ── */
+@media (max-width: 640px) {
+  /* Shrink type scale */
+  #landing-wrapper {
+    --lnd-title-lg: 36px;
+    --lnd-title-sm: 20px;
+    --lnd-body:     13px;
+    --lnd-body-sm:  11px;
+  }
+
+  /* Tighter scene padding */
+  .lnd-scene-layer { padding: 0 5vw; }
+
+  /* Hide CTA description paragraphs on mobile to save space */
+  #lnd-scene-10 .lnd-cta-cell p { display: none; }
+
+  /* CTA grid: single column instead of 2×2 */
+  .lnd-cta-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+  .lnd-cta-cell { padding: 1.25rem 1rem; }
+
+  /* Stats: wrap to 2-up grid */
+  .lnd-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  /* Timeline: allow wrapping on small screens */
+  .lnd-timeline-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  .lnd-tl-cell { padding: 1rem 0.75rem; }
+
+  /* Reduce CTA margin */
+  .lnd-cta-grid { margin-top: 1.25rem; }
+
+  /* Tighten testimonial track card width */
+  .lnd-tc-card { width: 260px; }
+
+  /* Progress dots: move closer to edge on small screens */
+  #lnd-progress-track { right: 0.75rem; }
+  #lnd-stage-counter  { left: 1rem; bottom: 1rem; }
+  #lnd-scroll-hint    { bottom: 1rem; }
+}
