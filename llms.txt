@@ -1,0 +1,191 @@
+# John Jurvanen — Portfolio
+
+## Who is this?
+
+John Jurvanen is a Head of UX and Senior Product Designer based in Vantaa, Finland, with 12+ years of experience designing data-intensive interfaces for industrial B2B software, operator workflows, and AI-enabled inspection systems.
+
+He started as a full-stack developer — which means he speaks both design and engineering fluently. At his best when the problem is genuinely complex: regulation-heavy service journeys, data-dense telemetry, onboarding flows for industrial operators.
+
+As an end-to-end UX leader he has touched hardware design, sales, and marketing — not just UI. He has learned that good UX is a connection maker inside the company: through good product design you not only affect the success of the product but add to the profitability of the company.
+
+Known for:
+- Real-time iteration in live customer meetings — turning verbal feedback into refined UI within the same session
+- Zero development rework from design misalignment across an entire tenure at Mapvision
+- Building the UX function, design system, and research practice from scratch at multiple companies
+- High-fidelity prototypes used in board-level planning, sales, and client roadmap discussions
+
+## Contact
+
+- Email: john.jurvanen@gmail.com
+- Phone: +358 40 654 03 03
+- Location: Vantaa, Uusimaa, Finland
+- LinkedIn: https://www.linkedin.com/in/davelantor
+- Portfolio: https://davelantor.github.io/portfolio/
+
+## Career History (most recent first)
+
+### Metic Global — Lead Product Designer / Technical Consultant
+January 2026 – May 2026 | Contract | Helsinki, Finland
+
+Hybrid product design and consultancy role focused on improving customer experiences for entrepreneurs and companies operating in the Nordics. Combined design, technical, and business thinking to simplify complex legal, tax, banking, relocation, and operational services into clear end-to-end journeys.
+
+- Evaluated incoming startup and SME partnerships for product feasibility, market fit, and operational readiness before onboarding.
+- Designed end-to-end service flows across company setup, compliance, banking, and relocation for a Nordic B2B audience.
+- Led design reviews across the team, raising consistency in visual and UX output.
+- Participated in client discussions across startup ecosystems directly contributing to sales and marketing.
+
+### Mapvision — Head of UX
+September 2023 – March 2026 | Helsinki, Finland
+
+Established and led the UX function for Mapvision's AI-enabled industrial inspection product line. Reported to the Director of Product Development with direct working relationships across CPO, CTO, Head of Product Engineering, and client stakeholders.
+
+- Owned end-to-end UX across four products: Result Suite and Image Studio from 2020, Measurements Suite from 2022, and Editor Suite from 2024.
+- Delivered full UI design for the AI-powered Weld Seam Inspection module, covering anomaly detection and defect classification workflows for automotive OEM quality engineers.
+- Built the design system from scratch, including tokens, component libraries, and governance, adopted across all client-facing products and internal tools.
+- Achieved zero development rework from design misalignment across the entire tenure, validated through structured feasibility reviews and engineering collaboration before any build commitment.
+- Produced high-fidelity prototypes used in board-level planning, sales lead generation, client roadmap discussions, and marketing alignment.
+- Demonstrated real-time iteration in live customer meetings, turning verbal feedback into refined UI within the same session, resulting in prototypes directly accepted by a global automotive OEM.
+- Contributed to marketing and sales materials; received consistent recognition from leadership for cross-functional involvement beyond core design scope.
+
+### Mapvision — Full-Stack Developer & Lead UX/UI Designer
+November 2019 – September 2023 | Helsinki, Finland
+
+Joined as a Full-Stack Developer and grew into the de facto UX owner before a formal design function existed, shipping features and owning UI/UX direction across internal tools and customer-facing industrial inspection software.
+
+- Delivered new modules, features, and standalone applications end-to-end across WinForms and WPF desktop environments using C# and front-end technologies.
+- Modernized the desktop product experience by improving information architecture and component reuse, reducing technical debt and laying the groundwork for the design system later built in the Head of UX role.
+- Brought direct customer insight into product decisions through on-site visits and stakeholder feedback sessions at customer manufacturing facilities.
+
+### Ajeco Oy — UX/UI Designer & Programmer
+October 2017 – November 2019 | Helsinki, Finland
+
+Finnish high-tech company building embedded electronics, software, and telemetry systems for industrial, security, and maritime environments. Owned end-to-end UX/UI for an Android-based platform used in demanding, high-reliability operational conditions.
+
+- Led the full UX process independently from discovery through high-fidelity UI, designing for clarity and performance under pressure across mission-critical, edge-case-heavy environments.
+- Established a UX research and usability testing practice from scratch, conducting moderated tests and qualitative interviews to validate concepts before development commitment.
+- In select projects, operated as sole developer under the CEO, taking full ownership of smaller applications from concept through delivery.
+- Participated in the manufacturing and assembly of Ajeco's 4ComT Multichannel routers, including hands-on sessions with the DSiP Multichannel communication systems. This hardware grounding directly informed UX decisions made for the platform.
+
+### Lost Sol — Lead Game Designer
+January 2016 – October 2017 | Izmir, Turkey
+
+Sole developer, designer, and product owner of Lost Sol, a 2D survival strategy game taken from concept through commercial release on Steam Greenlight.
+
+- Owned the complete product lifecycle independently: game design, UI/UX, systems design, front-end implementation, QA, release management, and go-to-market execution.
+- Conducted structured playtesting and qualitative research with early adopters, iterating on balance, onboarding, and core systems across multiple release cycles.
+- Managed crowdfunding, community building, and Steam Greenlight launch independently.
+
+### Dr. Fevzi Özgönül — Web Developer & App Developer
+January 2016 – March 2017 | Izmir, Turkey
+
+- Designed, developed, and maintained the clinic website, covering UX/UI, responsive design, and SEO structure.
+- Built a patient tracking application end-to-end, translating operational needs into a working tool.
+
+### Bimar IT Services / Arkas Holding — Software Specialist & Frontend Developer
+April 2013 – May 2015 | Izmir, Turkey
+
+Enterprise logistics technology division of Arkas Holding, one of Turkey's largest transport and logistics groups. Contributed to YNA, a B2B business management platform supporting international shipping operations across Europe and Africa.
+
+- Delivered features, enhancements, and production support using ASP.NET, C#, and PostgreSQL across billing, tracking, reporting, and agency workflow modules.
+- Shipped a purpose-built container tracking tool for un-networked storage environments.
+- Operated in a compliance-heavy, multi-jurisdiction environment with strict documentation and audit requirements.
+
+## Core Competencies
+
+- UX/UI Function Leadership
+- End-to-end Product Design
+- Industrial, Operator-facing & Mission-Critical UI
+- Data-heavy Dashboard & Workflow Design
+- AI-augmented Design & Development
+- High-Fidelity Rapid Prototyping (Figma, Adobe XD)
+- Design Systems (tokens, component libraries, governance)
+- Full-Stack Engineering (C#, WinForms, WPF, ASP.NET, PostgreSQL, web)
+- Android UI/UX
+- Field Research & Operational Context
+- Cross-functional Stakeholder Alignment
+- Scrum / Agile Project Management
+- Service Design
+- Market Research & Competitive Analysis
+- Robotic Process Automation
+- Docker
+
+## Education
+
+- Izmir University of Economics — BSc Computer Engineering (2008–2013)
+- Metropolia University of Applied Sciences — MSc Information Technology (2019, incomplete)
+
+## Certifications
+
+### Microsoft
+- Crafting User-First Product Experiences in the AI Era (Jan 2026) — ID: QVT7QLFT5GDU
+- Enterprise Product Management (Jan 2026) — ID: WZKB4YE2CVAU
+- Product Design and UX/UI Fundamentals (Jan 2026) — ID: LDWFVJRUCMXB
+- Market Research and Competitive Analysis (Jan 2026) — ID: 5KJYGHORVP2A
+
+### Google
+- Google UX Design Specialization (Jul 2023) — ID: X65ZZQ7HBJHA
+- Agile Project Management (Jul 2023) — ID: UKVG4SP8QKSR
+- Foundations of Project Management (Jul 2023) — ID: 8BAQ6UWA9XBX
+- Responsive Web Design in Adobe XD (Jun 2023) — ID: FAYUN6VSQNLW
+- Create High-Fidelity Designs and Prototypes in Figma (Jun 2023) — ID: QKJWD676NYVJ
+- Conduct UX Research and Test Early Concepts (Jun 2023) — ID: C3NP4HSX3MTV
+- Build Wireframes and Low-Fidelity Prototypes (Jun 2023) — ID: 3WQYBRMTTQJW
+- Start the UX Design Process: Empathize, Define, and Ideate (Jun 2023) — ID: G9K9MAZYFRVU
+- Foundations of User Experience (UX) Design (Jun 2023) — ID: 5WPYH8BFRXWK
+
+### LinkedIn Learning
+- Design Thinking in the Age of AI (Dec 2025)
+- Using AI Tools for UX Design (Feb 2025)
+- Using AI for Accessible Design Workflows (Feb 2025)
+- SAP ERP Essential Training (Jan 2026)
+- Learning SAP Production Planning (Jan 2026)
+- Microsoft Dynamics 365 Sales Essential Training (Jan 2025)
+- Learning Docker (Jan 2025)
+
+### PMI / NASBA
+- Professional Scrum Product Ownership: An Introduction — PMI (Dec 2025)
+- Business Development Foundations — PMI (Dec 2025)
+- Intelligent Automation for Project Managers — PMI (Jan 2026)
+- Getting Started with Professional Scrum — NASBA (Jan 2025)
+- Data-Driven Product Management — NASBA (Jan 2026)
+
+### Other
+- Robotic Process Automation Professional Certificate — SS&C Blue Prism (Jan 2026)
+
+## LinkedIn Recommendations
+
+### Teppo Aalto — Chief Product Officer at Mapvision (January 22, 2026)
+"John demonstrated exceptional UX/UI expertise and an impressive ability to translate complex and sometimes ambiguous customer needs into clear, intuitive UI solutions. He created multiple UI prototypes that were reviewed and accepted by the OEM. What truly stood out was his ability to iterate extremely quickly — during customer meetings, John was able to adjust and refine UI concepts on the fly, incorporating feedback in real time and turning customer input into concrete, high-quality design updates within minutes. John combines strong design thinking with a deep understanding of product and implementation realities. He is highly collaborative, customer-focused, and a pleasure to work with. I would confidently recommend him for lead UX/UI roles, especially in complex, industrial or B2B product environments."
+
+### Kosti Kannas — Chief Technology Officer at Mapvision (January 18, 2026)
+"John is truly a great asset to any software team as a full stack developer or in a designer role. During his time at Mapvision, he took our UI/UX design and the processes behind it to a new level. He is also very customer oriented and always interested to learn how the customers are using his designs. Something that separates him from the rest is his ability to always make you feel good when interacting with him. That's something unique!"
+
+### Ernest Arendarenko — Tech Lead / Team Lead at Mapvision (January 16, 2026)
+"John is one of those people who makes work and days in the office better. He brings a positive energy, genuine enthusiasm and a great sense of humor that makes collaboration really easy and natural. He is dependable, consistently delivered in sprints and contributes to technical discussions while always keeping long-term user impact in mind through clear use cases and flows. In his UX role he showed creativity, vision and care, delivering well-reasoned, highly realistic designs and prototypes, with his top-notch Figma skills and very fast iteration. He balances user needs with practical implementation and saves teams significant time by clarifying flows early, reducing rework. I would recommend John as a great addition to any UX or development team."
+
+### Lasse Ylinen — Software Engineering Manager at Mapvision (January 16, 2026)
+"I have had the honor of working with John both when he was a full stack developer in my team and when he had pursued his passion in UX design. In the developer role he worked as a full stack C# developer with focus on the frontend covering both WinForms and WPF, providing efficient implementations. In the UX role he designed improved looks for new software tools and collaborated with product management to bring their vision to live. His insights into designs include his knowledge of implementation limitations, and have provided easy to implement UX to features whether completely new or improvements to existing ones. I would recommend him into roles for designing and/or implementing UX."
+
+### Tommi Martela — Head of Product Development at Mapvision (January 14, 2026, managed John directly)
+"John has truly been an amazing multi-disciplinary team player in our development team. We were convinced from the first programming assignment, and from there on John first delivered excellent software development skills, and later on started leading our UX efforts, creating amazing Figma prototypes that leave both product owners and customers begging for more."
+
+## Languages
+
+- English: Native
+- Turkish: Full Professional
+- German: Limited Working
+- Finnish: Elementary
+
+## Hobbies & Personal
+
+- Active Finnish reservist (Kaartinjääkäri, Helsinki Reserve)
+- MPK simulator instructor certifications (VKY Merisotakoulu, SAS Upinniemi)
+- EASA A1/A3 Drone License (FIN-RP-57542525583)
+- Amateur Radio — LoRa Meshtastic Network
+- Practical Shooting (P, K, PP, and PK categories)
+- PADI Certified Diver (0208U32947)
+- Camping
+
+## About this site
+
+This portfolio was designed and built by John Jurvanen. It is a single-page application using vanilla HTML, CSS, and JavaScript — no framework, no build step. It features a scroll-driven canvas animation sequence, cinematic sticky scroll sections, and a dark-mode aesthetic aimed at a luxury tech presentation feel.
