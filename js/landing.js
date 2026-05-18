@@ -655,6 +655,18 @@
       }
     }
   }, true);
+
+  window.addEventListener('auxclick', function (e) {
+    if (e.button !== 1) return;
+    for (var i = 0; i < links.length; i++) {
+      if (isPointerInside(links[i], e)) {
+        e.preventDefault();
+        var href = links[i].getAttribute('href');
+        if (href) window.open(href, '_blank', 'noopener,noreferrer');
+        return;
+      }
+    }
+  }, true);
 }());
 
 }());

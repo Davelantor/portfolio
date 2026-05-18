@@ -201,6 +201,7 @@ body.landing-active { overflow: hidden; }
   pointer-events: none;
   z-index: 10;
 }
+.lnd-scene-layer.active        { pointer-events: auto; }
 .lnd-scene-layer:not(.active) * { pointer-events: none !important; }
 
 .lnd-text-block {
