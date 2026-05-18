@@ -663,48 +663,75 @@ body.landing-active { overflow: hidden; }
 
 /* ── MOBILE ≤ 640px ── */
 @media (max-width: 640px) {
-  /* Shrink type scale */
+  /* Type scale */
   #landing-wrapper {
-    --lnd-title-lg: 36px;
+    --lnd-title-lg: 34px;
     --lnd-title-sm: 20px;
     --lnd-body:     13px;
     --lnd-body-sm:  11px;
   }
 
+  /* Hide custom cursor on touch devices */
+  #lnd-cursor { display: none; }
+
   /* Tighter scene padding */
   .lnd-scene-layer { padding: 0 5vw; }
 
-  /* Hide CTA description paragraphs on mobile to save space */
-  #lnd-scene-10 .lnd-cta-cell p { display: none; }
-
-  /* CTA grid: single column instead of 2×2 */
-  .lnd-cta-grid {
-    grid-template-columns: 1fr;
-    max-width: 100%;
+  /* ─ Hero (Scene 0) ─ */
+  .lnd-hero-layout { gap: 1rem; align-items: flex-start; }
+  .lnd-hero-photo  { width: clamp(64px, 18vw, 90px); }
+  .lnd-sub-text {
+    margin-top: 0.75rem;
+    line-height: 1.6;
   }
-  .lnd-cta-cell { padding: 1.25rem 1rem; }
 
-  /* Stats: wrap to 2-up grid */
+  /* ─ Stats (Scene 1) ─ */
   .lnd-stats-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
+    gap: 1rem 1.5rem;
+    margin-top: 1.25rem;
+  }
+  /* Adjust testimonial carousel for narrower padding */
+  .lnd-tc { margin-left: -5vw; margin-top: 1rem; }
+  .lnd-tc-card { width: 240px; padding: 0.9rem 1rem; gap: 0.75rem; }
+  .lnd-tc-photo { width: 44px; height: 44px; }
+
+  /* ─ Project scenes (2–7) ─ */
+  .lnd-proj-right  { height: auto; }
+  .lnd-proj-title  { margin-bottom: 0.5rem; }
+  .lnd-proj-desc {
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
   }
 
-  /* Timeline: allow wrapping on small screens */
-  .lnd-timeline-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  /* ─ Timeline (Scene 8) ─ */
+  .lnd-timeline-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+  .lnd-tl-cell  { padding: 0.75rem; }
+  .lnd-tl-role  { font-size: 10px; }
+
+  /* ─ About Me (Scene 9) ─ */
+  .lnd-about-bio {
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
   }
-  .lnd-tl-cell { padding: 1rem 0.75rem; }
+  .lnd-about-mq-img { width: 160px; height: 100px; }
 
-  /* Reduce CTA margin */
-  .lnd-cta-grid { margin-top: 1.25rem; }
+  /* ─ CTA (Scene 10) ─ */
+  .lnd-cta-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+  .lnd-cta-cell   { padding: 1rem; }
+  .lnd-cta-cell a { margin-top: 0.5rem; }
+  #lnd-scene-10 .lnd-cta-cell p { display: none; }
 
-  /* Tighten testimonial track card width */
-  .lnd-tc-card { width: 260px; }
+  /* ─ View portfolio button ─ */
+  #view-portfolio-btn { padding: 0.75rem 1.5rem; margin-top: 1rem; }
 
-  /* Progress dots: move closer to edge on small screens */
-  #lnd-progress-track { right: 0.75rem; }
+  /* ─ UI chrome ─ */
+  #lnd-progress-track { right: 0.5rem; gap: 0.4rem; }
   #lnd-stage-counter  { left: 1rem; bottom: 1rem; }
   #lnd-scroll-hint    { bottom: 1rem; }
 }
